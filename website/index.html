@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feature Transfer from Language to Time Series — Prateek Humane · Mila</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <span class="nav-logo">Feature Transfer</span>
+    <div class="nav-links">
+      <a href="#setup">Setup</a>
+      <a href="#method">Crosscoder</a>
+      <a href="#exp1">Bin 3-Way</a>
+      <a href="#exp2">Text 3-Way</a>
+      <a href="#features">Features</a>
+      <a href="#ablation">Ablation</a>
+      <a href="#task-arith">Task Arith.</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════ HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-content">
+    <div class="hero-pill">Mechanistic Interpretability · Time-Series Forecasting</div>
+    <h1 class="hero-title">
+      What Survives the Leap<br>
+      from <span class="grad-pt">Language</span> to <span class="grad-ri">Time Series</span>?
+    </h1>
+    <p class="hero-sub">
+      A crosscoder analysis identifying which internal features transfer from language pretraining
+      when a model is finetuned on time-series forecasting — and proving they causally explain the performance gap.
+    </p>
+    <div class="hero-author">
+      <span class="author-name">Prateek Humane</span>
+      <span class="sep">·</span>
+      <span class="institution">Mila</span>
+    </div>
+
+    <div class="model-trio">
+      <div class="model-card pt anim-card" style="--delay:0ms">
+        <div class="mc-tag" style="--c:#f59e0b">PT</div>
+        <div class="mc-name">Language<br>Pretrained</div>
+        <div class="mc-desc">Qwen3-0.6B-Base<br>No TS finetuning</div>
+        <div class="mc-glow"></div>
+      </div>
+      <div class="model-connector">
+        <svg viewBox="0 0 120 60" preserveAspectRatio="none">
+          <path d="M10,30 Q60,10 110,30" stroke="#10b981" stroke-width="1.5" fill="none" stroke-dasharray="4,3" class="anim-dash"/>
+          <text x="60" y="18" text-anchor="middle" font-size="8" fill="#10b981cc" font-family="Inter">finetune on TS</text>
+        </svg>
+      </div>
+      <div class="model-card ft anim-card" style="--delay:150ms">
+        <div class="mc-tag" style="--c:#10b981">FT</div>
+        <div class="mc-name">Fine-Tuned</div>
+        <div class="mc-desc">PT → gift-eval<br>time series</div>
+        <div class="mc-glow"></div>
+      </div>
+      <div class="model-vs">vs</div>
+      <div class="model-card ri anim-card" style="--delay:300ms">
+        <div class="mc-tag" style="--c:#a78bfa">RI</div>
+        <div class="mc-name">Random Init</div>
+        <div class="mc-desc">No pretraining<br>TS training only</div>
+        <div class="mc-glow"></div>
+      </div>
+    </div>
+
+    <div class="hero-question">
+      FT outperforms RI on time-series forecasting — but <em>why?</em><br>
+      Which internal features does language pretraining contribute?
+    </div>
+  </div>
+  <div class="scroll-nudge">scroll ↓</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ SETUP -->
+<section id="setup">
+  <div class="section-wrap">
+    <div class="section-label">Setup</div>
+    <h2>Three Models, One Benchmark</h2>
+    <p class="section-lead">All three models share the Qwen3-0.6B architecture (28 layers, hidden dim 1024) and the same tokenizer. Time-series values are z-score normalized and discretized into 512 uniform bins.</p>
+
+    <div class="setup-grid">
+      <div class="setup-panel">
+        <h3>Tokenization</h3>
+        <div class="token-flow">
+          <div class="tf-row">
+            <span class="tf-label">Raw values</span>
+            <div class="tf-vals raw">
+              <span>142.3</span><span>139.1</span><span>156.8</span><span class="dim">···</span>
+            </div>
+          </div>
+          <div class="tf-arrow">↓ z-score normalize · clip ±5</div>
+          <div class="tf-row">
+            <span class="tf-label">Normalized</span>
+            <div class="tf-vals norm">
+              <span>−0.31</span><span>−0.89</span><span>+1.14</span><span class="dim">···</span>
+            </div>
+          </div>
+          <div class="tf-arrow">↓ 512 uniform bins</div>
+          <div class="tf-row">
+            <span class="tf-label">Token IDs</span>
+            <div class="tf-vals tok">
+              <span>231</span><span>186</span><span>314</span><span class="dim">···</span>
+            </div>
+          </div>
+        </div>
+        <p class="tf-note">Context length 512, prediction length 64. Special tokens: BOS=151643, PAD=151645. Only token IDs 0–511 are used for TS (BinOnlyLogitsProcessor).</p>
+      </div>
+
+      <div class="setup-panel">
+        <h3>Performance on gift-eval (46 datasets)</h3>
+        <p class="perf-sub">Mean Normalized Deviation ND[0.5] · lower is better</p>
+        <canvas id="perf-chart" width="440" height="180"></canvas>
+        <p class="perf-note">FT outperforms RI consistently, but the gap is modest. The mechanistic question: <em>what exactly did language pretraining contribute?</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ METHOD -->
+<section id="method">
+  <div class="section-wrap">
+    <div class="section-label">Method</div>
+    <h2>Crosscoders: Shared Encoder, Separate Decoders</h2>
+    <p class="section-lead">A crosscoder is a sparse autoencoder trained simultaneously on activations from multiple models. A <strong>shared encoder</strong> maps all models into a common sparse latent space; <strong>separate decoders</strong> reconstruct each model's activations. Features with high mean activation in multiple models are shared features — revealing representational overlap.</p>
+
+    <div class="arch-wrap">
+      <canvas id="arch-canvas" width="900" height="400"></canvas>
+      <div class="arch-controls">
+        <button class="arch-btn active" data-mode="3way">3-Way (PT+FT+RI)</button>
+        <button class="arch-btn" data-mode="pairwise">Pairwise (FT↔RI)</button>
+      </div>
+    </div>
+
+    <div class="method-bottom">
+      <div class="loss-box">
+        <div class="loss-title">Loss Function (3-way)</div>
+        <div class="loss-eq">
+          <span class="leq-L">ℒ</span> =
+          <span class="leq-term pt">MSE(x̂<sub>PT</sub>, x<sub>PT</sub>)</span> +
+          <span class="leq-term ft">MSE(x̂<sub>FT</sub>, x<sub>FT</sub>)</span> +
+          <span class="leq-term ri">MSE(x̂<sub>RI</sub>, x<sub>RI</sub>)</span> +
+          <span class="leq-aux">α · ℒ<sub>aux</sub></span>
+        </div>
+        <p class="loss-note">α = 1/32. ℒ<sub>aux</sub> is an AuxK auxiliary loss that prevents dead features. TopK sparsity with k=64 (≈1.5% of 4096 features active per token). Decoder columns constrained to unit norm after each step, enabling cross-model cosine similarity comparisons. Activations collected at layers 2, 8, 16, 24, 27.</p>
+      </div>
+
+      <div class="cats-box">
+        <div class="cats-title">Feature Categories</div>
+        <div class="cats-list">
+          <div class="cat-row ptft"><span class="cat-dot"></span><strong>PT_FT ★</strong> — high in PT &amp; FT, low in RI → <em>language transfer</em></div>
+          <div class="cat-row ftonly"><span class="cat-dot"></span><strong>FT_only</strong> — high in FT, absent in PT &amp; RI</div>
+          <div class="cat-row ftri"><span class="cat-dot"></span><strong>FT_RI</strong> — high in FT &amp; RI, absent in PT → convergent TS learning</div>
+          <div class="cat-row univ"><span class="cat-dot"></span><strong>Universal</strong> — high in all three</div>
+          <div class="cat-row ptonly"><span class="cat-dot"></span><strong>PT_only</strong> — lost during finetuning</div>
+          <div class="cat-row rionly"><span class="cat-dot"></span><strong>RI_only</strong> — scratch-trained representation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ EXP 1 -->
+<section id="exp1">
+  <div class="section-wrap">
+    <div class="section-label">Experiment 1</div>
+    <h2>3-Way Crosscoder (Bin Tokens)</h2>
+    <p class="section-lead">First, we train a 3-way crosscoder on residual stream activations where PT uses the same bin-token format as FT and RI. This gives a baseline picture of which features transfer across layers.</p>
+
+    <div class="exp1-warn">
+      <span class="warn-icon">⚠</span>
+      <span><strong>Known limitation:</strong> bin tokens are out-of-distribution for PT (it was never trained on them). Some shared features may reflect tokenization artifacts. Experiment 2 removes this confound.</span>
+    </div>
+
+    <div class="layer-section">
+      <h3>PT_FT Feature Count Across Layers</h3>
+      <p>Features that are high in both PT and FT but low in RI — the language transfer signature.</p>
+      <div class="layer-chart-wrap">
+        <canvas id="layer-chart" width="700" height="280"></canvas>
+      </div>
+      <div class="layer-insights">
+        <div class="li-card"><strong>L8 peak (49–50 features)</strong> — language transfer is front-loaded in early layers</div>
+        <div class="li-card"><strong>L16 transition (24–28)</strong> — middle layers are a mixing zone</div>
+        <div class="li-card"><strong>L27 survivor (1 feature)</strong> — the language signal concentrates to a single irreplaceable feature at output</div>
+      </div>
+    </div>
+
+    <div class="convergence-section">
+      <h3>Convergence Hierarchy</h3>
+      <p>Measured by number of shared features between pairs at each layer.</p>
+      <canvas id="convergence-chart" width="700" height="220"></canvas>
+      <p class="conv-note">At every layer: <strong>PT↔RI &lt; FT↔RI &lt; PT↔FT</strong>. Language pretraining and random TS training produce the most divergent representations; finetuning bridges them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ EXP 2 -->
+<section id="exp2">
+  <div class="section-wrap">
+    <div class="section-label">Experiment 2 · Key Experiment</div>
+    <h2>3-Way Crosscoder with PT_text</h2>
+    <p class="section-lead">To remove the tokenization confound, we feed time series to PT as <strong>natural language text</strong> — the format it was actually pretrained on. Each numeric value is serialized as text and its subword token hidden states are <strong>mean-pooled</strong> to produce one activation vector per timestep, aligned with FT and RI.</p>
+
+    <div class="pooling-wrap">
+      <h3>Per-Value Pooling Pipeline</h3>
+      <canvas id="pooling-canvas" width="860" height="200"></canvas>
+    </div>
+
+    <div class="bin-text-wrap">
+      <h3>PT_FT Feature Counts: Bin vs. Text Format</h3>
+      <p>Text-format PT finds <strong>41 PT_FT features at L16</strong> — a 70% increase over the bin-format baseline — confirming genuine representational alignment rather than a tokenization artifact.</p>
+      <canvas id="bin-text-chart" width="700" height="260"></canvas>
+    </div>
+
+    <div class="probing-wrap">
+      <h3>Post-hoc Text Probing</h3>
+      <p>After identifying PT_FT features, we probe their meaning in natural language by feeding WikiText-2 through PT and measuring each feature's activation per token. The highest-activating tokens reveal what the feature "represents" in language.</p>
+      <div class="probing-chain">
+        <div class="pc-step">3-way crosscoder identifies feature <strong>f</strong> as PT_FT</div>
+        <div class="pc-arrow">→</div>
+        <div class="pc-step">Feed WikiText-2 through PT · measure activation of <strong>f</strong> per token</div>
+        <div class="pc-arrow">→</div>
+        <div class="pc-step">Top-activating tokens → <em>semantic label</em></div>
+        <div class="pc-arrow">→</div>
+        <div class="pc-step">Top TS windows in FT where <strong>f</strong> fires → <em>TS application</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ FEATURES -->
+<section id="features">
+  <div class="section-wrap">
+    <div class="section-label">Feature Discovery</div>
+    <h2>Ten Transferred Features</h2>
+    <p class="section-lead">These are the most striking PT_FT features — shared between PT (text representations) and FT (time-series forecasting) but absent in RI. Each reveals a specific concept from language that maps onto a temporal pattern.</p>
+    <div id="features-grid" class="features-grid">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ ABLATION -->
+<section id="ablation">
+  <div class="section-wrap">
+    <div class="section-label">Causal Evidence</div>
+    <h2>Ablation: PT_FT Features Causally Drive FT's Advantage</h2>
+    <p class="section-lead">Correlation isn't causation. To prove PT_FT features matter, we zero out their directions from FT's residual stream and measure the performance drop.</p>
+
+    <div class="ablation-grid">
+      <div class="abl-panel">
+        <h3>3-Way Ablation (Layer 8)</h3>
+        <p>Ablate PT_FT feature directions from FT's residual stream vs. ablate FT_only features.</p>
+        <canvas id="abl-3way-chart" width="380" height="280"></canvas>
+        <div class="abl-insight">
+          Ablating PT_FT features raises FT error to exactly RI level — <strong>completely wiping out the performance gap</strong>. Ablating FT_only features barely moves the needle.
+        </div>
+      </div>
+
+      <div class="abl-panel">
+        <h3>Pairwise Ablation (45 FT-dominant features)</h3>
+        <p>Ablate each FT-dominant feature (from FT↔RI crosscoder) individually and classify the result.</p>
+        <canvas id="abl-pie-chart" width="380" height="200"></canvas>
+        <div class="abl-counts">
+          <div class="ac-item strong"><span class="ac-n">32</span><span class="ac-l">STRONG<br>TRANSFER</span></div>
+          <div class="ac-item moderate"><span class="ac-n">13</span><span class="ac-l">MODERATE<br>TRANSFER</span></div>
+          <div class="ac-item redundant"><span class="ac-n">0</span><span class="ac-l">REDUNDANT</span></div>
+        </div>
+        <p class="abl-note">Zero redundant features. Every FT-dominant feature either has no RI equivalent or activates at 40–60× higher magnitude in FT.</p>
+      </div>
+    </div>
+
+    <div class="covid-banner">
+      <div class="covid-icon">📊</div>
+      <div>
+        <h4>COVID Spike Dominance</h4>
+        <p>The top individual features explain <strong>250–270% of the FT vs. RI performance gap</strong> on <code>covid_deaths</code> windows (more than 100% because FT's advantage concentrates on high-difficulty windows). <strong>80% of the top-15 causal features</strong> are critical on this dataset. Language pretraining appears especially effective at handling structural breaks and sudden distributional shifts — patterns with analogues in natural language (breaking news, sudden events).</p>
+      </div>
+    </div>
+
+    <div class="geometry-banner">
+      <h4>Feature Magnitude, Not Geometry</h4>
+      <p>13 of 45 causal features have cosine similarity > 0.4 with an RI feature — RI independently discovers the <em>same direction</em>. Yet 10/13 are still STRONG_TRANSFER. The difference is <strong>activation magnitude</strong>: FT fires 40–60× stronger. RI has the geometry; FT has the amplitude.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ TASK ARITH -->
+<section id="task-arith">
+  <div class="section-wrap">
+    <div class="section-label">Task Arithmetic</div>
+    <h2>Weight-Space Transfer Does Not Work</h2>
+    <p class="section-lead">If language pretraining's contribution is simply encoded in the weight delta Δ = FT − PT, then adding Δ to RI should transfer the skill. We test this across multiple scales α.</p>
+
+    <div class="ta-eq-box">
+      <div class="ta-eq">RI_arith = RI + α · Δ &nbsp;&nbsp;&nbsp; Δ = FT − PT</div>
+    </div>
+
+    <div class="ta-scoreboard">
+      <div class="ta-score-item best"><div class="ta-smodel ft-c">FT</div><div class="ta-sval">0.266</div><div class="ta-slabel">🥇 best</div></div>
+      <div class="ta-score-item mid"><div class="ta-smodel ri-c">RI</div><div class="ta-sval">0.275</div><div class="ta-slabel">🥈</div></div>
+      <div class="ta-score-item low"><div class="ta-smodel arith-c">RI_arith α=0.5</div><div class="ta-sval">0.305</div><div class="ta-slabel">🥉</div></div>
+      <div class="ta-score-meta">Mean ND[0.5] on 35 common datasets · lower is better</div>
+    </div>
+
+    <div class="ta-heatmap-section">
+      <h3>Per-Dataset Performance Heatmap</h3>
+      <p>ND[0.5] for each model × dataset. Hover for values.</p>
+      <div id="ta-heatmap" class="ta-heatmap-wrap">
+        <!-- rendered by JS -->
+      </div>
+      <p class="heatmap-note">Rand_arith (task vector applied to an untrained model) completely fails. RI_arith performs <em>worse</em> than RI on the same datasets — the weight delta interferes with RI's learned representations.</p>
+    </div>
+
+    <div class="ta-insights">
+      <div class="tai-card">
+        <div class="tai-icon">🎲</div>
+        <h4>TS training is necessary</h4>
+        <p>Rand_arith (Δ alone, no TS training) fails completely (ND ≈ 1.5). The task vector cannot substitute for learning on the target domain.</p>
+      </div>
+      <div class="tai-card">
+        <div class="tai-icon">⚡</div>
+        <h4>Δ interferes with RI</h4>
+        <p>RI_arith performs worse than RI. The weight delta disrupts RI's own learned representations rather than augmenting them.</p>
+      </div>
+      <div class="tai-card">
+        <div class="tai-icon">🧬</div>
+        <h4>Knowledge lives in representations</h4>
+        <p>The advantage is in FT's <em>activations</em>, not extractable as a weight delta. Transfer requires learning the representational substrate from scratch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ SUMMARY -->
+<section id="summary">
+  <div class="section-wrap">
+    <div class="section-label">Takeaways</div>
+    <h2>Summary</h2>
+    <div class="sum-grid">
+      <div class="sum-card">
+        <div class="sum-n">01</div>
+        <h4>Specific, interpretable features transfer</h4>
+        <p>PT_FT features encode concepts like recurrence tracking, threshold detection, and ecological stability — abstract structures discovered in text that prove useful for temporal forecasting.</p>
+      </div>
+      <div class="sum-card">
+        <div class="sum-n">02</div>
+        <h4>Transfer is causal</h4>
+        <p>Ablating PT_FT features at L8 raises FT's error to RI level, erasing the entire performance gap. 32/45 individually tested features are STRONG_TRANSFER with zero redundant.</p>
+      </div>
+      <div class="sum-card">
+        <div class="sum-n">03</div>
+        <h4>Magnitude matters more than direction</h4>
+        <p>RI often discovers the same feature <em>directions</em> as FT but at 40–60× lower activation magnitude. Transfer amplifies existing geometric structure rather than creating new directions.</p>
+      </div>
+      <div class="sum-card">
+        <div class="sum-n">04</div>
+        <h4>Weight arithmetic cannot replicate it</h4>
+        <p>Task arithmetic (RI + α·Δ) performs worse than RI alone. The knowledge is embedded in learned representations — it cannot be transplanted via weight-space operations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-name">Prateek Humane · Mila</span>
+    <span class="footer-detail">Qwen3-0.6B · gift-eval (46 datasets) · 5 layers · latent dim 4096 · TopK k=64</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
