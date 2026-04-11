@@ -435,6 +435,21 @@ function renderFeatureGrid() {
 
     card.addEventListener('click', () => openModal(idx));
   });
+
+  // Apply initial filter based on active tab
+  const activeTab = document.querySelector('.tab-btn.active');
+  if (activeTab) {
+    const filter = activeTab.dataset.filter;
+    document.querySelectorAll('.feature-card').forEach(card => {
+      if (filter === 'all') {
+        card.classList.remove('hidden');
+      } else if (filter === 'cross') {
+        card.classList.toggle('hidden', card.dataset.type !== 'cross');
+      } else {
+        card.classList.toggle('hidden', card.dataset.type !== 'ts');
+      }
+    });
+  }
 }
 
 /* ═══ TABS ═══ */
