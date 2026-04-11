@@ -79,57 +79,37 @@ h2 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -
 .method-step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
 .method-step p { color: #94a3b8; font-size: 0.85rem; line-height: 1.6; }
 
-/* Old arch diagram (keep for compat) */
-.arch-diagram { display: none; }
-
-/* New v2 architecture diagram */
-.arch-diagram-v2 {
-  display: flex; align-items: stretch; justify-content: center; gap: 0;
-  padding: 1.5rem; background: #0a1220; border-radius: 12px;
-  border: 1px solid #1e3a5f; overflow-x: auto;
+/* Architecture canvas */
+.arch-canvas-wrap {
+  background: #0a1220; border-radius: 12px; border: 1px solid #1e3a5f;
+  padding: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto;
 }
-.arch-col {
-  display: flex; flex-direction: column; justify-content: center; gap: 0.5rem;
-}
-.arch-inputs, .arch-latents, .arch-decoders, .arch-losses {
-  gap: 0.6rem;
-}
-.arch-arrows-col {
-  display: flex; flex-direction: column; justify-content: center; gap: 0.6rem;
-  padding: 0 0.3rem;
-}
-.arch-arrow-line {
-  width: 30px; height: 2px; position: relative;
-  background: linear-gradient(90deg, #334155, #64748b);
-}
-.arch-arrow-line::after {
-  content: ''; position: absolute; right: -1px; top: -3px;
-  border-left: 6px solid #64748b; border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-}
-.arch-box-v2 {
-  padding: 0.5rem 0.8rem; border-radius: 8px; text-align: center;
-  font-size: 0.8rem; font-weight: 500; white-space: nowrap;
-}
+.arch-canvas-wrap canvas { width: 100%; height: 300px; display: block; }
 .arch-dim { font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono', monospace; }
-.arch-pt { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #f59e0b; }
-.arch-ft { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #10b981; }
-.arch-ri { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.3); color: #a78bfa; }
-.arch-encoder-v2 {
-  background: rgba(56,189,248,0.08); border: 2px solid rgba(56,189,248,0.4);
-  color: #38bdf8; padding: 1.2rem 1rem; border-radius: 10px;
-  position: relative;
+
+/* Loss function box */
+.loss-box {
+  background: #0d1729; border: 1px solid #1e3a5f; border-radius: 12px;
+  padding: 1.5rem; text-align: center;
 }
-.arch-shared-label {
-  position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-  background: #0a1220; padding: 0 0.5rem; font-size: 0.6rem;
-  font-weight: 700; letter-spacing: 0.1em; color: #38bdf8;
+.loss-title {
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.1em; color: #64748b; margin-bottom: 0.8rem;
 }
-.arch-z { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: #34d399; }
-.arch-dec-pt { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: #f59e0b; }
-.arch-dec-ft { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: #10b981; }
-.arch-dec-ri { background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.25); color: #a78bfa; }
-.arch-loss { background: rgba(251,113,133,0.1); border: 1px solid rgba(251,113,133,0.3); color: #fb7185; font-size: 0.75rem; }
+.loss-eq {
+  font-size: 1.3rem; font-weight: 400; line-height: 2;
+  font-family: 'Times New Roman', Georgia, serif;
+}
+.loss-L { font-size: 1.5rem; font-style: italic; color: #e2e8f0; }
+.loss-term { padding: 0.2rem 0.4rem; border-radius: 6px; margin: 0 0.2rem; white-space: nowrap; }
+.loss-pt { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.loss-ft { background: rgba(16,185,129,0.1); color: #10b981; }
+.loss-ri { background: rgba(167,139,250,0.1); color: #a78bfa; }
+.loss-aux { color: #64748b; font-size: 1rem; }
+.loss-note {
+  margin-top: 0.8rem; font-size: 0.8rem; color: #64748b; line-height: 1.6;
+  max-width: 700px; margin-left: auto; margin-right: auto;
+}
 
 /* ═══ BADGES ═══ */
 .badge {
