@@ -73,71 +73,23 @@
         <p>PT-involving features are probed on WikiText-103: feed text through PT, encode with wiki-specific normalization, find top-activating tokens. This reveals what each feature "means" in language.</p>
       </div>
     </div>
-    <div class="arch-diagram-v2">
-      <!-- Input column: 3 separate domain inputs -->
-      <div class="arch-col arch-inputs">
-        <div class="arch-box-v2 arch-pt">x<sub>PT</sub><br><span class="arch-dim">1024-dim</span></div>
-        <div class="arch-box-v2 arch-ft">x<sub>FT</sub><br><span class="arch-dim">1024-dim</span></div>
-        <div class="arch-box-v2 arch-ri">x<sub>RI</sub><br><span class="arch-dim">1024-dim</span></div>
-      </div>
 
-      <!-- Arrows in -->
-      <div class="arch-arrows-col">
-        <div class="arch-arrow-line"></div>
-        <div class="arch-arrow-line"></div>
-        <div class="arch-arrow-line"></div>
-      </div>
+    <h3 style="margin-top:2rem;margin-bottom:1rem">Architecture</h3>
+    <p class="section-lead" style="margin-bottom:1rem">Each domain is encoded <strong>independently</strong> through the shared encoder. The sparse latent vectors (only 64 of 4096 features active) are then decoded by domain-specific decoders.</p>
+    <div class="arch-canvas-wrap">
+      <canvas id="arch-canvas" width="900" height="300"></canvas>
+    </div>
 
-      <!-- Shared encoder (single tall box) -->
-      <div class="arch-col">
-        <div class="arch-box-v2 arch-encoder-v2">
-          <div class="arch-shared-label">SHARED</div>
-          Encoder<br>
-          <span class="arch-dim">Linear(1024&rarr;2048)<br>ReLU<br>Linear(2048&rarr;4096)<br>TopK(k=64)</span>
-        </div>
+    <div class="loss-box">
+      <div class="loss-title">Loss Function</div>
+      <div class="loss-eq">
+        <span class="loss-L">&#x2112;</span> =
+        <span class="loss-term loss-pt">&#x2016; x&#x0302;<sub>PT</sub> &minus; x<sub>PT</sub> &#x2016;&sup2;</span> +
+        <span class="loss-term loss-ft">&#x2016; x&#x0302;<sub>FT</sub> &minus; x<sub>FT</sub> &#x2016;&sup2;</span> +
+        <span class="loss-term loss-ri">&#x2016; x&#x0302;<sub>RI</sub> &minus; x<sub>RI</sub> &#x2016;&sup2;</span> +
+        <span class="loss-aux">&alpha; &middot; &#x2112;<sub>aux</sub></span>
       </div>
-
-      <!-- Arrows mid -->
-      <div class="arch-arrows-col">
-        <div class="arch-arrow-line"></div>
-        <div class="arch-arrow-line"></div>
-        <div class="arch-arrow-line"></div>
-      </div>
-
-      <!-- Sparse latents -->
-      <div class="arch-col arch-latents">
-        <div class="arch-box-v2 arch-z">z<sub>PT</sub><span class="arch-dim"> (4096 sparse)</span></div>
-        <div class="arch-box-v2 arch-z">z<sub>FT</sub><span class="arch-dim"> (4096 sparse)</span></div>
-        <div class="arch-box-v2 arch-z">z<sub>RI</sub><span class="arch-dim"> (4096 sparse)</span></div>
-      </div>
-
-      <!-- Arrows out -->
-      <div class="arch-arrows-col">
-        <div class="arch-arrow-line"></div>
-        <div class="arch-arrow-line"></div>
-        <div class="arch-arrow-line"></div>
-      </div>
-
-      <!-- 3 separate decoders -->
-      <div class="arch-col arch-decoders">
-        <div class="arch-box-v2 arch-dec-pt">D<sub>PT</sub><br><span class="arch-dim">4096&rarr;1024</span></div>
-        <div class="arch-box-v2 arch-dec-ft">D<sub>FT</sub><br><span class="arch-dim">4096&rarr;1024</span></div>
-        <div class="arch-box-v2 arch-dec-ri">D<sub>RI</sub><br><span class="arch-dim">4096&rarr;1024</span></div>
-      </div>
-
-      <!-- Arrows final -->
-      <div class="arch-arrows-col">
-        <div class="arch-arrow-line"></div>
-        <div class="arch-arrow-line"></div>
-        <div class="arch-arrow-line"></div>
-      </div>
-
-      <!-- Loss -->
-      <div class="arch-col arch-losses">
-        <div class="arch-box-v2 arch-loss">MSE<sub>PT</sub></div>
-        <div class="arch-box-v2 arch-loss">MSE<sub>FT</sub></div>
-        <div class="arch-box-v2 arch-loss">MSE<sub>RI</sub></div>
-      </div>
+      <p class="loss-note">&alpha; = 1/4. &#x2112;<sub>aux</sub> is an AuxK auxiliary loss that revives dead features. TopK sparsity with k=64 (&asymp;1.5% of 4096 features active per token). Decoder columns constrained to unit norm after each step.</p>
     </div>
   </div>
 </section>

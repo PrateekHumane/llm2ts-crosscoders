@@ -11,6 +11,7 @@ const CAT_ORDER = ['PT_FT_RI','PT_FT','FT_RI','PT_RI','PT_only','FT_only','RI_on
 
 /* ═══ INIT ═══ */
 document.addEventListener('DOMContentLoaded', () => {
+  renderArchDiagram();
   renderCategoryChart();
   renderFeatureGrid();
   renderTrainingChart();
@@ -34,6 +35,220 @@ function setupCanvas(canvas) {
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
   return { ctx, w, h };
+}
+
+/* ═══ ARCHITECTURE DIAGRAM (animated canvas) ═══ */
+function renderArchDiagram() {
+  const canvas = document.getElementById('arch-canvas');
+  if (!canvas) return;
+  const { ctx, w, h } = setupCanvas(canvas);
+
+  const colors = { pt: '#f59e0b', ft: '#10b981', ri: '#a78bfa', enc: '#38bdf8', z: '#34d399', loss: '#fb7185' };
+  const rows = [
+    { label: 'PT', color: colors.pt, y: h * 0.18 },
+    { label: 'FT', color: colors.ft, y: h * 0.50 },
+    { label: 'RI', color: colors.ri, y: h * 0.82 },
+  ];
+  const colX = { input: w * 0.08, enc: w * 0.30, latent: w * 0.52, dec: w * 0.72, loss: w * 0.90 };
+  const boxW = w * 0.12;
+  const boxH = 36;
+  const encH = h * 0.72;
+
+  function roundRect(x, y, bw, bh, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + bw - r, y); ctx.quadraticCurveTo(x + bw, y, x + bw, y + r);
+    ctx.lineTo(x + bw, y + bh - r); ctx.quadraticCurveTo(x + bw, y + bh, x + bw - r, y + bh);
+    ctx.lineTo(x + r, y + bh); ctx.quadraticCurveTo(x, y + bh, x, y + bh - r);
+    ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function hex2rgba(hex, a) {
+    const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    return `rgba(${r},${g},${b},${a})`;
+  }
+
+  // Animated dash offset
+  let dashOffset = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    dashOffset -= 0.5;
+
+    // ── Connecting lines (animated dashed) ──
+    rows.forEach(row => {
+      // Input → Encoder
+      drawDashedArrow(ctx, colX.input + boxW + 4, row.y, colX.enc - boxW/2 - 4, row.y, row.color, dashOffset);
+      // Encoder → Latent
+      drawDashedArrow(ctx, colX.enc + boxW/2 + 4, row.y, colX.latent - boxW/2 - 4, row.y, colors.enc, dashOffset);
+      // Latent → Decoder
+      drawDashedArrow(ctx, colX.latent + boxW/2 + 4, row.y, colX.dec - boxW/2 - 4, row.y, colors.z, dashOffset);
+      // Decoder → Loss
+      drawDashedArrow(ctx, colX.dec + boxW/2 + 4, row.y, colX.loss - boxW/2 - 4, row.y, row.color, dashOffset);
+    });
+
+    // ── Input boxes ──
+    rows.forEach(row => {
+      const x = colX.input, y = row.y - boxH/2;
+      roundRect(x, y, boxW, boxH, 6);
+      ctx.fillStyle = hex2rgba(row.color, 0.1);
+      ctx.fill();
+      ctx.strokeStyle = hex2rgba(row.color, 0.5);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = row.color;
+      ctx.font = '600 13px Inter';
+      ctx.textAlign = 'center';
+      ctx.fillText('x' + row.label, x + boxW/2, y + 16);
+      ctx.fillStyle = '#64748b';
+      ctx.font = '10px JetBrains Mono';
+      ctx.fillText('1024-dim', x + boxW/2, y + 30);
+    });
+
+    // ── Shared Encoder (tall box) ──
+    const encX = colX.enc - boxW/2, encY = h * 0.14 - 10;
+    roundRect(encX, encY, boxW, encH, 8);
+    ctx.fillStyle = hex2rgba(colors.enc, 0.06);
+    ctx.fill();
+    ctx.strokeStyle = hex2rgba(colors.enc, 0.5);
+    ctx.lineWidth = 2;
+    ctx.setLineDash([]);
+    ctx.stroke();
+
+    // "SHARED" label
+    ctx.fillStyle = '#0a1220';
+    ctx.fillRect(encX + boxW/2 - 30, encY - 8, 60, 16);
+    ctx.fillStyle = colors.enc;
+    ctx.font = '700 9px Inter';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '0.1em';
+    ctx.fillText('SHARED', encX + boxW/2, encY + 4);
+
+    // Encoder text
+    ctx.fillStyle = colors.enc;
+    ctx.font = '600 14px Inter';
+    ctx.fillText('Encoder', encX + boxW/2, encY + encH/2 - 20);
+    ctx.fillStyle = '#64748b';
+    ctx.font = '10px JetBrains Mono';
+    ctx.fillText('1024→2048', encX + boxW/2, encY + encH/2);
+    ctx.fillText('ReLU', encX + boxW/2, encY + encH/2 + 14);
+    ctx.fillText('2048→4096', encX + boxW/2, encY + encH/2 + 28);
+    ctx.fillText('TopK(k=64)', encX + boxW/2, encY + encH/2 + 42);
+
+    // ── Sparse latent (dot grids) ──
+    rows.forEach(row => {
+      const cx = colX.latent, cy = row.y;
+      const gridW = boxW * 0.9, gridH = boxH * 0.7;
+      const x0 = cx - gridW/2, y0 = cy - gridH/2;
+
+      roundRect(cx - boxW/2, cy - boxH/2, boxW, boxH, 6);
+      ctx.fillStyle = hex2rgba(colors.z, 0.08);
+      ctx.fill();
+      ctx.strokeStyle = hex2rgba(colors.z, 0.4);
+      ctx.lineWidth = 1;
+      ctx.setLineDash([]);
+      ctx.stroke();
+
+      // Draw dot grid (some lit, most dim = sparse)
+      const cols = 16, rws = 3;
+      const dotR = 2.5;
+      const spacingX = gridW / (cols + 1);
+      const spacingY = gridH / (rws + 1);
+      // Pseudo-random active dots (deterministic per row)
+      const seed = row.label.charCodeAt(0);
+      for (let r = 0; r < rws; r++) {
+        for (let c = 0; c < cols; c++) {
+          const dx = x0 + (c + 1) * spacingX;
+          const dy = y0 + (r + 1) * spacingY;
+          const isActive = ((seed * 7 + c * 13 + r * 31) % 10) < 2; // ~20% lit
+          ctx.beginPath();
+          ctx.arc(dx, dy, dotR, 0, Math.PI * 2);
+          if (isActive) {
+            ctx.fillStyle = colors.z;
+            ctx.globalAlpha = 0.9;
+          } else {
+            ctx.fillStyle = '#334155';
+            ctx.globalAlpha = 0.4;
+          }
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      // Label
+      ctx.fillStyle = colors.z;
+      ctx.font = '500 9px JetBrains Mono';
+      ctx.textAlign = 'center';
+      ctx.fillText('z' + row.label + ' (sparse)', cx, cy + boxH/2 + 12);
+    });
+
+    // ── Decoder boxes ──
+    rows.forEach(row => {
+      const x = colX.dec - boxW/2, y = row.y - boxH/2;
+      roundRect(x, y, boxW, boxH, 6);
+      ctx.fillStyle = hex2rgba(row.color, 0.07);
+      ctx.fill();
+      ctx.strokeStyle = hex2rgba(row.color, 0.35);
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([]);
+      ctx.stroke();
+      ctx.fillStyle = row.color;
+      ctx.font = '600 13px Inter';
+      ctx.textAlign = 'center';
+      ctx.fillText('D' + row.label, x + boxW/2, y + 16);
+      ctx.fillStyle = '#64748b';
+      ctx.font = '10px JetBrains Mono';
+      ctx.fillText('4096→1024', x + boxW/2, y + 30);
+    });
+
+    // ── Loss boxes ──
+    rows.forEach(row => {
+      const x = colX.loss - boxW/2, y = row.y - boxH/2;
+      roundRect(x, y, boxW, boxH, 6);
+      ctx.fillStyle = hex2rgba(colors.loss, 0.08);
+      ctx.fill();
+      ctx.strokeStyle = hex2rgba(colors.loss, 0.35);
+      ctx.lineWidth = 1;
+      ctx.setLineDash([]);
+      ctx.stroke();
+      ctx.fillStyle = colors.loss;
+      ctx.font = '600 12px Inter';
+      ctx.textAlign = 'center';
+      ctx.fillText('MSE' + row.label, x + boxW/2, y + 22);
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+}
+
+function drawDashedArrow(ctx, x1, y1, x2, y2, color, offset) {
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = 0.5;
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([6, 4]);
+  ctx.lineDashOffset = offset;
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.globalAlpha = 1;
+
+  // Arrowhead
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  const aLen = 7;
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - aLen * Math.cos(angle - 0.4), y2 - aLen * Math.sin(angle - 0.4));
+  ctx.lineTo(x2 - aLen * Math.cos(angle + 0.4), y2 - aLen * Math.sin(angle + 0.4));
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.globalAlpha = 0.7;
+  ctx.fill();
+  ctx.globalAlpha = 1;
 }
 
 /* ═══ DRAW TIME SERIES WITH ACTIVATION GRADIENT ═══ */
