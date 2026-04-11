@@ -224,6 +224,5 @@ analysis/
 # Experiment results
 experiments/
 
-# Docs data files (generated from analysis, ~1.7MB)
+# Docs data (raw JSON, not needed by the site)
 docs/data.json
-docs/data.js
