@@ -343,6 +343,23 @@ Each condition: extract all 28 layers concatenated, train linear mapper (λ=0.5,
 
 4. **Diversity requires BOTH trained weights AND meaningful text**: Neither component alone is sufficient. Trained weights without meaningful input (rand_PT) collapse. Meaningful input without trained weights (text_RandInit) provides limited diversity. Only the combination (text_PT) produces high diversity.
 
+### 6.10 Experiment 10: Fair Top-K Comparison Across Ablations
+
+Raw NN distance is misleading because lower diversity (fewer unique matches) yields artificially low NN distances — the model matches each prediction to the same few TS. A fair comparison evaluates at matched K: for each model, take the best-K unique matches (deduplicated) and compare mean NN distance.
+
+| K | text_PT | text_RandInit | rand_PT | rand_RandInit |
+|--:|--------:|-----------:|--------:|-------------:|
+| 4 | **0.254** | 0.383 | 0.330 | 0.412 |
+| 54 | **0.350** | 0.721 | — | 0.755 |
+| 99 | **0.383** | 0.825 | — | 0.862 |
+| 200 | **0.441** | 0.971 | — | 1.004 |
+| 439 | **0.535** | — | — | — |
+| 686 | **0.639** | — | — | — |
+
+("—" = fewer than K unique matches available)
+
+**text_PT wins at every K level.** Even at K=4 (where rand_PT has its full set), text_PT's best 4 unique matches (0.254) beat rand_PT (0.330). The gap widens dramatically at higher K: at K=99, text_PT (0.383) is 2.2× better than text_RandInit (0.825) and rand_RandInit (0.862). This confirms text_PT doesn't just produce more diverse outputs — each individual match is also higher quality.
+
 ---
 
 ## 7. Summary of Findings
@@ -400,6 +417,9 @@ A single linear direction limits both quality and diversity. Mode collapse is th
 - `scripts/mapping_experiment.py` — single-layer experiments
 - `scripts/mapping_concat_layers.py` — concatenated-layer experiments
 - `scripts/mapping_diversity.py` — diversity penalty experiments
+- `scripts/ablation_study.py` — 2×2 ablation (architecture × input tokens)
+- `scripts/plot_ablation_comparison.py` — ablation comparison plots
 - `scripts/plot_held_out.py` — held-out generalization plots
 - `mapping_results/` — all results, models, and plots
+- `mapping_results/ablation/` — ablation mappers, results, fair comparison, plots
 - Branch: `mapping-experiment`
