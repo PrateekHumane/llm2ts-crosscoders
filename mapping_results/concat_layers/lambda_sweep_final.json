@@ -1,0 +1,34 @@
+{
+  "PT_div0.5": {
+    "nn_dist": 0.7402666085554908,
+    "unique_matches": 858,
+    "clusters_covered": 16,
+    "cluster_coverage": 0.8,
+    "mean_cluster_dist": 0.7427153289318085,
+    "norm_entropy": 0.8313291702899083
+  },
+  "PT_div0.7": {
+    "nn_dist": 0.4992737289285287,
+    "unique_matches": 78,
+    "clusters_covered": 13,
+    "cluster_coverage": 0.65,
+    "mean_cluster_dist": 0.6740023821592331,
+    "norm_entropy": 0.3819520217109465
+  },
+  "PT_div1.0": {
+    "nn_dist": 0.6335220784026508,
+    "unique_matches": 423,
+    "clusters_covered": 16,
+    "cluster_coverage": 0.8,
+    "mean_cluster_dist": 0.6503232449293137,
+    "norm_entropy": 0.6735021445405488
+  },
+  "PT_div1.5": {
+    "nn_dist": 0.6789110254961997,
+    "unique_matches": 740,
+    "clusters_covered": 16,
+    "cluster_coverage": 0.8,
+    "mean_cluster_dist": 0.6640844956040383,
+    "norm_entropy": 0.8001577275448943
+  }
+}
