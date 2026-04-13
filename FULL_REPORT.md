@@ -315,6 +315,34 @@ Training used WikiText sequences 0–1919. Held-out evaluation on sequences 2000
 
 Top-K match quality is nearly identical between training and held-out, confirming the linear map learned a general projection rather than overfitting to specific training text.
 
+### 6.9 Experiment 9: Full Ablation Study (Architecture × Input Tokens)
+
+A 2×2 ablation isolating the contributions of trained weights and meaningful text:
+
+| | **Text tokens** | **Random tokens** |
+|--|:-----------:|:-------------:|
+| **PT (trained)** | text_PT | rand_PT |
+| **RandomInit (untrained)** | text_RandInit | rand_RandInit |
+
+Each condition: extract all 28 layers concatenated, train linear mapper (λ=0.5, seed=1, 100 epochs), evaluate on training data (1920 seqs) and held-out data (1000 seqs) against full 10K TS bank. All mappers saved.
+
+| Ablation | Loss | Train Unique | Train NN | Held Unique | Held NN |
+|----------|-----:|------:|------:|------:|------:|
+| **text_PT** | 1.33 | **686** | 0.672 | **439** | 0.717 |
+| text_RandInit | 1.21 | 54 | 0.402 | 73 | 0.541 |
+| rand_PT | 1.16 | 4 | 0.283 | 1 | 0.293 |
+| rand_RandInit | 1.29 | 99 | 0.522 | 138 | 0.741 |
+
+**Key findings:**
+
+1. **text_PT dominates diversity**: 686 train / 439 held-out unique matches — no other condition comes close.
+
+2. **Random tokens destroy PT's diversity**: rand_PT collapses to 4 train / 1 held-out unique. PT needs meaningful text to produce varied hidden states. Random tokens create uniform representations that mode-collapse to a single output.
+
+3. **rand_RandInit > text_RandInit**: Random tokens through untrained architecture (99/138 unique) beats real text through untrained architecture (54/73). The untrained model doesn't understand text, so random tokens produce more diverse hidden states (higher input entropy → more output diversity through random weights).
+
+4. **Diversity requires BOTH trained weights AND meaningful text**: Neither component alone is sufficient. Trained weights without meaningful input (rand_PT) collapse. Meaningful input without trained weights (text_RandInit) provides limited diversity. Only the combination (text_PT) produces high diversity.
+
 ---
 
 ## 7. Summary of Findings
