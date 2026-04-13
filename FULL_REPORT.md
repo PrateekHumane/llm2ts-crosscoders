@@ -273,14 +273,17 @@ Mid-layers (L6–L16) dominate. Deep layers (L19–L27) contribute very little (
 
 ### 6.6 Experiment 6: Stability Test
 
-5 random seeds for the best config (PT concat div0.5):
+5 random seeds for the best config (PT concat div0.5). Results so far (3 of 5 seeds):
 
 | Seed | Unique | Clusters | NN Dist |
 |-----:|------:|------:|------:|
 | 0 | 828 | 16/20 | 0.744 |
 | 1 | 883 | 15/20 | 0.738 |
+| 2 | 49 | 13/20 | 0.492 |
 
-Results are reproducible: ~830–880 unique matches consistently.
+**Training is unstable.** Seeds 0 and 1 produce high diversity (~830–880 unique). Seed 2 collapses to 49 unique (mode collapse). The diversity penalty at λ = 0.5 helps on average but does not guarantee high diversity every run. The low NN distance for seed 2 (0.49) confirms the quality-diversity tradeoff: collapsed runs match fewer TS very tightly.
+
+Note: the evaluation metric also has variance — the same mapper evaluated against the full 10K TS bank (instead of subsampled 2K) gives 601 unique matches (see Experiment 7).
 
 ### 6.7 Experiment 7: Fair Evaluation (Full 10K Bank)
 
