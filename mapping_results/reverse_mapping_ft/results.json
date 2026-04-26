@@ -1,0 +1,1682 @@
+[
+  {
+    "domain": "electricity",
+    "label": "Electricity Load",
+    "per_layer": [
+      {
+        "layer": 0,
+        "best_cos_idx": 1297,
+        "best_cos": 0.09347666800022125,
+        "best_cka_idx": 5460,
+        "best_cka": 0.049391090869903564
+      },
+      {
+        "layer": 1,
+        "best_cos_idx": 6252,
+        "best_cos": 0.5307432413101196,
+        "best_cka_idx": 6266,
+        "best_cka": 0.022948486730456352
+      },
+      {
+        "layer": 2,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6459259390830994,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3679862320423126
+      },
+      {
+        "layer": 3,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6466891169548035,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3665487766265869
+      },
+      {
+        "layer": 4,
+        "best_cos_idx": 4141,
+        "best_cos": 0.6298031806945801,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36627522110939026
+      },
+      {
+        "layer": 5,
+        "best_cos_idx": 4141,
+        "best_cos": 0.5939496755599976,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4517822265625
+      },
+      {
+        "layer": 6,
+        "best_cos_idx": 4141,
+        "best_cos": 0.605221688747406,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45307987928390503
+      },
+      {
+        "layer": 7,
+        "best_cos_idx": 4141,
+        "best_cos": 0.605100691318512,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4539940059185028
+      },
+      {
+        "layer": 8,
+        "best_cos_idx": 4141,
+        "best_cos": 0.5654399991035461,
+        "best_cka_idx": 1636,
+        "best_cka": 0.511110246181488
+      },
+      {
+        "layer": 9,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5834227204322815,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5104030966758728
+      },
+      {
+        "layer": 10,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5921645760536194,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45393967628479004
+      },
+      {
+        "layer": 11,
+        "best_cos_idx": 8032,
+        "best_cos": 0.550730288028717,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45248740911483765
+      },
+      {
+        "layer": 12,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5498276948928833,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45372170209884644
+      },
+      {
+        "layer": 13,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5475248098373413,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45471951365470886
+      },
+      {
+        "layer": 14,
+        "best_cos_idx": 2490,
+        "best_cos": 0.543911337852478,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4571743607521057
+      },
+      {
+        "layer": 15,
+        "best_cos_idx": 2490,
+        "best_cos": 0.5611218214035034,
+        "best_cka_idx": 7572,
+        "best_cka": 0.6775394678115845
+      },
+      {
+        "layer": 16,
+        "best_cos_idx": 2490,
+        "best_cos": 0.5576894283294678,
+        "best_cka_idx": 3267,
+        "best_cka": 0.8972156643867493
+      },
+      {
+        "layer": 17,
+        "best_cos_idx": 2490,
+        "best_cos": 0.586583137512207,
+        "best_cka_idx": 3267,
+        "best_cka": 0.890836775302887
+      },
+      {
+        "layer": 18,
+        "best_cos_idx": 2490,
+        "best_cos": 0.6333425641059875,
+        "best_cka_idx": 8639,
+        "best_cka": 0.6467425227165222
+      },
+      {
+        "layer": 19,
+        "best_cos_idx": 2490,
+        "best_cos": 0.5961606502532959,
+        "best_cka_idx": 3267,
+        "best_cka": 0.7863197922706604
+      },
+      {
+        "layer": 20,
+        "best_cos_idx": 2490,
+        "best_cos": 0.5989619493484497,
+        "best_cka_idx": 1698,
+        "best_cka": 0.5031324625015259
+      },
+      {
+        "layer": 21,
+        "best_cos_idx": 2490,
+        "best_cos": 0.6646419167518616,
+        "best_cka_idx": 8202,
+        "best_cka": 0.5971946120262146
+      },
+      {
+        "layer": 22,
+        "best_cos_idx": 2490,
+        "best_cos": 0.6972469687461853,
+        "best_cka_idx": 8202,
+        "best_cka": 0.4842422902584076
+      },
+      {
+        "layer": 23,
+        "best_cos_idx": 933,
+        "best_cos": 0.7007566690444946,
+        "best_cka_idx": 8202,
+        "best_cka": 0.3906711935997009
+      },
+      {
+        "layer": 24,
+        "best_cos_idx": 933,
+        "best_cos": 0.7104787230491638,
+        "best_cka_idx": 3267,
+        "best_cka": 0.36010420322418213
+      },
+      {
+        "layer": 25,
+        "best_cos_idx": 933,
+        "best_cos": 0.7000417113304138,
+        "best_cka_idx": 3267,
+        "best_cka": 0.3244239389896393
+      },
+      {
+        "layer": 26,
+        "best_cos_idx": 933,
+        "best_cos": 0.7864522337913513,
+        "best_cka_idx": 937,
+        "best_cka": 0.32905808091163635
+      },
+      {
+        "layer": 27,
+        "best_cos_idx": 6933,
+        "best_cos": 0.9313511848449707,
+        "best_cka_idx": 5687,
+        "best_cka": 0.5017436146736145
+      }
+    ],
+    "best_cka_layer": 16,
+    "best_cka_score": 0.8972156643867493,
+    "best_cka_seq": 3267,
+    "best_cka_text": "m , Thomas <unk> , and John Wycliffe . The recorded debates of the Assembly are full of citations of church fathers and medieval scholastic theologians . \n The Confession starts with the doctrine of revelation , or how people can know about God . The divines believed knowledge of God was available to people through nature as well as the Bible , but they also believed that the Bible , or Scripture , is the only way in which people attain saving knowledge of God . The doctrine of Scripture was als",
+    "best_cos_layer": 27,
+    "best_cos_score": 0.9313511848449707,
+    "best_cos_seq": 6933,
+    "best_cos_text": " next day William subsequently slowly accelerated as it passed near too or over several other Cook Islands and intensified into a category 2 tropical cyclone . Early on January 3 , TCWC Nadi reported that the system had reached its peak 10 @-@ minute wind speeds of 110 km / h ( 70 mph ) as it passed near or over the French Polynesian islands of Maria and Rimatara . \n At around the same time the NPMOC reported that William , had reached its peak 1 @-@ minute sustained windspeeds of 120 km / h ( 7"
+  },
+  {
+    "domain": "solar",
+    "label": "Solar Energy",
+    "per_layer": [
+      {
+        "layer": 0,
+        "best_cos_idx": 1297,
+        "best_cos": 0.10370577126741409,
+        "best_cka_idx": 3510,
+        "best_cka": 0.030462492257356644
+      },
+      {
+        "layer": 1,
+        "best_cos_idx": 7901,
+        "best_cos": 0.5467061996459961,
+        "best_cka_idx": 1373,
+        "best_cka": 0.019638994708657265
+      },
+      {
+        "layer": 2,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6563844680786133,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36833006143569946
+      },
+      {
+        "layer": 3,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6606274247169495,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3669300377368927
+      },
+      {
+        "layer": 4,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6394497752189636,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3667507469654083
+      },
+      {
+        "layer": 5,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5948876738548279,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4526939392089844
+      },
+      {
+        "layer": 6,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6033628582954407,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4539431929588318
+      },
+      {
+        "layer": 7,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6024078130722046,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5051789879798889
+      },
+      {
+        "layer": 8,
+        "best_cos_idx": 8032,
+        "best_cos": 0.545242965221405,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5060713291168213
+      },
+      {
+        "layer": 9,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5573405623435974,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5066407322883606
+      },
+      {
+        "layer": 10,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5567132234573364,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5031447410583496
+      },
+      {
+        "layer": 11,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4884495735168457,
+        "best_cka_idx": 1269,
+        "best_cka": 0.44985365867614746
+      },
+      {
+        "layer": 12,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4794023334980011,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4493827223777771
+      },
+      {
+        "layer": 13,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4606788158416748,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45059734582901
+      },
+      {
+        "layer": 14,
+        "best_cos_idx": 8032,
+        "best_cos": 0.42741942405700684,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4519275724887848
+      },
+      {
+        "layer": 15,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4166489541530609,
+        "best_cka_idx": 1636,
+        "best_cka": 0.4994368255138397
+      },
+      {
+        "layer": 16,
+        "best_cos_idx": 2490,
+        "best_cos": 0.38370704650878906,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5011054277420044
+      },
+      {
+        "layer": 17,
+        "best_cos_idx": 2490,
+        "best_cos": 0.42314159870147705,
+        "best_cka_idx": 1636,
+        "best_cka": 0.49695128202438354
+      },
+      {
+        "layer": 18,
+        "best_cos_idx": 2490,
+        "best_cos": 0.5035158395767212,
+        "best_cka_idx": 1636,
+        "best_cka": 0.45963767170906067
+      },
+      {
+        "layer": 19,
+        "best_cos_idx": 2490,
+        "best_cos": 0.5220077037811279,
+        "best_cka_idx": 1636,
+        "best_cka": 0.39003250002861023
+      },
+      {
+        "layer": 20,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5696820020675659,
+        "best_cka_idx": 1636,
+        "best_cka": 0.29717907309532166
+      },
+      {
+        "layer": 21,
+        "best_cos_idx": 2490,
+        "best_cos": 0.6601850986480713,
+        "best_cka_idx": 1636,
+        "best_cka": 0.2305152714252472
+      },
+      {
+        "layer": 22,
+        "best_cos_idx": 2490,
+        "best_cos": 0.7030706405639648,
+        "best_cka_idx": 1636,
+        "best_cka": 0.17700152099132538
+      },
+      {
+        "layer": 23,
+        "best_cos_idx": 2490,
+        "best_cos": 0.741884171962738,
+        "best_cka_idx": 7710,
+        "best_cka": 0.1391507089138031
+      },
+      {
+        "layer": 24,
+        "best_cos_idx": 5945,
+        "best_cos": 0.7718997001647949,
+        "best_cka_idx": 7572,
+        "best_cka": 0.14035449922084808
+      },
+      {
+        "layer": 25,
+        "best_cos_idx": 5945,
+        "best_cos": 0.8099772334098816,
+        "best_cka_idx": 7572,
+        "best_cka": 0.12798914313316345
+      },
+      {
+        "layer": 26,
+        "best_cos_idx": 5945,
+        "best_cos": 0.8603114485740662,
+        "best_cka_idx": 7735,
+        "best_cka": 0.09364397078752518
+      },
+      {
+        "layer": 27,
+        "best_cos_idx": 1937,
+        "best_cos": 0.9785827398300171,
+        "best_cka_idx": 1937,
+        "best_cka": 0.0
+      }
+    ],
+    "best_cka_layer": 9,
+    "best_cka_score": 0.5066407322883606,
+    "best_cka_seq": 1636,
+    "best_cka_text": " the fieldfare frequents mixed woodland of birch , alder , pine , spruce and fir , often near marshes , moorland or other open ground . It does not avoid the vicinity of humans and can be seen in cultivated areas , orchards , parks and gardens . It also inhabits open tundra and the slopes of hills above the tree line . In the winter , groups of fieldfares are chiefly found in open country , agricultural land , orchards and open woodland . They are nomadic , wandering wherever there is an abundan",
+    "best_cos_layer": 27,
+    "best_cos_score": 0.9785827398300171,
+    "best_cos_seq": 1937,
+    "best_cos_text": " delayed . In late 1996 , there was a preview for season pass holders . After 10 months of testing and <unk> , the ride opened on March 15 , 1997 . After its opening , the media claimed Superman to be the fastest roller coaster in the world . However , since it was delayed , a similar roller coaster known as Tower of Terror , which also has a 100 @-@ mile @-@ per @-@ hour launch ( 160 km / h ) , had opened about a month earlier at Dreamworld in Australia . Superman therefore lost its claim as be"
+  },
+  {
+    "domain": "LOOP_SEATTLE",
+    "label": "Traffic (Seattle)",
+    "per_layer": [
+      {
+        "layer": 0,
+        "best_cos_idx": 6334,
+        "best_cos": 0.09971652925014496,
+        "best_cka_idx": 4978,
+        "best_cka": 0.04444986581802368
+      },
+      {
+        "layer": 1,
+        "best_cos_idx": 7901,
+        "best_cos": 0.5529434084892273,
+        "best_cka_idx": 9950,
+        "best_cka": 0.027340078726410866
+      },
+      {
+        "layer": 2,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6692142486572266,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36819928884506226
+      },
+      {
+        "layer": 3,
+        "best_cos_idx": 3582,
+        "best_cos": 0.677229642868042,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36683884263038635
+      },
+      {
+        "layer": 4,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6640154719352722,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36702150106430054
+      },
+      {
+        "layer": 5,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6381148099899292,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36748576164245605
+      },
+      {
+        "layer": 6,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6421989798545837,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3695177733898163
+      },
+      {
+        "layer": 7,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6254849433898926,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3705543279647827
+      },
+      {
+        "layer": 8,
+        "best_cos_idx": 9854,
+        "best_cos": 0.5629541277885437,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5077959299087524
+      },
+      {
+        "layer": 9,
+        "best_cos_idx": 9854,
+        "best_cos": 0.5911257266998291,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4554804563522339
+      },
+      {
+        "layer": 10,
+        "best_cos_idx": 9854,
+        "best_cos": 0.5901272892951965,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45442426204681396
+      },
+      {
+        "layer": 11,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5518243312835693,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4533453583717346
+      },
+      {
+        "layer": 12,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5454584956169128,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4542868733406067
+      },
+      {
+        "layer": 13,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5345256328582764,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4550495147705078
+      },
+      {
+        "layer": 14,
+        "best_cos_idx": 8032,
+        "best_cos": 0.511050283908844,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4568888545036316
+      },
+      {
+        "layer": 15,
+        "best_cos_idx": 8032,
+        "best_cos": 0.47648122906684875,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45549240708351135
+      },
+      {
+        "layer": 16,
+        "best_cos_idx": 8032,
+        "best_cos": 0.46805113554000854,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4586949646472931
+      },
+      {
+        "layer": 17,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5000821948051453,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45778360962867737
+      },
+      {
+        "layer": 18,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5798478126525879,
+        "best_cka_idx": 4476,
+        "best_cka": 0.3228594660758972
+      },
+      {
+        "layer": 19,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6035537123680115,
+        "best_cka_idx": 8374,
+        "best_cka": 0.3831881284713745
+      },
+      {
+        "layer": 20,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6101915240287781,
+        "best_cka_idx": 8374,
+        "best_cka": 0.37774568796157837
+      },
+      {
+        "layer": 21,
+        "best_cos_idx": 1,
+        "best_cos": 0.6683217287063599,
+        "best_cka_idx": 8374,
+        "best_cka": 0.3708425760269165
+      },
+      {
+        "layer": 22,
+        "best_cos_idx": 1,
+        "best_cos": 0.7072155475616455,
+        "best_cka_idx": 8374,
+        "best_cka": 0.34485378861427307
+      },
+      {
+        "layer": 23,
+        "best_cos_idx": 8678,
+        "best_cos": 0.7165191769599915,
+        "best_cka_idx": 8374,
+        "best_cka": 0.3215734660625458
+      },
+      {
+        "layer": 24,
+        "best_cos_idx": 2336,
+        "best_cos": 0.7435804605484009,
+        "best_cka_idx": 7710,
+        "best_cka": 0.3587731420993805
+      },
+      {
+        "layer": 25,
+        "best_cos_idx": 5945,
+        "best_cos": 0.7589139938354492,
+        "best_cka_idx": 7710,
+        "best_cka": 0.3362310528755188
+      },
+      {
+        "layer": 26,
+        "best_cos_idx": 9508,
+        "best_cos": 0.782162606716156,
+        "best_cka_idx": 5570,
+        "best_cka": 0.2671434283256531
+      },
+      {
+        "layer": 27,
+        "best_cos_idx": 6933,
+        "best_cos": 0.9893685579299927,
+        "best_cka_idx": 6933,
+        "best_cka": 0.0
+      }
+    ],
+    "best_cka_layer": 8,
+    "best_cka_score": 0.5077959299087524,
+    "best_cka_seq": 1636,
+    "best_cka_text": " the fieldfare frequents mixed woodland of birch , alder , pine , spruce and fir , often near marshes , moorland or other open ground . It does not avoid the vicinity of humans and can be seen in cultivated areas , orchards , parks and gardens . It also inhabits open tundra and the slopes of hills above the tree line . In the winter , groups of fieldfares are chiefly found in open country , agricultural land , orchards and open woodland . They are nomadic , wandering wherever there is an abundan",
+    "best_cos_layer": 27,
+    "best_cos_score": 0.9893685579299927,
+    "best_cos_seq": 6933,
+    "best_cos_text": " next day William subsequently slowly accelerated as it passed near too or over several other Cook Islands and intensified into a category 2 tropical cyclone . Early on January 3 , TCWC Nadi reported that the system had reached its peak 10 @-@ minute wind speeds of 110 km / h ( 70 mph ) as it passed near or over the French Polynesian islands of Maria and Rimatara . \n At around the same time the NPMOC reported that William , had reached its peak 1 @-@ minute sustained windspeeds of 120 km / h ( 7"
+  },
+  {
+    "domain": "SZ_TAXI",
+    "label": "Taxi (Shenzhen)",
+    "per_layer": [
+      {
+        "layer": 0,
+        "best_cos_idx": 1297,
+        "best_cos": 0.11757063865661621,
+        "best_cka_idx": 4224,
+        "best_cka": 0.038057904690504074
+      },
+      {
+        "layer": 1,
+        "best_cos_idx": 1948,
+        "best_cos": 0.5557115077972412,
+        "best_cka_idx": 8678,
+        "best_cka": 0.02793978713452816
+      },
+      {
+        "layer": 2,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6705067753791809,
+        "best_cka_idx": 4485,
+        "best_cka": 0.367084264755249
+      },
+      {
+        "layer": 3,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6751211285591125,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3656962215900421
+      },
+      {
+        "layer": 4,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6639766693115234,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3658417761325836
+      },
+      {
+        "layer": 5,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6426031589508057,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3659135699272156
+      },
+      {
+        "layer": 6,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6464380621910095,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3673512935638428
+      },
+      {
+        "layer": 7,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6310619711875916,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36778783798217773
+      },
+      {
+        "layer": 8,
+        "best_cos_idx": 3582,
+        "best_cos": 0.5666637420654297,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45200315117836
+      },
+      {
+        "layer": 9,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5757840871810913,
+        "best_cka_idx": 2490,
+        "best_cka": 0.34823131561279297
+      },
+      {
+        "layer": 10,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5847336053848267,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45246759057044983
+      },
+      {
+        "layer": 11,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5464963912963867,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45013317465782166
+      },
+      {
+        "layer": 12,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5351946353912354,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4506738781929016
+      },
+      {
+        "layer": 13,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5163686871528625,
+        "best_cka_idx": 2490,
+        "best_cka": 0.3471093475818634
+      },
+      {
+        "layer": 14,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4855395555496216,
+        "best_cka_idx": 4476,
+        "best_cka": 0.3184513747692108
+      },
+      {
+        "layer": 15,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4261021018028259,
+        "best_cka_idx": 4476,
+        "best_cka": 0.3175545334815979
+      },
+      {
+        "layer": 16,
+        "best_cos_idx": 8032,
+        "best_cos": 0.39837950468063354,
+        "best_cka_idx": 4476,
+        "best_cka": 0.31958481669425964
+      },
+      {
+        "layer": 17,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4127798080444336,
+        "best_cka_idx": 4476,
+        "best_cka": 0.3214115798473358
+      },
+      {
+        "layer": 18,
+        "best_cos_idx": 8032,
+        "best_cos": 0.49301019310951233,
+        "best_cka_idx": 4476,
+        "best_cka": 0.32234570384025574
+      },
+      {
+        "layer": 19,
+        "best_cos_idx": 1,
+        "best_cos": 0.5253966450691223,
+        "best_cka_idx": 8374,
+        "best_cka": 0.382668137550354
+      },
+      {
+        "layer": 20,
+        "best_cos_idx": 1,
+        "best_cos": 0.5456811189651489,
+        "best_cka_idx": 8374,
+        "best_cka": 0.3736098110675812
+      },
+      {
+        "layer": 21,
+        "best_cos_idx": 1,
+        "best_cos": 0.6203303933143616,
+        "best_cka_idx": 8374,
+        "best_cka": 0.37282130122184753
+      },
+      {
+        "layer": 22,
+        "best_cos_idx": 1,
+        "best_cos": 0.6609148979187012,
+        "best_cka_idx": 8374,
+        "best_cka": 0.354059636592865
+      },
+      {
+        "layer": 23,
+        "best_cos_idx": 2336,
+        "best_cos": 0.6823247671127319,
+        "best_cka_idx": 8374,
+        "best_cka": 0.333994060754776
+      },
+      {
+        "layer": 24,
+        "best_cos_idx": 2336,
+        "best_cos": 0.7244085073471069,
+        "best_cka_idx": 4834,
+        "best_cka": 0.36526361107826233
+      },
+      {
+        "layer": 25,
+        "best_cos_idx": 1707,
+        "best_cos": 0.7359974980354309,
+        "best_cka_idx": 5570,
+        "best_cka": 0.35620054602622986
+      },
+      {
+        "layer": 26,
+        "best_cos_idx": 5932,
+        "best_cos": 0.6939965486526489,
+        "best_cka_idx": 8109,
+        "best_cka": 0.3210277855396271
+      },
+      {
+        "layer": 27,
+        "best_cos_idx": 6933,
+        "best_cos": 0.9924564957618713,
+        "best_cka_idx": 6933,
+        "best_cka": 0.0
+      }
+    ],
+    "best_cka_layer": 10,
+    "best_cka_score": 0.45246759057044983,
+    "best_cka_seq": 1269,
+    "best_cka_text": " a protein naturally folds is known as its native conformation . Although many proteins can fold unassisted , simply through the chemical properties of their amino acids , others require the aid of molecular chaperones to fold into their native states . <unk> often refer to four distinct aspects of a protein 's structure : \n Primary structure : the amino acid sequence . A protein is a <unk> . \n Secondary structure : regularly repeating local structures stabilized by hydrogen bonds . The most com",
+    "best_cos_layer": 27,
+    "best_cos_score": 0.9924564957618713,
+    "best_cos_seq": 6933,
+    "best_cos_text": " next day William subsequently slowly accelerated as it passed near too or over several other Cook Islands and intensified into a category 2 tropical cyclone . Early on January 3 , TCWC Nadi reported that the system had reached its peak 10 @-@ minute wind speeds of 110 km / h ( 70 mph ) as it passed near or over the French Polynesian islands of Maria and Rimatara . \n At around the same time the NPMOC reported that William , had reached its peak 1 @-@ minute sustained windspeeds of 120 km / h ( 7"
+  },
+  {
+    "domain": "temperature_rain_with_missing",
+    "label": "Temperature/Rain",
+    "per_layer": [
+      {
+        "layer": 0,
+        "best_cos_idx": 1297,
+        "best_cos": 0.09327537566423416,
+        "best_cka_idx": 5460,
+        "best_cka": 0.031673334538936615
+      },
+      {
+        "layer": 1,
+        "best_cos_idx": 7901,
+        "best_cos": 0.5608243346214294,
+        "best_cka_idx": 5173,
+        "best_cka": 0.023406019434332848
+      },
+      {
+        "layer": 2,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6760141253471375,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3683980107307434
+      },
+      {
+        "layer": 3,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6839812994003296,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36702919006347656
+      },
+      {
+        "layer": 4,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6726282238960266,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36714228987693787
+      },
+      {
+        "layer": 5,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6482959389686584,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36759331822395325
+      },
+      {
+        "layer": 6,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6516895294189453,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36977824568748474
+      },
+      {
+        "layer": 7,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6347424983978271,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4562996029853821
+      },
+      {
+        "layer": 8,
+        "best_cos_idx": 9854,
+        "best_cos": 0.5685268044471741,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5092757344245911
+      },
+      {
+        "layer": 9,
+        "best_cos_idx": 9854,
+        "best_cos": 0.5927172303199768,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5081073045730591
+      },
+      {
+        "layer": 10,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5996335744857788,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45761382579803467
+      },
+      {
+        "layer": 11,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5680928230285645,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4554815888404846
+      },
+      {
+        "layer": 12,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5612125992774963,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4561242163181305
+      },
+      {
+        "layer": 13,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5457736253738403,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4577169716358185
+      },
+      {
+        "layer": 14,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5113753080368042,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45995205640792847
+      },
+      {
+        "layer": 15,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4670569896697998,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45836183428764343
+      },
+      {
+        "layer": 16,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4511867165565491,
+        "best_cka_idx": 1269,
+        "best_cka": 0.46124333143234253
+      },
+      {
+        "layer": 17,
+        "best_cos_idx": 8032,
+        "best_cos": 0.47089046239852905,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5102280974388123
+      },
+      {
+        "layer": 18,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5336205959320068,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5171830058097839
+      },
+      {
+        "layer": 19,
+        "best_cos_idx": 1,
+        "best_cos": 0.5674737095832825,
+        "best_cka_idx": 8374,
+        "best_cka": 0.3867036700248718
+      },
+      {
+        "layer": 20,
+        "best_cos_idx": 1,
+        "best_cos": 0.5987225770950317,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45004764199256897
+      },
+      {
+        "layer": 21,
+        "best_cos_idx": 1,
+        "best_cos": 0.6731513738632202,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4452054798603058
+      },
+      {
+        "layer": 22,
+        "best_cos_idx": 1,
+        "best_cos": 0.7192058563232422,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4074040651321411
+      },
+      {
+        "layer": 23,
+        "best_cos_idx": 8678,
+        "best_cos": 0.739115834236145,
+        "best_cka_idx": 8374,
+        "best_cka": 0.32843226194381714
+      },
+      {
+        "layer": 24,
+        "best_cos_idx": 2336,
+        "best_cos": 0.7643873691558838,
+        "best_cka_idx": 7710,
+        "best_cka": 0.39305564761161804
+      },
+      {
+        "layer": 25,
+        "best_cos_idx": 2336,
+        "best_cos": 0.762396514415741,
+        "best_cka_idx": 4834,
+        "best_cka": 0.31050390005111694
+      },
+      {
+        "layer": 26,
+        "best_cos_idx": 6562,
+        "best_cos": 0.6807117462158203,
+        "best_cka_idx": 2229,
+        "best_cka": 0.21584591269493103
+      },
+      {
+        "layer": 27,
+        "best_cos_idx": 6933,
+        "best_cos": 0.9885373115539551,
+        "best_cka_idx": 6933,
+        "best_cka": 0.0
+      }
+    ],
+    "best_cka_layer": 18,
+    "best_cka_score": 0.5171830058097839,
+    "best_cka_seq": 1636,
+    "best_cka_text": " the fieldfare frequents mixed woodland of birch , alder , pine , spruce and fir , often near marshes , moorland or other open ground . It does not avoid the vicinity of humans and can be seen in cultivated areas , orchards , parks and gardens . It also inhabits open tundra and the slopes of hills above the tree line . In the winter , groups of fieldfares are chiefly found in open country , agricultural land , orchards and open woodland . They are nomadic , wandering wherever there is an abundan",
+    "best_cos_layer": 27,
+    "best_cos_score": 0.9885373115539551,
+    "best_cos_seq": 6933,
+    "best_cos_text": " next day William subsequently slowly accelerated as it passed near too or over several other Cook Islands and intensified into a category 2 tropical cyclone . Early on January 3 , TCWC Nadi reported that the system had reached its peak 10 @-@ minute wind speeds of 110 km / h ( 70 mph ) as it passed near or over the French Polynesian islands of Maria and Rimatara . \n At around the same time the NPMOC reported that William , had reached its peak 1 @-@ minute sustained windspeeds of 120 km / h ( 7"
+  },
+  {
+    "domain": "us_births",
+    "label": "US Births",
+    "per_layer": [
+      {
+        "layer": 0,
+        "best_cos_idx": 6334,
+        "best_cos": 0.09928392618894577,
+        "best_cka_idx": 802,
+        "best_cka": 0.020978163927793503
+      },
+      {
+        "layer": 1,
+        "best_cos_idx": 7901,
+        "best_cos": 0.5442526340484619,
+        "best_cka_idx": 5075,
+        "best_cka": 0.01865159533917904
+      },
+      {
+        "layer": 2,
+        "best_cos_idx": 772,
+        "best_cos": 0.6596530675888062,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3667553663253784
+      },
+      {
+        "layer": 3,
+        "best_cos_idx": 8032,
+        "best_cos": 0.663764476776123,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36507439613342285
+      },
+      {
+        "layer": 4,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6533596515655518,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3647986054420471
+      },
+      {
+        "layer": 5,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6239364147186279,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36467036604881287
+      },
+      {
+        "layer": 6,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6289114952087402,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36585983633995056
+      },
+      {
+        "layer": 7,
+        "best_cos_idx": 8032,
+        "best_cos": 0.611897349357605,
+        "best_cka_idx": 4476,
+        "best_cka": 0.3169878125190735
+      },
+      {
+        "layer": 8,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5546746850013733,
+        "best_cka_idx": 1269,
+        "best_cka": 0.46022161841392517
+      },
+      {
+        "layer": 9,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5852296352386475,
+        "best_cka_idx": 1269,
+        "best_cka": 0.46066978573799133
+      },
+      {
+        "layer": 10,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5816441178321838,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4597477614879608
+      },
+      {
+        "layer": 11,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5332713723182678,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4575097858905792
+      },
+      {
+        "layer": 12,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5293156504631042,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45801210403442383
+      },
+      {
+        "layer": 13,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5276725888252258,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4590281844139099
+      },
+      {
+        "layer": 14,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5100470185279846,
+        "best_cka_idx": 1269,
+        "best_cka": 0.46084949374198914
+      },
+      {
+        "layer": 15,
+        "best_cos_idx": 8032,
+        "best_cos": 0.49782466888427734,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4587518274784088
+      },
+      {
+        "layer": 16,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4904147982597351,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45879992842674255
+      },
+      {
+        "layer": 17,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5096404552459717,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4542306065559387
+      },
+      {
+        "layer": 18,
+        "best_cos_idx": 8032,
+        "best_cos": 0.55129075050354,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5041204690933228
+      },
+      {
+        "layer": 19,
+        "best_cos_idx": 8032,
+        "best_cos": 0.567219078540802,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4249688684940338
+      },
+      {
+        "layer": 20,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5922800302505493,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4126642942428589
+      },
+      {
+        "layer": 21,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6762332320213318,
+        "best_cka_idx": 1636,
+        "best_cka": 0.45514312386512756
+      },
+      {
+        "layer": 22,
+        "best_cos_idx": 8032,
+        "best_cos": 0.7269909977912903,
+        "best_cka_idx": 1636,
+        "best_cka": 0.40904301404953003
+      },
+      {
+        "layer": 23,
+        "best_cos_idx": 8678,
+        "best_cos": 0.7523543834686279,
+        "best_cka_idx": 1269,
+        "best_cka": 0.3342253565788269
+      },
+      {
+        "layer": 24,
+        "best_cos_idx": 3733,
+        "best_cos": 0.771340548992157,
+        "best_cka_idx": 7710,
+        "best_cka": 0.36833176016807556
+      },
+      {
+        "layer": 25,
+        "best_cos_idx": 4825,
+        "best_cos": 0.7802473306655884,
+        "best_cka_idx": 7710,
+        "best_cka": 0.31587183475494385
+      },
+      {
+        "layer": 26,
+        "best_cos_idx": 2815,
+        "best_cos": 0.7566128969192505,
+        "best_cka_idx": 7326,
+        "best_cka": 0.18561385571956635
+      },
+      {
+        "layer": 27,
+        "best_cos_idx": 6933,
+        "best_cos": 0.9883747100830078,
+        "best_cka_idx": 7734,
+        "best_cka": 0.016332203522324562
+      }
+    ],
+    "best_cka_layer": 18,
+    "best_cka_score": 0.5041204690933228,
+    "best_cka_seq": 1636,
+    "best_cka_text": " the fieldfare frequents mixed woodland of birch , alder , pine , spruce and fir , often near marshes , moorland or other open ground . It does not avoid the vicinity of humans and can be seen in cultivated areas , orchards , parks and gardens . It also inhabits open tundra and the slopes of hills above the tree line . In the winter , groups of fieldfares are chiefly found in open country , agricultural land , orchards and open woodland . They are nomadic , wandering wherever there is an abundan",
+    "best_cos_layer": 27,
+    "best_cos_score": 0.9883747100830078,
+    "best_cos_seq": 6933,
+    "best_cos_text": " next day William subsequently slowly accelerated as it passed near too or over several other Cook Islands and intensified into a category 2 tropical cyclone . Early on January 3 , TCWC Nadi reported that the system had reached its peak 10 @-@ minute wind speeds of 110 km / h ( 70 mph ) as it passed near or over the French Polynesian islands of Maria and Rimatara . \n At around the same time the NPMOC reported that William , had reached its peak 1 @-@ minute sustained windspeeds of 120 km / h ( 7"
+  },
+  {
+    "domain": "saugeenday",
+    "label": "River Flow (Saugeen)",
+    "per_layer": [
+      {
+        "layer": 0,
+        "best_cos_idx": 1297,
+        "best_cos": 0.1162630021572113,
+        "best_cka_idx": 1297,
+        "best_cka": 0.040586601942777634
+      },
+      {
+        "layer": 1,
+        "best_cos_idx": 7901,
+        "best_cos": 0.5554211139678955,
+        "best_cka_idx": 6393,
+        "best_cka": 0.021776454523205757
+      },
+      {
+        "layer": 2,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6675395369529724,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3685894310474396
+      },
+      {
+        "layer": 3,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6739564538002014,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36723819375038147
+      },
+      {
+        "layer": 4,
+        "best_cos_idx": 8032,
+        "best_cos": 0.655561089515686,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36749568581581116
+      },
+      {
+        "layer": 5,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6162850260734558,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4535050690174103
+      },
+      {
+        "layer": 6,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6255882382392883,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45510709285736084
+      },
+      {
+        "layer": 7,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6156660318374634,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45655590295791626
+      },
+      {
+        "layer": 8,
+        "best_cos_idx": 2377,
+        "best_cos": 0.565056562423706,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5110439658164978
+      },
+      {
+        "layer": 9,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5778903961181641,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45771098136901855
+      },
+      {
+        "layer": 10,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5780622959136963,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4564763307571411
+      },
+      {
+        "layer": 11,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5185950398445129,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4548867642879486
+      },
+      {
+        "layer": 12,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5105495452880859,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4553219974040985
+      },
+      {
+        "layer": 13,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4861745238304138,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4559404253959656
+      },
+      {
+        "layer": 14,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4543094336986542,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4580099880695343
+      },
+      {
+        "layer": 15,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4308098554611206,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5130796432495117
+      },
+      {
+        "layer": 16,
+        "best_cos_idx": 2490,
+        "best_cos": 0.40911951661109924,
+        "best_cka_idx": 6719,
+        "best_cka": 0.5182451009750366
+      },
+      {
+        "layer": 17,
+        "best_cos_idx": 8032,
+        "best_cos": 0.4513266682624817,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5165650248527527
+      },
+      {
+        "layer": 18,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5523155927658081,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5191776156425476
+      },
+      {
+        "layer": 19,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5805894732475281,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5055631995201111
+      },
+      {
+        "layer": 20,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6151379346847534,
+        "best_cka_idx": 1636,
+        "best_cka": 0.47679784893989563
+      },
+      {
+        "layer": 21,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6925437450408936,
+        "best_cka_idx": 1636,
+        "best_cka": 0.42776036262512207
+      },
+      {
+        "layer": 22,
+        "best_cos_idx": 8032,
+        "best_cos": 0.7444669008255005,
+        "best_cka_idx": 7710,
+        "best_cka": 0.39260807633399963
+      },
+      {
+        "layer": 23,
+        "best_cos_idx": 8032,
+        "best_cos": 0.7633993625640869,
+        "best_cka_idx": 7710,
+        "best_cka": 0.34283649921417236
+      },
+      {
+        "layer": 24,
+        "best_cos_idx": 4825,
+        "best_cos": 0.7805702686309814,
+        "best_cka_idx": 7710,
+        "best_cka": 0.2856212854385376
+      },
+      {
+        "layer": 25,
+        "best_cos_idx": 5945,
+        "best_cos": 0.791128396987915,
+        "best_cka_idx": 7710,
+        "best_cka": 0.23829227685928345
+      },
+      {
+        "layer": 26,
+        "best_cos_idx": 2815,
+        "best_cos": 0.8044525384902954,
+        "best_cka_idx": 4539,
+        "best_cka": 0.22268150746822357
+      },
+      {
+        "layer": 27,
+        "best_cos_idx": 6933,
+        "best_cos": 0.9856510758399963,
+        "best_cka_idx": 141,
+        "best_cka": 0.013301534578204155
+      }
+    ],
+    "best_cka_layer": 18,
+    "best_cka_score": 0.5191776156425476,
+    "best_cka_seq": 1636,
+    "best_cka_text": " the fieldfare frequents mixed woodland of birch , alder , pine , spruce and fir , often near marshes , moorland or other open ground . It does not avoid the vicinity of humans and can be seen in cultivated areas , orchards , parks and gardens . It also inhabits open tundra and the slopes of hills above the tree line . In the winter , groups of fieldfares are chiefly found in open country , agricultural land , orchards and open woodland . They are nomadic , wandering wherever there is an abundan",
+    "best_cos_layer": 27,
+    "best_cos_score": 0.9856510758399963,
+    "best_cos_seq": 6933,
+    "best_cos_text": " next day William subsequently slowly accelerated as it passed near too or over several other Cook Islands and intensified into a category 2 tropical cyclone . Early on January 3 , TCWC Nadi reported that the system had reached its peak 10 @-@ minute wind speeds of 110 km / h ( 70 mph ) as it passed near or over the French Polynesian islands of Maria and Rimatara . \n At around the same time the NPMOC reported that William , had reached its peak 1 @-@ minute sustained windspeeds of 120 km / h ( 7"
+  },
+  {
+    "domain": "kdd_cup_2018_with_missing",
+    "label": "Air Quality (KDD)",
+    "per_layer": [
+      {
+        "layer": 0,
+        "best_cos_idx": 1297,
+        "best_cos": 0.10465516895055771,
+        "best_cka_idx": 6334,
+        "best_cka": 0.031861528754234314
+      },
+      {
+        "layer": 1,
+        "best_cos_idx": 7901,
+        "best_cos": 0.5563088059425354,
+        "best_cka_idx": 3691,
+        "best_cka": 0.022514455020427704
+      },
+      {
+        "layer": 2,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6746737360954285,
+        "best_cka_idx": 4485,
+        "best_cka": 0.3702564537525177
+      },
+      {
+        "layer": 3,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6816116571426392,
+        "best_cka_idx": 4485,
+        "best_cka": 0.36908379197120667
+      },
+      {
+        "layer": 4,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6681678295135498,
+        "best_cka_idx": 4485,
+        "best_cka": 0.369390070438385
+      },
+      {
+        "layer": 5,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6438761353492737,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4554046392440796
+      },
+      {
+        "layer": 6,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6478112936019897,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45715394616127014
+      },
+      {
+        "layer": 7,
+        "best_cos_idx": 3582,
+        "best_cos": 0.6340242624282837,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4592060446739197
+      },
+      {
+        "layer": 8,
+        "best_cos_idx": 3582,
+        "best_cos": 0.5794782638549805,
+        "best_cka_idx": 1636,
+        "best_cka": 0.5113323926925659
+      },
+      {
+        "layer": 9,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5953128337860107,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4610712230205536
+      },
+      {
+        "layer": 10,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6066475510597229,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4595375955104828
+      },
+      {
+        "layer": 11,
+        "best_cos_idx": 8032,
+        "best_cos": 0.564940869808197,
+        "best_cka_idx": 1269,
+        "best_cka": 0.457821786403656
+      },
+      {
+        "layer": 12,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5549343824386597,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4588729441165924
+      },
+      {
+        "layer": 13,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5377450585365295,
+        "best_cka_idx": 1269,
+        "best_cka": 0.459831178188324
+      },
+      {
+        "layer": 14,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5112048387527466,
+        "best_cka_idx": 1269,
+        "best_cka": 0.46134039759635925
+      },
+      {
+        "layer": 15,
+        "best_cos_idx": 8032,
+        "best_cos": 0.48125961422920227,
+        "best_cka_idx": 1269,
+        "best_cka": 0.45995163917541504
+      },
+      {
+        "layer": 16,
+        "best_cos_idx": 8032,
+        "best_cos": 0.47554460167884827,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4624137580394745
+      },
+      {
+        "layer": 17,
+        "best_cos_idx": 8032,
+        "best_cos": 0.505508542060852,
+        "best_cka_idx": 1269,
+        "best_cka": 0.46321502327919006
+      },
+      {
+        "layer": 18,
+        "best_cos_idx": 8032,
+        "best_cos": 0.5710117220878601,
+        "best_cka_idx": 1269,
+        "best_cka": 0.46932992339134216
+      },
+      {
+        "layer": 19,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6106687784194946,
+        "best_cka_idx": 8374,
+        "best_cka": 0.3881978690624237
+      },
+      {
+        "layer": 20,
+        "best_cos_idx": 8032,
+        "best_cos": 0.6263351440429688,
+        "best_cka_idx": 8374,
+        "best_cka": 0.3806905746459961
+      },
+      {
+        "layer": 21,
+        "best_cos_idx": 1,
+        "best_cos": 0.684802770614624,
+        "best_cka_idx": 1269,
+        "best_cka": 0.4398082196712494
+      },
+      {
+        "layer": 22,
+        "best_cos_idx": 1,
+        "best_cos": 0.7239125967025757,
+        "best_cka_idx": 1269,
+        "best_cka": 0.39886829257011414
+      },
+      {
+        "layer": 23,
+        "best_cos_idx": 8678,
+        "best_cos": 0.7387686967849731,
+        "best_cka_idx": 8374,
+        "best_cka": 0.3168744742870331
+      },
+      {
+        "layer": 24,
+        "best_cos_idx": 8678,
+        "best_cos": 0.7587528824806213,
+        "best_cka_idx": 8374,
+        "best_cka": 0.2888656556606293
+      },
+      {
+        "layer": 25,
+        "best_cos_idx": 6612,
+        "best_cos": 0.7605143785476685,
+        "best_cka_idx": 4142,
+        "best_cka": 0.25736719369888306
+      },
+      {
+        "layer": 26,
+        "best_cos_idx": 6562,
+        "best_cos": 0.6734388470649719,
+        "best_cka_idx": 4834,
+        "best_cka": 0.20609863102436066
+      },
+      {
+        "layer": 27,
+        "best_cos_idx": 6933,
+        "best_cos": 0.9892805814743042,
+        "best_cka_idx": 6933,
+        "best_cka": 0.0
+      }
+    ],
+    "best_cka_layer": 8,
+    "best_cka_score": 0.5113323926925659,
+    "best_cka_seq": 1636,
+    "best_cka_text": " the fieldfare frequents mixed woodland of birch , alder , pine , spruce and fir , often near marshes , moorland or other open ground . It does not avoid the vicinity of humans and can be seen in cultivated areas , orchards , parks and gardens . It also inhabits open tundra and the slopes of hills above the tree line . In the winter , groups of fieldfares are chiefly found in open country , agricultural land , orchards and open woodland . They are nomadic , wandering wherever there is an abundan",
+    "best_cos_layer": 27,
+    "best_cos_score": 0.9892805814743042,
+    "best_cos_seq": 6933,
+    "best_cos_text": " next day William subsequently slowly accelerated as it passed near too or over several other Cook Islands and intensified into a category 2 tropical cyclone . Early on January 3 , TCWC Nadi reported that the system had reached its peak 10 @-@ minute wind speeds of 110 km / h ( 70 mph ) as it passed near or over the French Polynesian islands of Maria and Rimatara . \n At around the same time the NPMOC reported that William , had reached its peak 1 @-@ minute sustained windspeeds of 120 km / h ( 7"
+  }
+]

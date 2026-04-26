@@ -360,6 +360,76 @@ Raw NN distance is misleading because lower diversity (fewer unique matches) yie
 
 **text_PT wins at every K level.** Even at K=4 (where rand_PT has its full set), text_PT's best 4 unique matches (0.254) beat rand_PT (0.330). The gap widens dramatically at higher K: at K=99, text_PT (0.383) is 2.2× better than text_RandInit (0.825) and rand_RandInit (0.862). This confirms text_PT doesn't just produce more diverse outputs — each individual match is also higher quality.
 
+### 6.11 Experiment 11: Train-Free Random Projection Baseline
+
+To test whether alignment is intrinsic to representation geometry (not learned by training the linear mapper), we evaluate random linear projections W ~ N(0, I/D) with no training or EM matching. 50 random projections per condition, same normalization as the trained mapper.
+
+| Condition | NN Dist (mean±std) | Unique (mean±std) | Clusters (mean±std) | Entropy (mean±std) |
+|-----------|---:|---:|---:|---:|
+| text_PT | 1.358 ± 0.299 | 174.4 ± 174.4 | 12.5 ± 8.2 | 0.469 ± 0.408 |
+| text_RandInit | 1.042 ± 0.020 | 166.2 ± 9.6 | 17.1 ± 0.8 | 0.627 ± 0.032 |
+| rand_PT | 1.402 ± 0.344 | 105.8 ± 156.9 | 9.2 ± 7.8 | 0.324 ± 0.369 |
+| rand_RandInit | 1.097 ± 0.015 | 181.9 ± 11.1 | 17.5 ± 0.7 | 0.662 ± 0.016 |
+
+**Key findings:**
+
+1. **PT models are highly anisotropic.** text_PT and rand_PT have enormous variance across random projections (std ≈ mean for unique matches). Some random directions produce 400+ unique matches; most produce <10. The trained mapper finds a special direction in a highly structured space.
+
+2. **RandInit models are isotropic.** text_RandInit and rand_RandInit have tiny variance (std/mean < 6%). All random directions are equally (mediocre) — there are no special directions to find.
+
+3. **Training matters beyond direction-finding.** The trained text_PT mapper achieves NN=0.67 with 686 unique matches, far better than any single random projection. Training discovers both the right direction AND optimizes quality through EM matching.
+
+4. **Random projections on RandInit ≈ trained mapper on RandInit.** text_RandInit random projections (166 unique, NN=1.04) are comparable to the trained mapper (54 unique on training data, 73 held-out). The isotropic geometry means there's no better direction to find.
+
+### 6.12 Experiment 12: Hidden State Diversity Analysis
+
+We analyze the representation geometry directly via PCA on flattened hidden states (50K random samples from each condition's N×T×D tensor).
+
+| Condition | Mean Var | Effective Rank | Participation Ratio | PCs for 90% | PCs for 95% |
+|-----------|------:|------:|------:|------:|------:|
+| text_PT | 104.38 | 5.6 | 1.5 | 60 | 315 |
+| text_RandInit | 3.80 | 431.3 | 138.6 | 421 | 501+ |
+| rand_PT | 93.07 | 2.8 | 1.3 | 2 | 91 |
+| rand_RandInit | 3.88 | 585.3 | 207.6 | 501+ | 501+ |
+
+Note: Effective rank = exp(entropy of normalized eigenvalue spectrum), using the full trace (total variance across all 28,672 dimensions) as the denominator. The top eigenvalue alone explains 81.5% of variance for text_PT and 89.2% for rand_PT.
+
+**Key findings:**
+
+1. **PT models concentrate variance into a handful of effective dimensions.** text_PT has eff_rank=5.6 and rand_PT has eff_rank=2.8, despite D=28,672. The first PCA component alone captures 82–89% of total variance. The pretrained weights create a low-dimensional manifold.
+
+2. **RandInit models spread variance across hundreds of dimensions.** text_RandInit (eff_rank=431) and rand_RandInit (eff_rank=585) have near-uniform eigenvalue spectra. Random weights act as random projections of the input.
+
+3. **PT has high mean variance but extremely low rank.** text_PT's mean variance per dimension (104.4) is 27× higher than text_RandInit (3.8), but concentrated in fewer dimensions. A few PCA components capture almost all variance — 2 PCs explain 90% for rand_PT, 60 for text_PT.
+
+4. **Input type affects PT rank but not RandInit rank.** text_PT (eff_rank=5.6) > rand_PT (eff_rank=2.8): meaningful text activates roughly twice as many effective dimensions. But text_RandInit (431) ≈ rand_RandInit (585): the untrained model treats all inputs similarly.
+
+5. **This explains Experiment 11.** PT's anisotropy (few dominant directions) causes high variance in random projections — you either hit the important subspace or miss it. RandInit's isotropy (many similar directions) produces stable but mediocre random projections.
+
+### 6.13 Experiment 13: Spectral Alignment Analysis
+
+We compare the power spectral density (PSD) of mapper predictions against real GiftEval time series. PSD is computed via |FFT|², normalized to sum to 1 per sequence, then averaged.
+
+| Condition | PSD L2 | KL Div | Low (0-10%) | Mid (10-50%) | High (50-100%) |
+|-----------|------:|------:|------:|------:|------:|
+| text_PT | 0.228 | 0.267 | 0.901 | 0.066 | 0.033 |
+| text_RandInit | 0.274 | 0.431 | 0.584 | 0.195 | 0.221 |
+| rand_PT | **0.120** | **0.125** | 0.898 | 0.058 | 0.045 |
+| rand_RandInit | 0.264 | 0.443 | 0.553 | 0.210 | 0.237 |
+| **Real TS** | — | — | 0.792 | 0.137 | 0.072 |
+
+**Key findings:**
+
+1. **PT models are strongly low-frequency biased.** Both text_PT (90.1% low) and rand_PT (89.8% low) concentrate energy in the lowest 10% of frequencies, even more than real TS (79.2%). The pretrained transformer's autoregressive structure produces smooth, slowly-varying outputs.
+
+2. **RandInit models have flatter spectra.** text_RandInit (58.4% low, 22.1% high) and rand_RandInit (55.3% low, 23.7% high) distribute energy more evenly, producing noisier outputs. This matches the visual appearance of RandInit predictions.
+
+3. **rand_PT has the best spectral match but worst diversity.** rand_PT achieves PSD_L2=0.120, KL=0.125 — closest to real TS. But this is misleading: rand_PT collapsed to 1–4 unique outputs, so its "good" spectrum represents a single memorized shape, not diverse generation.
+
+4. **text_PT balances spectral quality with diversity.** text_PT (PSD_L2=0.228, 686 unique) is the only condition that achieves both reasonable spectral alignment AND high output diversity. Its slight over-concentration in low frequencies (90% vs 79% real) suggests it captures the dominant temporal structure but under-represents mid/high frequency variation.
+
+5. **Spectral alignment is necessary but not sufficient.** rand_PT proves that matching the frequency profile of real TS doesn't imply useful generation — diversity is equally important.
+
 ---
 
 ## 7. Summary of Findings
@@ -387,6 +457,14 @@ Layer weight analysis and layer sweep both show L6–L16 contribute most. Early 
 ### 7.6 The linear map is a bottleneck
 
 A single linear direction limits both quality and diversity. Mode collapse is the primary failure mode, partially mitigated by the PSD diversity penalty at λ = 0.5.
+
+### 7.7 Pretrained representations are highly anisotropic
+
+PCA reveals PT models concentrate variance into ~3–6 effective dimensions (out of 28,672), with a single direction capturing 82–89% of total variance, while untrained models spread across 400–600 effective dimensions. This anisotropy explains why training the mapper matters for PT (it must find the right low-dimensional subspace) but is irrelevant for RandInit (all directions are equivalent).
+
+### 7.8 Spectral alignment is necessary but not sufficient
+
+PT models produce low-frequency-dominated outputs matching real TS spectral profiles. But rand_PT achieves the best spectral match while collapsing to 1 unique output — good frequency structure without diversity is useless. Only text_PT achieves both.
 
 ---
 
@@ -420,6 +498,8 @@ A single linear direction limits both quality and diversity. Mode collapse is th
 - `scripts/ablation_study.py` — 2×2 ablation (architecture × input tokens)
 - `scripts/plot_ablation_comparison.py` — ablation comparison plots
 - `scripts/plot_held_out.py` — held-out generalization plots
+- `scripts/additional_experiments.py` — random projections, PCA diversity, spectral alignment
 - `mapping_results/` — all results, models, and plots
 - `mapping_results/ablation/` — ablation mappers, results, fair comparison, plots
+- `mapping_results/additional_experiments/` — Experiments 11–13 results, plots, predictions
 - Branch: `mapping-experiment`

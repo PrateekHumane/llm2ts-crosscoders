@@ -56,8 +56,21 @@
 - **Goal**: Repeat layer sweep with diversity penalty, see if the layer profile changes
 - **Depends on**: Experiment B results
 
-### Experiment G: Reverse Mapping (TS → Language)
-- **Goal**: Can we go from time series hidden states to language tokens?
-- **Method**: Feed TS through FT/RI, extract hidden states, learn linear map to predict WikiText token sequences
-- **Hypothesis**: PT should do better than RI (PT has language structure). RI should fail (never learned language).
-- **Evaluation**: Token prediction accuracy, perplexity, or NN distance to real WikiText token embeddings
+### Experiment G: Reverse Mapping — What Text Looks Like a Given Time Series?
+
+Two sub-experiments exploring the text↔TS correspondence from the TS side.
+
+#### G1: Text retrieval via trained mapper (PT hidden states)
+- **Goal**: For representative TS from distinct domains, find WikiText passages whose PT hidden states decode (via trained W) into the closest match.
+- **Method**:
+  1. Select ~10 target TS from distinct GiftEval domains (electricity, solar, traffic, weather, covid, births, hydrology, restaurant, hospital, cloud). Pick the most "typical" window per domain (closest to cluster centroid).
+  2. Use saved predictions from 1920 WikiText training sequences (already projected through W).
+  3. For each target TS, find top-5 WikiText sequences by MSE between prediction and target.
+  4. Retrieve and display the actual text of those passages alongside the TS overlay.
+- **Key question**: Is there any semantic connection (temporal language?), or is it purely geometric?
+- **Status**: IN PROGRESS
+
+#### G2: TS through FT/RI — hidden state matching to text
+- **Goal**: Pass TS through FT and RI models (which understand TS tokens), get hidden states, and find which text token sequences produce the most similar hidden states in the same model.
+- **Method**: TBD after G1 results.
+- **Status**: PLANNED

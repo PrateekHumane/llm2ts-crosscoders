@@ -1,0 +1,96 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Setup}{1}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Models}{1}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Data}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Text.}{2}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Time series.}{2}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Random tokens.}{2}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Hidden State Extraction}{2}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Method: Linear Decoding with EM Matching}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Linear Map}{2}{subsection.3.1}\protected@file@percent }
+\newlabel{eq:linear-map}{{4}{2}{Linear Map}{equation.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Output Normalization}{2}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Training Objective}{3}{subsection.3.3}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces EM-Style Training with Diversity Penalty}}{3}{algorithm.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}PSD Diversity Penalty}{3}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:div-penalty}{{3.4}{3}{PSD Diversity Penalty}{subsection.3.4}{}}
+\newlabel{eq:div-penalty}{{7}{3}{PSD Diversity Penalty}{equation.3.7}{}}
+\newlabel{eq:total-loss}{{8}{3}{PSD Diversity Penalty}{equation.3.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Training hyperparameters.}}{4}{table.caption.4}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:hyperparams}{{1}{4}{Training hyperparameters}{table.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Training Details}{4}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Evaluation Metrics}{4}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Nearest Neighbor Distance (NN dist).}{4}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Unique Matches.}{4}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cluster Coverage.}{4}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Match Entropy.}{4}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Top-$K$ Fair Comparison.}{4}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{5}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Pretrained Models Encode Decodable Temporal Structure}{5}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Single-layer (layer 8) NN distance. PT achieves $2.4\times $ lower distance than random vectors.}}{5}{table.caption.10}\protected@file@percent }
+\newlabel{tab:single-layer}{{2}{5}{Single-layer (layer 8) NN distance. PT achieves $2.4\times $ lower distance than random vectors}{table.caption.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Concatenated-layer results with PSD diversity penalty.}}{5}{table.caption.11}\protected@file@percent }
+\newlabel{tab:concat}{{3}{5}{Concatenated-layer results with PSD diversity penalty}{table.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Diversity Requires Both Trained Weights and Meaningful Text}{5}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces $2 \times 2$ ablation results. Only text\_PT achieves high diversity. The low NN distance of rand\_PT is misleading---it reflects mode collapse to 4 unique outputs.}}{5}{table.caption.12}\protected@file@percent }
+\newlabel{tab:ablation}{{4}{5}{$2 \times 2$ ablation results. Only text\_PT achieves high diversity. The low NN distance of rand\_PT is misleading---it reflects mode collapse to 4 unique outputs}{table.caption.12}{}}
+\@writefile{toc}{\contentsline {paragraph}{Generalization.}{6}{section*.13}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Generalization to held-out WikiText. The mapper discovers 760 unique matches on unseen text---more than on training text.}}{6}{table.caption.14}\protected@file@percent }
+\newlabel{tab:generalization}{{5}{6}{Generalization to held-out WikiText. The mapper discovers 760 unique matches on unseen text---more than on training text}{table.caption.14}{}}
+\@writefile{toc}{\contentsline {paragraph}{Fair Top-$K$ Comparison.}{6}{section*.15}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Top-$K$ fair comparison (mean NN dist of best-$K$ unique matches). ``---'' indicates fewer than $K$ unique matches available. text\_PT wins at every $K$ level.}}{6}{table.caption.16}\protected@file@percent }
+\newlabel{tab:topk}{{6}{6}{Top-$K$ fair comparison (mean NN dist of best-$K$ unique matches). ``---'' indicates fewer than $K$ unique matches available. text\_PT wins at every $K$ level}{table.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Best 4 predictions per ablation condition overlaid with their nearest real time series (green). text\_PT (blue, left) tracks the real TS closely across diverse shapes. rand\_PT (green, third column) produces near-identical outputs despite different inputs. RandInit models produce noisy, lower-quality matches.}}{7}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:best4}{{1}{7}{Best 4 predictions per ablation condition overlaid with their nearest real time series (green). text\_PT (blue, left) tracks the real TS closely across diverse shapes. rand\_PT (green, third column) produces near-identical outputs despite different inputs. RandInit models produce noisy, lower-quality matches}{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Best 6 held-out predictions (blue) vs.\ their nearest real time series (green). These sequences were never seen during mapper training, confirming generalization.}}{7}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:heldout}{{4}{7}{Best 6 held-out predictions (blue) vs.\ their nearest real time series (green). These sequences were never seen during mapper training, confirming generalization}{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Prediction quality at different ranks (\#1, \#25, \#50, \#100 best match) per ablation condition. text\_PT maintains good alignment even at rank \#100. rand\_PT has only 1 unique match (rows 2--4 blank).}}{8}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:quality-levels}{{2}{8}{Prediction quality at different ranks (\#1, \#25, \#50, \#100 best match) per ablation condition. text\_PT maintains good alignment even at rank \#100. rand\_PT has only 1 unique match (rows 2--4 blank)}{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Representation Geometry}{8}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Random Projection Baseline}{8}{subsection.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Random projection baseline (mean $\pm $ std over 50 projections). PT models show enormous variance across projections; RandInit models are stable.}}{8}{table.caption.21}\protected@file@percent }
+\newlabel{tab:random-proj}{{7}{8}{Random projection baseline (mean $\pm $ std over 50 projections). PT models show enormous variance across projections; RandInit models are stable}{table.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces 50 random predictions overlaid per condition. text\_PT (top-left) shows rich waveform diversity. rand\_PT (bottom-left) collapses to a single shape. RandInit models (right column) show noisy but structurally limited variation.}}{9}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:diversity}{{3}{9}{50 random predictions overlaid per condition. text\_PT (top-left) shows rich waveform diversity. rand\_PT (bottom-left) collapses to a single shape. RandInit models (right column) show noisy but structurally limited variation}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}PCA Analysis}{9}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Effective rank.}{9}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Participation ratio.}{9}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cumulative variance.}{9}{section*.24}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Hidden state geometry. PT models concentrate variance into $\sim $3--6 effective dimensions; RandInit models spread across 400--600. ``90\%'' / ``95\%'' = number of PCs for that cumulative variance.}}{9}{table.caption.25}\protected@file@percent }
+\newlabel{tab:pca}{{8}{9}{Hidden state geometry. PT models concentrate variance into $\sim $3--6 effective dimensions; RandInit models spread across 400--600. ``90\%'' / ``95\%'' = number of PCs for that cumulative variance}{table.caption.25}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces PCA eigenvalue spectrum (top 100 components). Left: linear scale showing the extreme first eigenvalue of PT models. Right: log scale revealing the spectral structure across all conditions.}}{10}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:pca}{{5}{10}{PCA eigenvalue spectrum (top 100 components). Left: linear scale showing the extreme first eigenvalue of PT models. Right: log scale revealing the spectral structure across all conditions}{figure.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Cumulative variance explained. PT models reach 90\% with 2--60 components; RandInit models require 420+ components and still don't reach 95\% within 500.}}{10}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:cumvar}{{6}{10}{Cumulative variance explained. PT models reach 90\% with 2--60 components; RandInit models require 420+ components and still don't reach 95\% within 500}{figure.caption.27}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Interpretation}{10}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Spectral Properties}{11}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Power Spectrum Comparison}{11}{subsection.7.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Spectral alignment. PT models concentrate energy in low frequencies, closely matching real TS. RandInit models produce spectrally flat (noisy) outputs.}}{11}{table.caption.28}\protected@file@percent }
+\newlabel{tab:spectral}{{9}{11}{Spectral alignment. PT models concentrate energy in low frequencies, closely matching real TS. RandInit models produce spectrally flat (noisy) outputs}{table.caption.28}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Mean PSD: predictions vs.\ real TS. Left: linear scale. Right: log scale. PT models (blue, green) match the low-frequency dominance of real TS (black). RandInit models (orange, pink) are spectrally flat.}}{11}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:psd}{{7}{11}{Mean PSD: predictions vs.\ real TS. Left: linear scale. Right: log scale. PT models (blue, green) match the low-frequency dominance of real TS (black). RandInit models (orange, pink) are spectrally flat}{figure.caption.29}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Energy distribution across frequency bands for each condition and real TS.}}{12}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:freq-bands}{{8}{12}{Energy distribution across frequency bands for each condition and real TS}{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Interpretation}{12}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Synthesis}{12}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Mechanism}{12}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Why Each Component Is Necessary}{12}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Failure Modes}{12}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{13}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Additional Training Details}{13}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Infrastructure.}{13}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Hidden state storage.}{13}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Seed stability.}{13}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Additional Results}{15}{appendix.B}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Quality grid for text\_PT: best, middle, and worst predictions (left) vs.\ their nearest real time series (right). Even mid-quality predictions capture the broad temporal shape.}}{15}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:quality-grid}{{9}{15}{Quality grid for text\_PT: best, middle, and worst predictions (left) vs.\ their nearest real time series (right). Even mid-quality predictions capture the broad temporal shape}{figure.caption.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Training (left) vs.\ held-out (right) prediction diversity for text\_PT. Both show similar waveform variety, confirming generalization.}}{16}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:train-held}{{10}{16}{Training (left) vs.\ held-out (right) prediction diversity for text\_PT. Both show similar waveform variety, confirming generalization}{figure.caption.35}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Summary of ablation study: diversity (unique matches), quality (dedup NN distance), and cluster coverage across all four conditions.}}{16}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:ablation-summary}{{11}{16}{Summary of ablation study: diversity (unique matches), quality (dedup NN distance), and cluster coverage across all four conditions}{figure.caption.36}{}}
+\gdef \@abspage@last{16}

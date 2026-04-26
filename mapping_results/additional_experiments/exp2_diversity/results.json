@@ -1,0 +1,38 @@
+{
+  "text_PT": {
+    "mean_var": 104.37908172607422,
+    "median_var": 1.1241486072540283,
+    "eff_rank": 5.6,
+    "participation_ratio": 1.5,
+    "cum_var_90": 60,
+    "cum_var_95": 315,
+    "cum_var_99": 501
+  },
+  "text_RandInit": {
+    "mean_var": 3.802436351776123,
+    "median_var": 3.6476242542266846,
+    "eff_rank": 431.3,
+    "participation_ratio": 138.6,
+    "cum_var_90": 421,
+    "cum_var_95": 501,
+    "cum_var_99": 501
+  },
+  "rand_PT": {
+    "mean_var": 93.06563568115234,
+    "median_var": 0.6595326662063599,
+    "eff_rank": 2.8,
+    "participation_ratio": 1.3,
+    "cum_var_90": 2,
+    "cum_var_95": 91,
+    "cum_var_99": 501
+  },
+  "rand_RandInit": {
+    "mean_var": 3.8836305141448975,
+    "median_var": 3.737612009048462,
+    "eff_rank": 585.3,
+    "participation_ratio": 207.6,
+    "cum_var_90": 501,
+    "cum_var_95": 501,
+    "cum_var_99": 501
+  }
+}

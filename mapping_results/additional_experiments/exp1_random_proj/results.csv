@@ -1,0 +1,5 @@
+Condition,NN Dist (mean),NN Dist (std),Unique (mean),Unique (std),Clusters (mean),Clusters (std),Entropy (mean),Entropy (std)
+text_PT,1.3575,0.2987,174.4,174.4,12.5,8.2,0.4686,0.4084
+text_RandInit,1.0417,0.0202,166.2,9.6,17.1,0.8,0.6270,0.0318
+rand_PT,1.4024,0.3444,105.8,156.9,9.2,7.8,0.3244,0.3688
+rand_RandInit,1.0966,0.0152,181.9,11.1,17.5,0.7,0.6622,0.0160
