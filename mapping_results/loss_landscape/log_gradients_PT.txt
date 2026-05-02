@@ -1,0 +1,36 @@
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 10191.80it/s]
+Loaded 50 TS sequences
+
+============================================================
+PER-EXAMPLE GRADIENTS: PT
+============================================================
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  59%|█████▉    | 185/311 [00:00<00:00, 1848.54it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2222.38it/s]
+/workspace/llm2ts-crosscoders/scripts/landscape_spectrum.py:211: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batch = torch.tensor(ts_windows[ei:ei+1], dtype=torch.long, device=device)
+    example 10/30
+    example 20/30
+    example 30/30
+  Pairwise cosine: mean=0.5796 std=0.1415
+  Gradient norm: mean=21.433977
+  Mean gradient norm: 16.443825
+  SNR (||mean_grad|| / ||noise||): 1.1558
+  Var ratio along mean: 0.0894
+Traceback (most recent call last):
+  File "/workspace/llm2ts-crosscoders/scripts/landscape_spectrum.py", line 414, in <module>
+    main()
+  File "/workspace/llm2ts-crosscoders/scripts/landscape_spectrum.py", line 408, in main
+    run_gradients("PT", device, ts_windows)
+  File "/workspace/llm2ts-crosscoders/scripts/landscape_spectrum.py", line 274, in run_gradients
+    json.dump(result, f, indent=2)
+  File "/usr/lib/python3.12/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.12/json/encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/usr/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/usr/lib/python3.12/json/encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type float32 is not JSON serializable

@@ -1,0 +1,7 @@
+{
+  "pairwise_cosine_mean": 0.0408,
+  "pairwise_cosine_std": 0.0596,
+  "snr": 0.2807,
+  "var_ratio_along_mean": 0.0091,
+  "n_examples": 30
+}

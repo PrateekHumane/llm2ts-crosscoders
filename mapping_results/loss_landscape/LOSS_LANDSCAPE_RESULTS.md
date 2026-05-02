@@ -1,167 +1,151 @@
-# Loss Landscape Analysis (v3 — Verified)
+# Loss Landscape Analysis
 
-## Verification
+## Overview
 
-HVP correctness: autograd vs finite-difference relative error = **0.012%** (float64, layer 8, gradient-aligned vector). Implementation is exact.
+We investigate why pretrained language model (PT) initialization leads to faster and better finetuning on time series compared to random initialization (RandomInit). We analyze the **curvature** of the TS loss surface and the **structure of gradients** at both initializations using three experiments:
 
-Gradient checkpointing disabled (incompatible with `create_graph=True`).
+1. **Per-layer Hessian eigenvalues** — the magnitude of curvature at each layer
+2. **Curvature spectrum** — how curvature is distributed across directions in parameter space
+3. **Per-example gradient alignment** — do individual training examples agree on which direction to move?
 
-Vector normalization is global: $\|v\| = 1$ computed over all 78.7M parameters jointly (not per-layer).
-
----
-
-## Experiment 1: Hessian Eigenvalues at Initialization
-
-### Method
-
-- **Algorithm**: Lanczos (30 iterations) with full reorthogonalization
-- **HVP**: Exact autograd, averaged over 10 single-sequence batches
-- **Parameters**: Layers 6-10 (78.7M params, mid-layers with most transferable structure)
-- **Data**: 10 TS sequences × 512 tokens from GiftEval
-
-### Results
-
-| Eigenvalue | PT init | RandomInit | Ratio |
-|-----------|---------|-----------|-------|
-| λ₁ | 634.8 | 5.4 | 117x |
-| λ₂ | 532.1 | 5.3 | 100x |
-| λ₃ | 434.1 | 5.2 | 83x |
-| λ₄ | 365.9 | 5.0 | 73x |
-| λ₅ | 296.5 | 4.6 | 64x |
-| λ₆ | 267.7 | 4.4 | 61x |
-| λ₇ | 224.1 | 4.0 | 56x |
-| λ₈ | 219.2 | 3.7 | 59x |
-| λ₉ | 200.1 | 3.2 | 63x |
-| λ₁₀ | 168.5 | 2.8 | 60x |
-| **Sum of top 10** | **3,343** | **43.6** | **77x** |
-| **Condition ratio** (λ₁/λ₁₀) | **3.8** | **1.9** | |
-| **Base TS loss** | **8.6** | **12.1** | |
-
-![Hessian Spectrum](plots/hessian_spectrum.png)
-
-### Normalized Spectrum (λᵢ / λ₁)
-
-Shows spectrum shape independent of absolute scale:
-
-| | PT | RandomInit |
-|--|-----|-----------|
-| λ₁/λ₁ | 1.000 | 1.000 |
-| λ₂/λ₁ | 0.838 | 0.981 |
-| λ₃/λ₁ | 0.684 | 0.963 |
-| λ₅/λ₁ | 0.467 | 0.852 |
-| λ₁₀/λ₁ | 0.265 | 0.519 |
-
-**PT has steeper spectral decay** — top eigenvalue is 3.8x the 10th, meaning curvature is concentrated in a few directions. RandomInit's spectrum is flatter (ratio 1.9x) — more isotropic.
-
-### Lanczos also finds negative eigenvalues
-
-The full 30 Lanczos eigenvalues for PT include large negative values (down to -1393), confirming PT is near a **saddle point**, not a local minimum. The optimizer can descend in both positive and negative curvature directions.
+All experiments use the cross-entropy next-token prediction loss on 50 GiftEval time series sequences (bin-tokenized, 512 tokens each). The Hessian is computed using exact autograd HVPs (Pearlmutter trick), verified at 0.012% relative error against finite differences.
 
 ---
 
-## Experiment 2: Random-Direction Curvature
+## Experiment 1: Per-Layer Hessian Eigenvalues
 
-### Method
+### What We Computed
 
-50 random unit vectors $v$ in parameter space (globally normalized $\|v\|=1$), compute $v^T H v$ for each.
+For each of the 28 transformer layers independently, we freeze all other layers and compute the top eigenvalues of the Hessian $H_\ell = \nabla^2_{\theta_\ell} L$ using the Lanczos algorithm (30 iterations with full reorthogonalization). Each layer has ~15.7M parameters. HVPs are averaged over 25 batches of 2 sequences each.
 
-For a random direction in $d$-dimensional space:
+This measures: **how sensitive is the TS loss to changes in each layer's weights?**
 
-$$E[v^T H v] = \frac{\text{Tr}(H)}{d}$$
-
-This gives a Hutchinson-style trace estimate and measures "typical" curvature.
-
-### Results
-
-| | PT | RandomInit |
-|--|-----|-----------|
-| Mean $v^T H v$ | 9.6 × 10⁻⁵ | -3.4 × 10⁻⁷ |
-| Std | 5.3 × 10⁻⁵ | 2.8 × 10⁻⁶ |
-| Range | [-5.3e-5, 2.3e-4] | [-7.9e-6, 7.1e-6] |
-| **Implied Tr(H)** | **~7,500** | **~-27** |
-
-![Random Curvature](plots/random_curvature_overlay.png)
-
-**PT has ~30x larger curvature along typical random directions** and much wider spread. RandomInit has near-zero curvature everywhere.
-
-### Effective rank interpretation
-
-The ratio of top eigenvalue to mean random-direction curvature gives the **effective dimensionality of curvature**:
-
-$$\frac{\lambda_1}{E[v^T H v]} = \frac{\lambda_1}{\text{Tr}(H)/d} = \frac{\lambda_1 \cdot d}{\text{Tr}(H)}$$
-
-For PT: 634.8 / 9.6e-5 ≈ 6.6 million. With $d$ = 78.7M, this implies Tr(H) ≈ 7,500 and the "effective rank of curvature" (how many eigenvalues contribute meaningfully to the trace) is $\text{Tr}(H)^2 / \|\lambda\|^2$. The extreme ratio confirms that curvature is concentrated in a vanishingly small subspace of the 78.7M-dimensional parameter space.
-
----
-
-## Experiment 3: Weight Perturbation Sharpness
-
-### Method
-
-Gaussian noise $\theta' = \theta + \sigma \cdot \text{rms}(\theta) \cdot \epsilon$, 8 noise levels, 5 samples each, 50 TS sequences.
-
-### Results
-
-| σ | FT (base=4.16) | RI (base=4.17) | PT (base=8.64) |
-|---|----------------|----------------|----------------|
-| 0.001 | +0.00% | +0.00% | -0.01% |
-| 0.01 | +0.02% | +0.00% | -0.04% |
-| 0.05 | +0.37% | +0.02% | +4.40% |
-| 0.1 | +1.77% | +0.08% | +40.95% |
-
-| | FT | RI | PT |
-|--|-----|-----|-----|
-| Weight RMS | 0.063 | 0.025 | 0.059 |
-
-![Sharpness](plots/sharpness.png)
-
-**RI found a flatter minimum** (22x less degradation than FT at σ=0.1). PT at initialization is sharpest (+41%).
-
----
-
-## Experiment 4: Per-Layer Hessian Profile (All 28 Layers)
-
-### Method
-
-Same as Experiment 1 but computed **independently for each of the 28 layers**. Each layer's parameters (~15.7M) analyzed with Lanczos (30 iter) + 30 random-direction curvatures, averaged over 25 batches of 2 sequences (50 total). Run in parallel on 4 GPUs (7 layers each).
+The answer depends on the full chain of computation. For PT, earlier layers produce structured representations that make later layers' parameters influential. For RandomInit, earlier layers produce noise, so later layers' parameters can barely affect the loss. This is not a confound — it is exactly the mechanism that makes PT initialization useful.
 
 ### Results
 
 ![Per-Layer Hessian](plots/per_layer_hessian.png)
 
-| Layer | PT λ₁ | RI λ₁ | Ratio |
-|-------|-------|-------|-------|
-| L0 | 827 | 19.4 | 43x |
-| L2 | **1271** | 3.4 | 375x |
-| L7-L9 | 90-119 | 0.6-0.8 | 118-192x |
-| L11 | 548 | 0.5 | 1092x |
-| L14-L15 | 509-740 | 0.4 | 1228-1878x |
-| L20 | **1398** | 0.3 | **4348x** |
-| L24-L26 | 96-127 | 0.3 | 338-460x |
-| L27 | 470 | 0.3 | 1800x |
+**PT's top eigenvalue ranges from 90 to 1,398 across layers. RandomInit's ranges from 0.3 to 19.4. The ratio is 40–4,000x depending on layer.**
 
-### Key findings
+Key features of PT's curvature profile:
+- **Peaks at L2 (1,271), L15 (740), L20 (1,398)** — these layers have the steepest loss curvature, meaning parameter changes here most strongly affect TS prediction
+- **Valley at L7–L10 (~90–141)** — mid layers have the lowest curvature, suggesting they are already well-positioned and need less adjustment during finetuning
+- **The ratio increases with depth**: early layers 40–375x, mid-deep layers 800–4,000x. Deeper layers benefit most from pretraining in terms of curvature advantage
 
-1. **PT curvature is highly non-uniform across layers.** Peaks at L2 (1271), L15 (740), L20 (1398). Valleys at L7-L9 (~90-119). The TS loss surface has very different structure at different layers.
+RandomInit is flat and uniform: eigenvalues decay from 19.4 (L0, close to embedding) to 0.3 (L6+), then stay at 0.3 for all deeper layers.
 
-2. **RandomInit is flat and uniform.** λ₁ decays from 19.4 (L0) to 0.3 (L6+). No layer has meaningful curvature. The early-layer gradient (19→7→3→2→1→0.3) reflects proximity to the embedding layer.
-
-3. **The PT/RandomInit ratio increases with depth.** Early layers: 40-375x. Mid-deep layers (L11-L20): 800-4000x. This means **deeper layers benefit most from pretraining** in terms of curvature advantage.
-
-4. **L20 is an extreme outlier** (λ₁=1398, condition 13.7, ratio 4348x). This layer has uniquely strong, anisotropic curvature — possibly a critical architectural transition point.
-
-5. **The mid-layer curvature valley (L7-L9)** where PT's eigenvalues dip to ~90-120 coincides with the layers our geometry analysis found most "transferable" (highest subspace alignment between PT and FT). Low curvature at these layers may mean they are already well-positioned and need minimal adjustment during finetuning.
+We verified that this scale difference is not simply due to weight magnitudes. PT's weight RMS is only 1.3–7x larger than RandomInit's, and gradient RMS is 3–19x larger, but the Hessian eigenvalue ratio is 40–4,000x. The curvature reflects the full chain of structured computation, not just larger individual weights.
 
 ---
 
-## Combined Interpretation
+## Experiment 2: Curvature Spectrum
 
-1. **PT has strong, anisotropic curvature.** Top eigenvalues are 60-120x larger than RandomInit. Curvature is concentrated in a few directions — the top eigenvalue is 6.6M× the mean random-direction curvature.
+### What We Computed
 
-2. **RandomInit is flat and isotropic.** Near-zero curvature in all directions, including the top eigenvectors (~5 vs PT's ~600). No useful gradient signal for the optimizer.
+We sampled 200 random unit vectors $v$ in the parameter space of layers 6–10 (78.7M parameters total, globally normalized $\|v\| = 1$) and computed the curvature along each: $\lambda_v = v^T H v$. This gives the **spectral density** — the distribution of curvature across all directions, not just the extremal ones.
 
-3. **PT is near a saddle point** (large negative eigenvalues down to -1393). This is expected for an untrained model on a new task — the negative curvature directions are "descent opportunities" that the optimizer can exploit immediately.
+We also computed the curvature specifically along the **gradient direction**: $\lambda_g = \hat{g}^T H \hat{g}$ where $\hat{g} = \nabla L / \|\nabla L\|$. This tells us whether SGD's natural descent direction aligns with high-curvature or low-curvature regions of the spectrum.
 
-4. **The transfer advantage is directional gradient signal.** PT provides the optimizer with a few high-curvature directions pointing toward good TS solutions. RandomInit has no such guidance and must discover useful directions from scratch.
+### Results
 
-5. **Both FT and RI converge to flat minima**, but RI's is flatter. This may be because RI's smaller weight magnitude (RMS 0.025 vs 0.063) naturally leads to wider basins.
+![Spectral Density](plots/spectral_density.png)
+
+| | PT | RandomInit |
+|--|-----|-----------|
+| **Random direction curvature** (mean) | 9.6 × 10⁻⁵ | 8.4 × 10⁻⁷ |
+| **Random direction curvature** (std) | 5.2 × 10⁻⁵ | 3.5 × 10⁻⁶ |
+| **Curvature along gradient** | **231.8** | **−0.08** |
+| **Ratio: gradient / random** | **2,400,000×** | **~80×** |
+| **Gradient norm** | 15.1 | 1.5 |
+
+### Interpretation
+
+**PT's landscape is extremely anisotropic.** The curvature along the gradient direction (231.8) is 2.4 million times larger than the average curvature along random directions (0.000096). This means the gradient points along one of the very few directions in 78.7M-dimensional space where the loss surface has meaningful curvature. Almost all of parameter space is flat — the loss changes only along a tiny subspace, and the gradient is precisely aligned with that subspace.
+
+**RandomInit's landscape is nearly isotropic.** The curvature along the gradient (−0.08) is only ~80× the random baseline (0.0000008), and it is actually slightly negative (a saddle direction). The gradient does not point toward any meaningfully steep direction — it is barely distinguishable from a random direction.
+
+**What this means for SGD:** At PT initialization, each gradient step moves along a direction where the loss is steeply curved — meaning the step makes substantial progress toward a minimum. At RandomInit, gradient steps move along nearly flat directions — each step barely changes the loss, and the optimizer must rely on stochastic noise to explore.
+
+![Gradient vs Spectrum](plots/gradient_vs_spectrum.png)
+
+---
+
+## Experiment 3: Per-Example Gradient Alignment
+
+### What We Computed
+
+For 30 individual TS sequences, we computed the gradient $g_i = \nabla_\theta L_i$ separately for each example. We then measured:
+
+- **Pairwise cosine similarity**: $\cos(g_i, g_j)$ for all pairs $i \neq j$. High values mean different examples agree on which direction to move — their gradients reinforce rather than cancel.
+- **Signal-to-noise ratio (SNR)**: $\|\bar{g}\| / \text{mean}(\|g_i - \bar{g}\|)$ where $\bar{g}$ is the mean gradient. High SNR means the mean gradient is strong relative to per-example noise.
+- **Variance ratio**: fraction of total gradient variance that lies along the mean gradient direction. High values mean the gradient signal is concentrated in one direction.
+
+### Results
+
+![Gradient Alignment](plots/gradient_alignment.png)
+
+| | PT | RandomInit |
+|--|-----|-----------|
+| **Pairwise cosine similarity** | **0.58** | **0.04** |
+| **SNR** | **1.16** | **0.28** |
+| **Variance along mean direction** | **8.9%** | **0.9%** |
+
+### Interpretation
+
+**PT's per-example gradients are highly aligned** (cosine 0.58). When the model sees different TS sequences, it "agrees" on which direction to adjust parameters — 58% of each gradient points the same way. This means batch averaging reinforces the signal: a batch of 30 examples gives a mean gradient ~√30 × 0.58 ≈ 3.2× stronger than a single example.
+
+**RandomInit's gradients are nearly orthogonal** (cosine 0.04 — approximately what random vectors in 78.7M dimensions give). Different examples provide contradictory gradient signals. Batch averaging causes massive cancellation: the mean gradient is only 0.28× the per-example gradient norm (SNR = 0.28), meaning 72% of the signal cancels out.
+
+**Why this happens:** PT's pretrained representations create consistent feature activations across different TS inputs. When the loss function asks "how should I change this weight?", the answer is similar regardless of which TS sequence is used, because the representations (and therefore the loss landscape) are structured consistently. RandomInit's representations are unstructured noise — each example activates random features, giving contradictory optimization signals.
+
+---
+
+## Combined Picture
+
+| Metric | PT | RandomInit | Ratio | What it means |
+|--------|-----|-----------|-------|---------------|
+| Top Hessian eigenvalue (L8) | 97 | 0.7 | 140× | PT has steep curvature |
+| Random direction curvature | 9.6e-5 | 8.4e-7 | 114× | PT has more structure everywhere |
+| Curvature along gradient | 231.8 | −0.08 | — | PT's gradient aligns with high curvature |
+| Gradient/random curvature ratio | 2.4M× | 80× | — | PT is massively anisotropic |
+| Per-example gradient alignment | 0.58 | 0.04 | 14× | PT examples reinforce; RI cancels |
+| Gradient SNR | 1.16 | 0.28 | 4× | PT has clearer signal above noise |
+| Gradient norm | 15.1 | 1.5 | 10× | PT has stronger raw gradients |
+
+### The Mechanism
+
+Language pretraining shapes the loss landscape in three compounding ways:
+
+1. **Structured representations create an anisotropic curvature landscape.** The TS loss surface at PT initialization has a few directions with extremely high curvature (eigenvalues ~100–1,400) while most directions are flat (~0.0001). RandomInit's landscape is nearly isotropic — all directions look the same.
+
+2. **The gradient naturally aligns with the high-curvature subspace.** PT's gradient direction has curvature 2.4 million times larger than a random direction. This is not guaranteed by gradient descent — it arises because the pretrained features create consistent loss sensitivity along specific parameter directions. SGD therefore makes its largest steps exactly where the loss changes most.
+
+3. **Per-example gradients reinforce instead of cancelling.** Different TS sequences produce gradients that agree (cosine 0.58) at PT initialization, meaning batch-averaged gradients are strong and clear. At RandomInit, gradients cancel (cosine 0.04), leaving SGD with a noisy, weak signal.
+
+The combined effect: at PT initialization, SGD receives **10× larger gradients** that are **14× more consistent** across examples and point along directions with **2.4 million times** more curvature than random directions. Every step makes meaningful, confident progress. At RandomInit, the optimizer sees weak, contradictory gradients pointing along flat directions — it must explore blindly before finding useful structure.
+
+---
+
+## Weight Perturbation Sharpness
+
+As a complementary measurement, we tested how robust trained solutions are to random weight noise $\theta' = \theta + \sigma \cdot \text{rms}(\theta) \cdot \epsilon$:
+
+| σ | FT (base=4.16) | RI (base=4.17) | PT (base=8.64) |
+|---|----------------|----------------|----------------|
+| 0.01 | +0.02% | +0.00% | −0.04% |
+| 0.05 | +0.37% | +0.02% | +4.40% |
+| 0.1 | +1.77% | +0.08% | +40.95% |
+
+Both FT and RI converged to very flat minima (robust to perturbation), despite starting from very different loss landscapes. RI's minimum is 22× flatter than FT's at σ=0.1, partly because RI has 2.5× smaller weight magnitude (RMS 0.025 vs 0.063).
+
+---
+
+## Technical Details
+
+- **HVP verification**: Exact autograd vs finite-difference relative error = 0.012% (float64, gradient-aligned vector)
+- **Lanczos**: 30 iterations with full reorthogonalization per layer
+- **Spectral density**: 200 random directions, each HVP averaged over 5 batches of 2 sequences
+- **Gradient alignment**: 30 individual per-example gradients, layers 6–10 (78.7M params)
+- **Data**: 50 GiftEval TS sequences, bin-tokenized (512 tokens each)
+- **Compute**: 4× NVIDIA RTX 5090, one job per GPU

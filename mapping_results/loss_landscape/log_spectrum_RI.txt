@@ -1,0 +1,18 @@
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 12109.67it/s]
+Loaded 50 TS sequences
+
+============================================================
+EIGENSPECTRUM: RandomInit
+============================================================
+  Params: 78.7M from layers [6, 7, 8, 9, 10]
+/workspace/llm2ts-crosscoders/scripts/landscape_spectrum.py:107: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batches = [torch.tensor(ts_windows[i:i+2], dtype=torch.long, device=device)
+    dir 50/200: mean=0.000001 std=0.000003 (77s)
+    dir 100/200: mean=0.000001 std=0.000003 (154s)
+    dir 150/200: mean=0.000001 std=0.000004 (230s)
+    dir 200/200: mean=0.000001 std=0.000003 (305s)
+  Computing mean gradient...
+  Spectrum: mean=0.000001 std=0.000003 median=0.000001
+  Gradient norm: 1.463409
+  Curvature along gradient: -0.0784
+  Implied trace: 66.1
