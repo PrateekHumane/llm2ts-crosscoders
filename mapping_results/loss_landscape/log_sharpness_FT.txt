@@ -1,0 +1,14 @@
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 13975.42it/s]
+FT: Loading...
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 4078.31it/s]
+  Base loss: 4.1647, RMS weight: 0.0626
+  σ=0.0001: loss=4.1646 (-0.0%)
+  σ=0.0005: loss=4.1646 (-0.0%)
+  σ=0.0010: loss=4.1646 (-0.0%)
+  σ=0.0050: loss=4.1648 (+0.0%)
+  σ=0.0100: loss=4.1655 (+0.0%)
+  σ=0.0200: loss=4.1679 (+0.1%)
+  σ=0.0500: loss=4.1800 (+0.4%)
+  σ=0.1000: loss=4.2386 (+1.8%)
+
+Saved to mapping_results/loss_landscape/sharpness_FT.json

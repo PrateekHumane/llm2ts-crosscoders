@@ -1,0 +1,61 @@
+Loading TS data (50 sequences)...
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 12683.66it/s]
+  Got 50 sequences
+  25 batches of 2
+
+============================================================
+MODEL: PT | Layers 0-6
+============================================================
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   1%|          | 2/311 [00:00<00:17, 18.17it/s]Loading weights:  57%|█████▋    | 178/311 [00:00<00:00, 890.71it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 984.37it/s]
+
+  Layer 0:
+    params=15.7M  λ₁=826.6  cond=5.0  rand_curv=-0.000098  trace≈-1544.1  (597s)
+
+  Layer 1:
+    params=15.7M  λ₁=278.9  cond=3.6  rand_curv=-0.000055  trace≈-861.5  (565s)
+
+  Layer 2:
+    params=15.7M  λ₁=1271.1  cond=2.7  rand_curv=0.000986  trace≈15512.0  (554s)
+
+  Layer 3:
+    params=15.7M  λ₁=237.4  cond=4.1  rand_curv=0.000035  trace≈556.0  (534s)
+
+  Layer 4:
+    params=15.7M  λ₁=171.0  cond=3.5  rand_curv=0.000070  trace≈1095.4  (499s)
+
+  Layer 5:
+    params=15.7M  λ₁=204.3  cond=4.5  rand_curv=0.000086  trace≈1350.5  (475s)
+
+  Layer 6:
+    params=15.7M  λ₁=361.2  cond=6.1  rand_curv=0.000221  trace≈3472.6  (447s)
+
+  Saved to mapping_results/loss_landscape/per_layer_PT_L0-6.json
+
+============================================================
+MODEL: RandomInit | Layers 0-6
+============================================================
+
+  Layer 0:
+    params=15.7M  λ₁=19.4  cond=2.2  rand_curv=-0.000011  trace≈-175.1  (549s)
+
+  Layer 1:
+    params=15.7M  λ₁=6.9  cond=2.2  rand_curv=-0.000007  trace≈-105.4  (518s)
+
+  Layer 2:
+    params=15.7M  λ₁=3.4  cond=2.2  rand_curv=-0.000002  trace≈-31.5  (494s)
+
+  Layer 3:
+    params=15.7M  λ₁=2.1  cond=2.1  rand_curv=-0.000002  trace≈-24.5  (461s)
+
+  Layer 4:
+    params=15.7M  λ₁=1.4  cond=1.9  rand_curv=-0.000000  trace≈-4.8  (427s)
+
+  Layer 5:
+    params=15.7M  λ₁=1.1  cond=2.1  rand_curv=-0.000001  trace≈-12.8  (406s)
+
+  Layer 6:
+    params=15.7M  λ₁=0.9  cond=2.1  rand_curv=-0.000001  trace≈-23.2  (397s)
+
+  Saved to mapping_results/loss_landscape/per_layer_RandomInit_L0-6.json
+
+Done!

@@ -1,0 +1,20 @@
+Loading TS data...
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 14906.04it/s]
+/workspace/llm2ts-crosscoders/scripts/loss_landscape_hessian.py:172: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batches = [torch.tensor(hessian_windows[i:i+HESSIAN_BS], dtype=torch.long, device=device)
+
+PT: Loading model...
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  36%|███▌      | 112/311 [00:00<00:00, 1110.08it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1905.44it/s]
+  Base loss: 8.6357
+    Hessian over 55 param tensors (78.7M params) from layers [6, 7, 8, 9, 10]
+    Lanczos: 30 iterations...
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+      iter 5: top eigs = ['544.21', '86.06', '-0.00', '-262.21', '-1393.01'] (14s)
+      iter 10: top eigs = ['634.67', '530.45', '358.37', '186.39', '24.58'] (27s)
+      iter 15: top eigs = ['634.77', '532.14', '430.43', '365.23', '259.76'] (41s)
+      iter 20: top eigs = ['634.77', '532.14', '434.13', '365.89', '295.80'] (54s)
+      iter 25: top eigs = ['634.77', '532.14', '434.13', '365.89', '296.52'] (68s)
+      iter 30: top eigs = ['634.77', '532.14', '434.13', '365.89', '296.52'] (81s)
+    Done (81s): top-10 = ['634.77', '532.14', '434.13', '365.89', '296.52', '267.67', '224.10', '219.17', '200.11', '168.46']
+
+Saved to mapping_results/loss_landscape/hessian_PT.json

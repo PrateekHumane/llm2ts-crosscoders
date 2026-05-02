@@ -1,0 +1,61 @@
+Loading TS data (50 sequences)...
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 13751.82it/s]
+  Got 50 sequences
+  25 batches of 2
+
+============================================================
+MODEL: PT | Layers 7-13
+============================================================
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  15%|█▌        | 48/311 [00:00<00:00, 474.70it/s]Loading weights:  71%|███████▏  | 222/311 [00:00<00:00, 1204.19it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1329.56it/s]
+
+  Layer 7:
+    params=15.7M  λ₁=90.0  cond=2.6  rand_curv=0.000078  trace≈1228.1  (458s)
+
+  Layer 8:
+    params=15.7M  λ₁=96.9  cond=2.6  rand_curv=0.000139  trace≈2192.1  (436s)
+
+  Layer 9:
+    params=15.7M  λ₁=119.4  cond=2.6  rand_curv=0.000010  trace≈151.8  (422s)
+
+  Layer 10:
+    params=15.7M  λ₁=141.1  cond=3.0  rand_curv=0.000083  trace≈1302.4  (398s)
+
+  Layer 11:
+    params=15.7M  λ₁=548.2  cond=6.2  rand_curv=0.000288  trace≈4530.0  (377s)
+
+  Layer 12:
+    params=15.7M  λ₁=157.2  cond=3.6  rand_curv=0.000119  trace≈1873.5  (361s)
+
+  Layer 13:
+    params=15.7M  λ₁=356.6  cond=3.8  rand_curv=0.000201  trace≈3163.4  (335s)
+
+  Saved to mapping_results/loss_landscape/per_layer_PT_L7-13.json
+
+============================================================
+MODEL: RandomInit | Layers 7-13
+============================================================
+
+  Layer 7:
+    params=15.7M  λ₁=0.8  cond=2.1  rand_curv=-0.000001  trace≈-16.8  (446s)
+
+  Layer 8:
+    params=15.7M  λ₁=0.7  cond=2.2  rand_curv=-0.000001  trace≈-17.8  (424s)
+
+  Layer 9:
+    params=15.7M  λ₁=0.6  cond=2.1  rand_curv=-0.000001  trace≈-20.6  (403s)
+
+  Layer 10:
+    params=15.7M  λ₁=0.6  cond=2.1  rand_curv=-0.000001  trace≈-14.9  (363s)
+
+  Layer 11:
+    params=15.7M  λ₁=0.5  cond=2.2  rand_curv=-0.000001  trace≈-8.9  (353s)
+
+  Layer 12:
+    params=15.7M  λ₁=0.5  cond=2.2  rand_curv=-0.000001  trace≈-9.9  (333s)
+
+  Layer 13:
+    params=15.7M  λ₁=0.4  cond=2.1  rand_curv=-0.000001  trace≈-12.5  (317s)
+
+  Saved to mapping_results/loss_landscape/per_layer_RandomInit_L7-13.json
+
+Done!

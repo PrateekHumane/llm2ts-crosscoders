@@ -1,0 +1,26 @@
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 12951.55it/s]
+
+============================================================
+RANDOM DIRECTION CURVATURE
+============================================================
+
+  PT:
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  31%|███       | 97/311 [00:00<00:00, 962.82it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1564.90it/s]
+/workspace/llm2ts-crosscoders/scripts/loss_landscape_v3.py:374: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batches_for_curv = [torch.tensor(ts_windows[i:i+1], dtype=torch.long, device=device)
+    dir 10/50: mean=0.0001 std=0.0001
+    dir 20/50: mean=0.0001 std=0.0001
+    dir 30/50: mean=0.0001 std=0.0001
+    dir 40/50: mean=0.0001 std=0.0001
+    dir 50/50: mean=0.0001 std=0.0001
+    PT: mean=0.0001 std=0.0001 range=[-0.0000, 0.0002]
+
+  RandomInit:
+    dir 10/50: mean=-0.0000 std=0.0000
+    dir 20/50: mean=0.0000 std=0.0000
+    dir 30/50: mean=0.0000 std=0.0000
+    dir 40/50: mean=-0.0000 std=0.0000
+    dir 50/50: mean=-0.0000 std=0.0000
+    RandomInit: mean=-0.0000 std=0.0000 range=[-0.0000, 0.0000]
+
+Saved to random_curvature_v3.json

@@ -1,0 +1,61 @@
+Loading TS data (50 sequences)...
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 15926.12it/s]
+  Got 50 sequences
+  25 batches of 2
+
+============================================================
+MODEL: PT | Layers 14-20
+============================================================
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   1%|▏         | 4/311 [00:00<00:09, 31.93it/s]Loading weights:  74%|███████▍  | 230/311 [00:00<00:00, 1218.36it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1043.22it/s]
+
+  Layer 14:
+    params=15.7M  λ₁=509.3  cond=5.9  rand_curv=0.000270  trace≈4253.3  (331s)
+
+  Layer 15:
+    params=15.7M  λ₁=740.2  cond=6.0  rand_curv=0.000091  trace≈1424.6  (306s)
+
+  Layer 16:
+    params=15.7M  λ₁=404.0  cond=3.9  rand_curv=-0.000002  trace≈-35.2  (290s)
+
+  Layer 17:
+    params=15.7M  λ₁=365.2  cond=4.3  rand_curv=0.000223  trace≈3506.8  (272s)
+
+  Layer 18:
+    params=15.7M  λ₁=255.9  cond=3.0  rand_curv=0.000023  trace≈365.5  (261s)
+
+  Layer 19:
+    params=15.7M  λ₁=164.3  cond=2.5  rand_curv=0.000089  trace≈1394.1  (243s)
+
+  Layer 20:
+    params=15.7M  λ₁=1397.6  cond=13.7  rand_curv=0.000664  trace≈10439.5  (228s)
+
+  Saved to mapping_results/loss_landscape/per_layer_PT_L14-20.json
+
+============================================================
+MODEL: RandomInit | Layers 14-20
+============================================================
+
+  Layer 14:
+    params=15.7M  λ₁=0.4  cond=2.2  rand_curv=-0.000001  trace≈-11.6  (335s)
+
+  Layer 15:
+    params=15.7M  λ₁=0.4  cond=2.1  rand_curv=-0.000001  trace≈-12.1  (314s)
+
+  Layer 16:
+    params=15.7M  λ₁=0.4  cond=2.2  rand_curv=-0.000001  trace≈-9.1  (294s)
+
+  Layer 17:
+    params=15.7M  λ₁=0.4  cond=2.1  rand_curv=-0.000001  trace≈-11.6  (275s)
+
+  Layer 18:
+    params=15.7M  λ₁=0.4  cond=2.2  rand_curv=-0.000000  trace≈-6.3  (267s)
+
+  Layer 19:
+    params=15.7M  λ₁=0.3  cond=2.1  rand_curv=-0.000000  trace≈-1.5  (238s)
+
+  Layer 20:
+    params=15.7M  λ₁=0.3  cond=2.2  rand_curv=-0.000000  trace≈-3.3  (239s)
+
+  Saved to mapping_results/loss_landscape/per_layer_RandomInit_L14-20.json
+
+Done!

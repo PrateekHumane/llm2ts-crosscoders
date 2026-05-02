@@ -1,0 +1,20 @@
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 9479.08it/s]
+
+============================================================
+HESSIAN EIGENVALUES: PT
+============================================================
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 45/311 [00:00<00:00, 433.02it/s]Loading weights:  80%|███████▉  | 248/311 [00:00<00:00, 1351.24it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1332.75it/s]
+  Params: 78.7M from layers [6, 7, 8, 9, 10]
+  Base loss: 8.6357
+/workspace/llm2ts-crosscoders/scripts/loss_landscape_v3.py:334: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batches = [torch.tensor(ts_windows[i:i+1], dtype=torch.long, device=device) for i in range(10)]
+    Lanczos over 55 tensors (78.7M params)
+      iter 5: top-5 = ['544.21', '86.06', '-0.00', '-262.21', '-1393.01'] (10s)
+      iter 10: top-5 = ['634.67', '530.45', '358.37', '186.39', '24.58'] (22s)
+      iter 15: top-5 = ['634.77', '532.14', '430.43', '365.23', '259.76'] (33s)
+      iter 20: top-5 = ['634.77', '532.14', '434.13', '365.89', '295.80'] (46s)
+      iter 25: top-5 = ['634.77', '532.14', '434.13', '365.89', '296.52'] (58s)
+      iter 30: top-5 = ['634.77', '532.14', '434.13', '365.89', '296.52'] (71s)
+    Done (71s)
+
+Saved to hessian_PT_v3.json

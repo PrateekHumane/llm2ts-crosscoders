@@ -1,0 +1,61 @@
+Loading TS data (50 sequences)...
+Fetching 175 files:   0%|          | 0/175 [00:00<?, ?it/s]Fetching 175 files: 100%|██████████| 175/175 [00:00<00:00, 15118.50it/s]
+  Got 50 sequences
+  25 batches of 2
+
+============================================================
+MODEL: PT | Layers 21-27
+============================================================
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 43/311 [00:00<00:00, 427.50it/s]Loading weights:  83%|████████▎ | 259/311 [00:00<00:00, 1441.07it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1377.32it/s]
+
+  Layer 21:
+    params=15.7M  λ₁=252.5  cond=5.5  rand_curv=0.000043  trace≈672.9  (206s)
+
+  Layer 22:
+    params=15.7M  λ₁=198.3  cond=3.5  rand_curv=0.000146  trace≈2294.7  (184s)
+
+  Layer 23:
+    params=15.7M  λ₁=338.4  cond=5.8  rand_curv=0.000230  trace≈3611.3  (174s)
+
+  Layer 24:
+    params=15.7M  λ₁=95.6  cond=2.9  rand_curv=-0.000004  trace≈-55.6  (168s)
+
+  Layer 25:
+    params=15.7M  λ₁=127.2  cond=2.4  rand_curv=0.000012  trace≈192.6  (155s)
+
+  Layer 26:
+    params=15.7M  λ₁=102.2  cond=2.2  rand_curv=0.000085  trace≈1341.1  (149s)
+
+  Layer 27:
+    params=15.7M  λ₁=470.2  cond=6.1  rand_curv=0.000249  trace≈3910.5  (141s)
+
+  Saved to mapping_results/loss_landscape/per_layer_PT_L21-27.json
+
+============================================================
+MODEL: RandomInit | Layers 21-27
+============================================================
+
+  Layer 21:
+    params=15.7M  λ₁=0.3  cond=2.3  rand_curv=-0.000000  trace≈-2.5  (224s)
+
+  Layer 22:
+    params=15.7M  λ₁=0.3  cond=2.2  rand_curv=-0.000000  trace≈-5.3  (184s)
+
+  Layer 23:
+    params=15.7M  λ₁=0.3  cond=2.2  rand_curv=0.000000  trace≈5.0  (175s)
+
+  Layer 24:
+    params=15.7M  λ₁=0.3  cond=2.1  rand_curv=0.000000  trace≈2.9  (167s)
+
+  Layer 25:
+    params=15.7M  λ₁=0.3  cond=2.2  rand_curv=0.000000  trace≈3.4  (156s)
+
+  Layer 26:
+    params=15.7M  λ₁=0.3  cond=2.3  rand_curv=0.000000  trace≈0.9  (149s)
+
+  Layer 27:
+    params=15.7M  λ₁=0.3  cond=2.3  rand_curv=0.000000  trace≈3.2  (140s)
+
+  Saved to mapping_results/loss_landscape/per_layer_RandomInit_L21-27.json
+
+Done!
