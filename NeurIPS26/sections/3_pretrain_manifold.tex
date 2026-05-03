@@ -51,6 +51,23 @@ rand + RandInit       & 99/1920           & 138/1000           & 0.741 & 14/20 \
 The ablation reveals a clear interaction. \textbf{Pretrained weights} create a structured, low-dimensional manifold---but random tokens fail to traverse it (rand+PT collapses to 4 unique outputs). \textbf{Meaningful text} provides variation---but without pretrained weights, this variation is unstructured noise (text+RandInit). Only the combination produces diverse, high-quality temporal signals: the pretrained manifold provides the geometry, and text input drives diverse traversal of it.
 
 
+\subsection{The Projected Dynamics Forecast Beyond the Context}
+\label{sec:forecasting}
+
+The linear decoding result shows shape-level similarity between projected hidden states and real time series. We test whether this extends to \emph{predictive} structure: given the first half of a time series, can a retrieved text projection forecast the second half?
+
+\paragraph{Method.} We take 500 real time series from GiftEval and observe only the first 256 of 512 timesteps. Among 10{,}000 WikiText projections, we retrieve the one with lowest MSE on the observed first half. We then use that projection's second half as the forecast. The baseline is last-value carry-forward (repeating the final observed value).
+
+\paragraph{Result.} Across all 500 queries, the retrieval-based forecast achieves MSE $= 1.91$ versus last-value's $2.27$ ($16\%$ lower). The retrieval wins in $37\%$ of cases; when it wins, the advantage is large (median $4\times$ lower MSE), because the retrieved projection captures trends and level shifts that last-value misses entirely.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/sec4/panel_forecasting.png}
+\caption{Forecasting the second half of a time series from a retrieved WikiText projection. The first 256 timesteps (left of dotted line) are used to retrieve the best-matching projection. The projection's second half (purple) tracks the real continuation (green), while last-value carry-forward (gray dashed) cannot capture trends or level shifts. MSE shown per example.}
+\label{fig:forecasting}
+\end{figure}
+
+
 \subsection{Why the Manifold Enables Efficient Transfer}
 \label{sec:math}
 
