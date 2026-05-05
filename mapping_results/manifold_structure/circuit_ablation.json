@@ -1,0 +1,99 @@
+{
+  "target_layer": 8,
+  "sine_period": 64,
+  "baseline_ft": 0.31013827349257916,
+  "baseline_pt": 0.6790430602291317,
+  "baseline_ri": 0.29239914690244806,
+  "results": [
+    {
+      "component": "full_mlp",
+      "coherence": 0.3652014205506305,
+      "delta": 0.05506314705805132
+    },
+    {
+      "component": "head_8",
+      "coherence": 0.31014875938317427,
+      "delta": 1.0485890595102187e-05
+    },
+    {
+      "component": "head_9",
+      "coherence": 0.31013707883293856,
+      "delta": -1.1946596406020582e-06
+    },
+    {
+      "component": "head_1",
+      "coherence": 0.31008699281746394,
+      "delta": -5.128067511522838e-05
+    },
+    {
+      "component": "head_0",
+      "coherence": 0.31008234733279594,
+      "delta": -5.5926159783226126e-05
+    },
+    {
+      "component": "head_11",
+      "coherence": 0.3100599106717358,
+      "delta": -7.836282084339175e-05
+    },
+    {
+      "component": "head_10",
+      "coherence": 0.3100076243621329,
+      "delta": -0.0001306491304462476
+    },
+    {
+      "component": "head_5",
+      "coherence": 0.3097436142823066,
+      "delta": -0.00039465921027254103
+    },
+    {
+      "component": "head_13",
+      "coherence": 0.3094953389357591,
+      "delta": -0.0006429345568200739
+    },
+    {
+      "component": "head_12",
+      "coherence": 0.30941459270423116,
+      "delta": -0.0007236807883480023
+    },
+    {
+      "component": "head_14",
+      "coherence": 0.3093024967898513,
+      "delta": -0.0008357767027278862
+    },
+    {
+      "component": "head_4",
+      "coherence": 0.3092403649588834,
+      "delta": -0.0008979085336957571
+    },
+    {
+      "component": "head_2",
+      "coherence": 0.3090985524724988,
+      "delta": -0.0010397210200803753
+    },
+    {
+      "component": "head_3",
+      "coherence": 0.30901315156807846,
+      "delta": -0.001125121924500705
+    },
+    {
+      "component": "head_15",
+      "coherence": 0.3086813193623188,
+      "delta": -0.0014569541302603684
+    },
+    {
+      "component": "head_7",
+      "coherence": 0.30796434361458297,
+      "delta": -0.0021739298779961946
+    },
+    {
+      "component": "head_6",
+      "coherence": 0.3078384921620604,
+      "delta": -0.0022997813305187798
+    },
+    {
+      "component": "full_attention",
+      "coherence": 0.2998994101088348,
+      "delta": -0.010238863383744357
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "finding": "Text with formulaic, repetitive, statistical structure activates the periodic circuit most strongly",
+  "top_enriched_words": [
+    "federer",
+    "tech",
+    "tropical",
+    "hurricane",
+    "xenon",
+    "miami",
+    "winds",
+    "nathan",
+    "finals",
+    "slam",
+    "wimbledon",
+    "cyclone",
+    "carolina",
+    "quarterback",
+    "touchdown",
+    "djokovic",
+    "singles",
+    "seasons"
+  ],
+  "q1_periodic_hidden_states": "No \u2014 effective rank is uniformly ~1.1 for all text at layer 8. The circuit does not produce periodic hidden states on text.",
+  "q2_concurrent_activation": "Yes \u2014 sports statistics (tennis, football, baseball) and medical/weather text activate the MLP cascade (L3-L8) concurrently.",
+  "structure_comparison": {
+    "top_100": {
+      "eff_rank": 1.1,
+      "low_freq": 0.097,
+      "combined_mlp": 49.3
+    },
+    "middle_100": {
+      "eff_rank": 1.1,
+      "low_freq": 0.095,
+      "combined_mlp": 46.5
+    },
+    "bottom_100": {
+      "eff_rank": 1.1,
+      "low_freq": 0.094,
+      "combined_mlp": 44.3
+    }
+  }
+}

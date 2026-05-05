@@ -1,0 +1,49 @@
+% LLM-to-TS transfer literature
+% See Alexis...bib, section TRANSFER for papers
+% Share manifold hyptohesis
+%   shared embedding paper? 
+% Any works on cross domain representational analysis 
+
+\section{Related work}
+\label{sec:related_work}
+
+\paragraph{Time-series foundation models (TSFMs).}
+Models designed as general-purpose time series forecasters, trained on Large-scale multi-domain data
+\begin{enumerate}
+    \item Chronos \citep{}
+    \item Lag-Llama \citep{}
+    \item MOMENT \citep{}
+    \item TimeGPT \citep{}
+\end{enumerate}
+
+\paragraph{LLM-to-time-series transfer.} 
+Work that repurposes pretrained language models for time series, primary related work
+\begin{enumerate}
+    \item Are Language Models Actually Useful for Time Series Forecasting?" \citep{tan2024languagemodelsactuallyuseful}
+    \item Time-LLM: Time Series Forecasting by Reprogramming Large Language Models \citep{jin2024timellmtimeseriesforecasting}
+    \item Using Pre-trained LLMs for Multivariate Time Series Forecasting \citep{wolff2025usingpretrainedllmsmultivariate}
+    \item isionTS: Visual Masked Autoencoders Are Free-Lunch Zero-Shot Time Series Forecasters \citep{chen2024visionts}
+\end{enumerate}
+
+\paragraph{Time Series Tokenization and Representation; LLM2TS continued}
+\begin{enumerate}
+    \item A Time Series is Worth 64 Words \citep{nie2023timeseriesworth64}
+    \item Small Vocabularies, Big Gains \citep{roger2025smallvocabulariesbiggains}
+\end{enumerate}
+
+\paragraph{The Platonic Representation Hypothesis? Cross-Modal Geometry?}
+Theoretical/empirical work on representation convergence to explain why might representations transfer across modalities -> Language to TS
+\begin{enumerate}
+    \item The Platonic Representation Hypothesis \citep{huh2024platonicrepresentationhypothesis}
+    \item Harnessing the Universal Geometry of Embeddings \citep{jha2025harnessinguniversalgeometryembeddings}
+    \item Training Large Language Models to Reason in a Continuous Latent Space \citep{hao2024traininglargelanguagemodels}
+\end{enumerate}
+
+\paragraph{Scaling Laws and Efficient Adaptation}
+How (do we) do models scale and fine-tuning strategies interact with transfer
+\begin{enumerate}
+    \item Scaling Laws for Transfer \citep{hernandez2021scalinglawstransfer}
+    \item Studies on when scaling hurts? \citep{}
+    \item Parameter-efficient fine-tuning comparisons, LoRA vs Full vs Adapters \citep{}
+\end{enumerate}
+The findings that pretrained 0.6B matches random 4B implies a transfer multiplier of ~8x in effective parameters; io\_only regime (embedding + lm\_head only) indicate if the transfer is fully captured by the i/o layers → PEFT/LoRA

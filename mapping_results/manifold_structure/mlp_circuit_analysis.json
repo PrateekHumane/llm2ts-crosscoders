@@ -1,0 +1,824 @@
+{
+  "target_layer": 8,
+  "wiki_mlp_norm_stats": {
+    "mean": 8.508923530578613,
+    "std": 1.8836292028427124,
+    "median": 8.183061599731445
+  },
+  "sine_mlp_norms": {
+    "PT": {
+      "mean": 7.474804878234863,
+      "std": 0.9648513197898865
+    },
+    "FT": {
+      "mean": 39.37612533569336,
+      "std": 12.091526985168457
+    },
+    "RI": {
+      "mean": 30.839832305908203,
+      "std": 3.5407896041870117
+    }
+  },
+  "top_wiki_tokens": [
+    {
+      "rank": 1,
+      "norm": 33.50847244262695,
+      "seq_idx": 3031,
+      "tok_idx": 325,
+      "token": "fork",
+      "context": "named Bridge Road . Heading away from the western terminus , there is a fork in the road : to the left is NY 185 , and"
+    },
+    {
+      "rank": 2,
+      "norm": 31.627880096435547,
+      "seq_idx": 3776,
+      "tok_idx": 249,
+      "token": "to",
+      "context": "1922 , in <unk> , Alberta , Canada , to Max Goffman and Anne Goffman , n\u00e9e <unk>"
+    },
+    {
+      "rank": 3,
+      "norm": 31.56620979309082,
+      "seq_idx": 4836,
+      "tok_idx": 114,
+      "token": "dwar",
+      "context": "tiny object about the size of Earth , known as a white dwarf . White dwarfs lack the mass for further gravitational compression to take place . The el"
+    },
+    {
+      "rank": 4,
+      "norm": 30.721933364868164,
+      "seq_idx": 2301,
+      "tok_idx": 346,
+      "token": "to",
+      "context": "on 10 June 1964 in Leeds , England , to Scottish parents Andy , a former professional footballer , and Jean McCall ."
+    },
+    {
+      "rank": 5,
+      "norm": 30.41244125366211,
+      "seq_idx": 4832,
+      "tok_idx": 203,
+      "token": "exhausting",
+      "context": "possibly as low as 5 \u2013 6 M \u2609 ) . After exhausting the hydrogen at the core these stars become supergiants and go on to"
+    },
+    {
+      "rank": 6,
+      "norm": 30.3795108795166,
+      "seq_idx": 3800,
+      "tok_idx": 74,
+      "token": "to",
+      "context": ", Texas , on May 17 , 1931 , to Marshall Herff Applewhite Sr. and his wife Louise n\u00e9e Winfield"
+    },
+    {
+      "rank": 7,
+      "norm": 30.25979232788086,
+      "seq_idx": 1089,
+      "tok_idx": 290,
+      "token": "to",
+      "context": "= Early years = = \n Turner was born in Simi Valley , California to parents John and Grace Turner . His father was the original drummer of the glam"
+    },
+    {
+      "rank": 8,
+      "norm": 30.242158889770508,
+      "seq_idx": 459,
+      "tok_idx": 156,
+      "token": "to",
+      "context": "26 , 1970 , in Studio City , California , to Edwina ( n\u00e9e Gough ) and Ernie Anderson . Er"
+    },
+    {
+      "rank": 9,
+      "norm": 30.174575805664062,
+      "seq_idx": 2543,
+      "tok_idx": 469,
+      "token": "to",
+      "context": "= \n Cresswell was born in Bridlington , East Riding of Yorkshire to George and Denise ( n\u00e9e <unk> ) . He started playing for"
+    },
+    {
+      "rank": 10,
+      "norm": 29.93910789489746,
+      "seq_idx": 681,
+      "tok_idx": 354,
+      "token": "to",
+      "context": "8 , 1883 , in Bloomington , Nebraska , to John Alden Hobbs and Cora Bush Hobbs . Her family moved"
+    },
+    {
+      "rank": 11,
+      "norm": 29.87335777282715,
+      "seq_idx": 3941,
+      "tok_idx": 169,
+      "token": "stakes",
+      "context": "as of 2016 dollars ) and coming in second in a stakes race . She earned an AAAT speed index . As a broodmare"
+    },
+    {
+      "rank": 12,
+      "norm": 29.86362075805664,
+      "seq_idx": 1160,
+      "tok_idx": 396,
+      "token": "of",
+      "context": "<unk> in the Manawatu region of New Zealand , the son of a local school headmaster . He grew up in Wanganui , where"
+    },
+    {
+      "rank": 13,
+      "norm": 29.532442092895508,
+      "seq_idx": 4963,
+      "tok_idx": 173,
+      "token": "to",
+      "context": "= Early life = = \n Nash was born in Johannesburg , South Africa , to a Welsh mother , Jean , and English father , John , on 7"
+    },
+    {
+      "rank": 14,
+      "norm": 29.359216690063477,
+      "seq_idx": 2556,
+      "tok_idx": 436,
+      "token": "tons",
+      "context": "number 54 ; that is , its nucleus contains 54 protons . At standard temperature and pressure , pure xenon gas has a density of"
+    },
+    {
+      "rank": 15,
+      "norm": 29.31092643737793,
+      "seq_idx": 4831,
+      "tok_idx": 447,
+      "token": "exhausting",
+      "context": ", which cease fusing and become helium white dwarfs and slowly cool after exhausting their hydrogen . However , as the lifetime of 0 @.@ 5"
+    },
+    {
+      "rank": 16,
+      "norm": 29.262414932250977,
+      "seq_idx": 226,
+      "tok_idx": 102,
+      "token": "",
+      "context": "Trinsey v. Pennsylvania 941 F.2d 224 was a case decided by the United States Court of Appeals for"
+    },
+    {
+      "rank": 17,
+      "norm": 29.171663284301758,
+      "seq_idx": 4966,
+      "tok_idx": 456,
+      "token": "a",
+      "context": "trio , the Mavericks earned a playoff berth for the first time in more than a decade . Dallas lost in the Western Conference Semifinals four games to "
+    },
+    {
+      "rank": 18,
+      "norm": 28.82908821105957,
+      "seq_idx": 806,
+      "tok_idx": 102,
+      "token": "of",
+      "context": "Reines was born in Paterson , New Jersey , one of four children of Gussie ( Cohen ) and Israel Reines . His parents were Jewish"
+    },
+    {
+      "rank": 19,
+      "norm": 28.760549545288086,
+      "seq_idx": 230,
+      "tok_idx": 384,
+      "token": "of",
+      "context": "years = = \n Jordan was born in Brooklyn , New York , the son of <unk> ( n\u00e9e Peoples ) , who worked in banking , and"
+    },
+    {
+      "rank": 20,
+      "norm": 28.614044189453125,
+      "seq_idx": 4292,
+      "tok_idx": 56,
+      "token": "of",
+      "context": "\" ; he gave it a score of 6 @.@ 5 out of 10 , and Amy Reiter of the Los Angeles Times said she"
+    },
+    {
+      "rank": 21,
+      "norm": 28.556171417236328,
+      "seq_idx": 2294,
+      "tok_idx": 341,
+      "token": "by",
+      "context": "ian period . Electric lights transform into gas lamps and buildings begin to disappear frame by frame . A short cutaway sequence shows the city regres"
+    },
+    {
+      "rank": 22,
+      "norm": 28.44835662841797,
+      "seq_idx": 2937,
+      "tok_idx": 382,
+      "token": "of",
+      "context": "007 at 8 : 00 p.m EST in front of an estimated crowd of 30 @,@ 467 , which"
+    },
+    {
+      "rank": 23,
+      "norm": 28.373123168945312,
+      "seq_idx": 4829,
+      "tok_idx": 259,
+      "token": "electric",
+      "context": "by comparing the visual magnitude against the photographic magnitude . The development of the photoelectric photometer allowed precise measurements of"
+    },
+    {
+      "rank": 24,
+      "norm": 28.34369468688965,
+      "seq_idx": 2489,
+      "tok_idx": 28,
+      "token": "revealing",
+      "context": "attractive waitresses usually referred to simply as \" <unk> Girls \" whose revealing outfits and sex appeal is played up and is a primary component of "
+    },
+    {
+      "rank": 25,
+      "norm": 28.343555450439453,
+      "seq_idx": 2812,
+      "tok_idx": 424,
+      "token": "for",
+      "context": "Every year he and his mother watched the Michigan - Ohio State game and rooted for Michigan . \n = = = High school = = = \n Minor inherited the"
+    },
+    {
+      "rank": 26,
+      "norm": 28.121923446655273,
+      "seq_idx": 159,
+      "tok_idx": 285,
+      "token": "of",
+      "context": "1 December 1895 in Lambeth , London , the son of William Walpole Eaton , a butcher , and his wife Grace . Schooled"
+    },
+    {
+      "rank": 27,
+      "norm": 28.021146774291992,
+      "seq_idx": 4653,
+      "tok_idx": 485,
+      "token": "of",
+      "context": "Walpole was born in Auckland , New Zealand , the eldest of three children of the Rev Somerset Walpole and his wife , Mildred Helen , n\u00e9e"
+    },
+    {
+      "rank": 28,
+      "norm": 27.923622131347656,
+      "seq_idx": 2367,
+      "tok_idx": 380,
+      "token": "of",
+      "context": "was born in Harringay , north London , the youngest of four sons of Richard Green , a clerk for a bottle stopper manufacturer , and his wife"
+    },
+    {
+      "rank": 29,
+      "norm": 27.893815994262695,
+      "seq_idx": 1164,
+      "tok_idx": 493,
+      "token": "of",
+      "context": "family on May 29 , 1950 . The daughter of Joseph Walter \" Joe \" and Katherine Esther ( n\u00e9e Scruse ) ,"
+    },
+    {
+      "rank": 30,
+      "norm": 27.846759796142578,
+      "seq_idx": 4624,
+      "tok_idx": 208,
+      "token": "5",
+      "context": "tested for toxicity : europium chloride shows an acute intraperitoneal LD50 toxicity of 550 mg / kg and the acute oral LD"
+    },
+    {
+      "rank": 31,
+      "norm": 27.66571617126465,
+      "seq_idx": 1689,
+      "tok_idx": 335,
+      "token": "of",
+      "context": "September 1994 in Dumfries , Scotland , the son of Andrew Johnston and Morag Brannock . He was given the extensive name"
+    },
+    {
+      "rank": 32,
+      "norm": 27.574146270751953,
+      "seq_idx": 2740,
+      "tok_idx": 108,
+      "token": "of",
+      "context": "aggregation website Metacritic awarded it an average score of 58 out of 100 , based on eight reviews . Writing for The A.V"
+    },
+    {
+      "rank": 33,
+      "norm": 27.570613861083984,
+      "seq_idx": 1484,
+      "tok_idx": 190,
+      "token": "of",
+      "context": "1508 / 1509 , the only daughter of Sir Edward Guildford and Eleanor West , daughter of Thomas West , 8"
+    },
+    {
+      "rank": 34,
+      "norm": 27.55983543395996,
+      "seq_idx": 783,
+      "tok_idx": 181,
+      "token": "was",
+      "context": "oryn of The New York Times differed and said , \" If ever there was a reason for a pop star to concentrate on her vocal skills , it was"
+    },
+    {
+      "rank": 35,
+      "norm": 27.557294845581055,
+      "seq_idx": 3422,
+      "tok_idx": 176,
+      "token": "to",
+      "context": "6 , 1931 , in St. Louis , Missouri , to George Sisler , a Baseball Hall of Fame player , and Kathleen ."
+    },
+    {
+      "rank": 36,
+      "norm": 27.45046043395996,
+      "seq_idx": 3050,
+      "tok_idx": 460,
+      "token": "of",
+      "context": "= \n Stockwell was born and raised in Brisbane , Queensland , the son of Bill and <unk> Stockwell . He is a 198"
+    },
+    {
+      "rank": 37,
+      "norm": 27.226009368896484,
+      "seq_idx": 2740,
+      "tok_idx": 210,
+      "token": "of",
+      "context": "Thom Jurek rated the album 3 @.@ 5 stars out of 5 , describing the recording as \" a very nearly dazzling endeavor that rewards"
+    },
+    {
+      "rank": 38,
+      "norm": 27.157007217407227,
+      "seq_idx": 4836,
+      "tok_idx": 118,
+      "token": "mass",
+      "context": "size of Earth , known as a white dwarf . White dwarfs lack the mass for further gravitational compression to take place . The electron @-@ degenerate"
+    },
+    {
+      "rank": 39,
+      "norm": 26.96233367919922,
+      "seq_idx": 666,
+      "tok_idx": 36,
+      "token": "of",
+      "context": ", 1913 , in Beaver Dam , Wisconsin , the son of Lester Creutz , a high school history teacher , and Grace Smith Creutz"
+    },
+    {
+      "rank": 40,
+      "norm": 26.816877365112305,
+      "seq_idx": 895,
+      "tok_idx": 49,
+      "token": "of",
+      "context": ". At Metacritic it holds an aggregate score of 54 out of 100 points , indicating generally mixed or average reviews . Simon Cage"
+    },
+    {
+      "rank": 41,
+      "norm": 26.692646026611328,
+      "seq_idx": 3713,
+      "tok_idx": 5,
+      "token": "of",
+      "context": "a rating of three out of four . The first home media release of \" Kir 'Shara \" was"
+    },
+    {
+      "rank": 42,
+      "norm": 26.574026107788086,
+      "seq_idx": 548,
+      "tok_idx": 297,
+      "token": "location",
+      "context": "( for example , the ( 15 ; 17 ) translocation in acute promyelocytic leukemia ) . About half of people with"
+    },
+    {
+      "rank": 43,
+      "norm": 26.522085189819336,
+      "seq_idx": 1474,
+      "tok_idx": 477,
+      "token": "one",
+      "context": "le Bourbon , commanded by Commodore Josias Rowley , by six to one . British reinforcements were hastily despatched to the area but the French were"
+    },
+    {
+      "rank": 44,
+      "norm": 26.45974349975586,
+      "seq_idx": 511,
+      "tok_idx": 52,
+      "token": "each",
+      "context": ". They wash up on a remote island and Geoff and Nicole grow close to each other . Geoff , who has strong religious views , sleeps with Nicole as they"
+    },
+    {
+      "rank": 45,
+      "norm": 26.314077377319336,
+      "seq_idx": 2906,
+      "tok_idx": 88,
+      "token": "of",
+      "context": "Australia , on 23 April 1866 , a son of Alfred Weir and Susannah Mary ( n\u00e9e Price ) . His father"
+    },
+    {
+      "rank": 46,
+      "norm": 26.0817928314209,
+      "seq_idx": 1275,
+      "tok_idx": 510,
+      "token": "ores",
+      "context": "genomics . Key experimental techniques in proteomics include 2D electrophoresis"
+    },
+    {
+      "rank": 47,
+      "norm": 25.96152687072754,
+      "seq_idx": 3907,
+      "tok_idx": 337,
+      "token": "\"",
+      "context": "i Jenkins \u2013 songwriting \n Clark Kent \u2013 producer \n Carl \" Butch \" Small \u2013 percussion \n Peter Novak \u2013 engineer \n Andrew <unk> \u2013"
+    },
+    {
+      "rank": 48,
+      "norm": 25.945743560791016,
+      "seq_idx": 1915,
+      "tok_idx": 230,
+      "token": "to",
+      "context": "<unk> ) , near Berlin , then the capital of Prussia , to a Jewish family . His father was the enormously wealthy financier Judah Herz Beer"
+    },
+    {
+      "rank": 49,
+      "norm": 25.908672332763672,
+      "seq_idx": 1470,
+      "tok_idx": 14,
+      "token": "in",
+      "context": "29 @-@ yard line with 15 seconds remaining in the game . On the game 's next play , Tech committed a holding"
+    },
+    {
+      "rank": 50,
+      "norm": 25.904178619384766,
+      "seq_idx": 3529,
+      "tok_idx": 228,
+      "token": "to",
+      "context": "6 in Marylebone , London . She was the eldest of three daughters to Benjamin Mayson , a linen factor ( merchant ) and his wife Elizabeth ("
+    },
+    {
+      "rank": 51,
+      "norm": 25.893396377563477,
+      "seq_idx": 3927,
+      "tok_idx": 195,
+      "token": "5",
+      "context": "considered particularly toxic based on tests conducted in mice . In mice , the LD50 is 0 @.@ 8 \u2013 5 @.@ 0"
+    },
+    {
+      "rank": 52,
+      "norm": 25.884641647338867,
+      "seq_idx": 4301,
+      "tok_idx": 90,
+      "token": "funny",
+      "context": "rudely Tom treated Wendy . Matt Fowler of IGN said the episode had many funny moments and good character development , but he said some of the romanti"
+    },
+    {
+      "rank": 53,
+      "norm": 25.87759017944336,
+      "seq_idx": 3712,
+      "tok_idx": 221,
+      "token": "of",
+      "context": "gave \" Kir 'Shara \" a rating of four and a half out of five . In Matthew <unk> 's book Star Trek As Myth ,"
+    },
+    {
+      "rank": 54,
+      "norm": 25.87281608581543,
+      "seq_idx": 3760,
+      "tok_idx": 4,
+      "token": "since",
+      "context": "for the first time since his return in a League Cup tie against Reading , scoring just before half @"
+    },
+    {
+      "rank": 55,
+      "norm": 25.799331665039062,
+      "seq_idx": 2312,
+      "tok_idx": 370,
+      "token": "since",
+      "context": "against Dundee before his maiden league victory \u2013 and the club 's first since November \u2013 against Hibernian by the end of January . McCall was"
+    },
+    {
+      "rank": 56,
+      "norm": 25.738964080810547,
+      "seq_idx": 1576,
+      "tok_idx": 479,
+      "token": "of",
+      "context": "Eric Goldman of IGN gave the episode a 7 @.@ 8 out of 10 , indicating that it was \" good \" , but his review"
+    },
+    {
+      "rank": 57,
+      "norm": 25.623456954956055,
+      "seq_idx": 257,
+      "tok_idx": 350,
+      "token": "concentration",
+      "context": "members of the Polish intelligentsia were arrested and executed , or transported to concentration camps , during operations such as AB @-@ Aktion . Th"
+    },
+    {
+      "rank": 58,
+      "norm": 25.622867584228516,
+      "seq_idx": 2820,
+      "tok_idx": 474,
+      "token": "of",
+      "context": "Bill Gibron of DVD Talk gave the episode a score of 5 out of 5 . TV DVD Reviews 's Kay Daly wrote : \" And just"
+    },
+    {
+      "rank": 59,
+      "norm": 25.558639526367188,
+      "seq_idx": 4838,
+      "tok_idx": 28,
+      "token": "light",
+      "context": "9 @.@ 9 trillion kilometres , or 4 @.@ 2 light @-@ years . Travelling at the orbital speed of the Space Shuttle"
+    },
+    {
+      "rank": 60,
+      "norm": 25.544898986816406,
+      "seq_idx": 833,
+      "tok_idx": 94,
+      "token": "comedy",
+      "context": "for the role shortly after declining a position as a cast member on the sketch comedy show Saturday Night Live . Her decision was initially ridiculed "
+    },
+    {
+      "rank": 61,
+      "norm": 25.501096725463867,
+      "seq_idx": 4831,
+      "tok_idx": 441,
+      "token": "dwar",
+      "context": "burning , never become red giants , which cease fusing and become helium white dwarfs and slowly cool after exhausting their hydrogen . However , as t"
+    },
+    {
+      "rank": 62,
+      "norm": 25.387495040893555,
+      "seq_idx": 4846,
+      "tok_idx": 352,
+      "token": "dwar",
+      "context": "to V ( main sequence dwarfs ) ; some authors add VII ( white dwarfs ) . Most stars belong to the main sequence , which consists of ordinary"
+    },
+    {
+      "rank": 63,
+      "norm": 25.379981994628906,
+      "seq_idx": 516,
+      "tok_idx": 227,
+      "token": "of",
+      "context": "string \" . She gave the episode an 8 @.@ 5 out of 10 , calling it \" Great \" . M. Giant of Television"
+    },
+    {
+      "rank": 64,
+      "norm": 25.344154357910156,
+      "seq_idx": 2982,
+      "tok_idx": 132,
+      "token": "of",
+      "context": "point of view . DVD Talk gave the episode a score of 5 out of 5 while DVD Verdict gave the episode a Grade B score . Paul"
+    },
+    {
+      "rank": 65,
+      "norm": 25.317140579223633,
+      "seq_idx": 4842,
+      "tok_idx": 89,
+      "token": "dwar",
+      "context": "while the opposite is the case for degenerate , compact stars such as white dwarfs . The surface gravity can influence the appearance of a star 's spe"
+    },
+    {
+      "rank": 66,
+      "norm": 25.31193733215332,
+      "seq_idx": 3572,
+      "tok_idx": 84,
+      "token": "to",
+      "context": "in Springfield , Illinois , the oldest of four children , all male , born to Effie Ann Vinson @-@ Heller and John Barrow . Bar"
+    },
+    {
+      "rank": 67,
+      "norm": 25.307403564453125,
+      "seq_idx": 3354,
+      "tok_idx": 11,
+      "token": "Minh",
+      "context": "for help . Once the village was captured , Colonel Ta Minh Kham , the Viet Cong regimental commander , established his command post in"
+    },
+    {
+      "rank": 68,
+      "norm": 25.303874969482422,
+      "seq_idx": 694,
+      "tok_idx": 325,
+      "token": "of",
+      "context": "reviewed negatively by Dave Simpson of The Guardian who graded it with two stars out of five . The Dangerously in Love Tour only reached Europe and Be"
+    },
+    {
+      "rank": 69,
+      "norm": 25.29774284362793,
+      "seq_idx": 4832,
+      "tok_idx": 205,
+      "token": "hydrogen",
+      "context": "low as 5 \u2013 6 M \u2609 ) . After exhausting the hydrogen at the core these stars become supergiants and go on to fuse elements"
+    },
+    {
+      "rank": 70,
+      "norm": 25.27175521850586,
+      "seq_idx": 798,
+      "tok_idx": 21,
+      "token": "a",
+      "context": "set @-@ ups , and , as the statistics show \u2014 surprisingly for a lot of people , but not for me \u2014 White doesn 't even score"
+    },
+    {
+      "rank": 71,
+      "norm": 25.24962615966797,
+      "seq_idx": 2501,
+      "tok_idx": 284,
+      "token": "\"",
+      "context": "\" Stewart , Mike Elizondo , Mark Endert , Mark \" Spike \" Stent and Maroon 5 . It was released as an Extended Play"
+    },
+    {
+      "rank": 72,
+      "norm": 25.209421157836914,
+      "seq_idx": 308,
+      "tok_idx": 386,
+      "token": "fork",
+      "context": ". \n = = Route description = = \n Route 4 begins at a fork in the alignment of U.S. Route 1 in the community of North"
+    },
+    {
+      "rank": 73,
+      "norm": 25.20209312438965,
+      "seq_idx": 2260,
+      "tok_idx": 91,
+      "token": "since",
+      "context": "2nd ATP World Tour Masters 1000 title , his first since Cincinnati 2012 . He then reached the semifinals at the"
+    },
+    {
+      "rank": 74,
+      "norm": 25.19662094116211,
+      "seq_idx": 13,
+      "tok_idx": 201,
+      "token": "knowledge",
+      "context": "Nothing of this sort had been before attempted on Government account in Arkansas to my knowledge , except for the manufacture of small arms , the mach"
+    },
+    {
+      "rank": 75,
+      "norm": 25.17490005493164,
+      "seq_idx": 2130,
+      "tok_idx": 90,
+      "token": "of",
+      "context": "aggregator website Metacritic awarded the album a score of 83 out of 100 , indicating \" universal acclaim \" . \n On August"
+    },
+    {
+      "rank": 76,
+      "norm": 25.059436798095703,
+      "seq_idx": 4834,
+      "tok_idx": 80,
+      "token": "fuse",
+      "context": "25 M \u2609 , called red dwarfs , are able to fuse nearly all of their mass while stars of about 1 M \u2609 can"
+    },
+    {
+      "rank": 77,
+      "norm": 25.01563835144043,
+      "seq_idx": 2524,
+      "tok_idx": 469,
+      "token": "akes",
+      "context": "Lincoln Racecourse . At Epsom in April he won the Westminster Stakes and then finished second of fifteen runners to the filly Angelina in the"
+    },
+    {
+      "rank": 78,
+      "norm": 25.015287399291992,
+      "seq_idx": 4836,
+      "tok_idx": 161,
+      "token": "dwar",
+      "context": "though stars are generally referred to as being spheres of plasma . Eventually , white dwarfs fade into black dwarfs over a very long period of time ."
+    },
+    {
+      "rank": 79,
+      "norm": 24.98236846923828,
+      "seq_idx": 2599,
+      "tok_idx": 53,
+      "token": "-",
+      "context": "single volume released in May 2009 ( ISBN 0 @-@ 7851 @-@ <unk> @-@"
+    },
+    {
+      "rank": 80,
+      "norm": 24.949792861938477,
+      "seq_idx": 728,
+      "tok_idx": 226,
+      "token": "of",
+      "context": "3 reviews , with an average score of 7 @.@ 4 out of 10 . Margaret Pomeranz and David Stratton of At the"
+    },
+    {
+      "rank": 81,
+      "norm": 24.9473876953125,
+      "seq_idx": 508,
+      "tok_idx": 113,
+      "token": "roc",
+      "context": ". \" Nicole declared her love for Aden , however he did not reciprocate . Lasance described the moment whilst interviewed by TV Week stating : \""
+    },
+    {
+      "rank": 82,
+      "norm": 24.936283111572266,
+      "seq_idx": 1164,
+      "tok_idx": 471,
+      "token": "to",
+      "context": "<unk> \" Rebbie \" Jackson was born in Gary , Indiana , to a working @-@ class family on May 29 , 1"
+    },
+    {
+      "rank": 83,
+      "norm": 24.933218002319336,
+      "seq_idx": 1235,
+      "tok_idx": 121,
+      "token": "ading",
+      "context": "to Osato Chemicals to meet Mr. Osato himself , masquerading as a potential new buyer . Osato humours Bond but , after their"
+    },
+    {
+      "rank": 84,
+      "norm": 24.92705726623535,
+      "seq_idx": 728,
+      "tok_idx": 253,
+      "token": "of",
+      "context": "ton of At the Movies gave the film four and three and a half out of five stars respectively ; Pomeranz commended Hartley for \" the depth"
+    },
+    {
+      "rank": 85,
+      "norm": 24.888181686401367,
+      "seq_idx": 1269,
+      "tok_idx": 178,
+      "token": "ph",
+      "context": "is generally stabilized by nonlocal interactions , most commonly the formation of a hydrophobic core , but also through salt bridges , hydrogen bonds "
+    },
+    {
+      "rank": 86,
+      "norm": 24.886186599731445,
+      "seq_idx": 2502,
+      "tok_idx": 37,
+      "token": "\"",
+      "context": "helmed by Mike Elizondo , Mike Endert , Mike \" Spike \" Stent , Christopher \" Tricky \" Stewart and Maroon 5 ."
+    },
+    {
+      "rank": 87,
+      "norm": 24.874650955200195,
+      "seq_idx": 3350,
+      "tok_idx": 206,
+      "token": "ia",
+      "context": "1956 USD ) . \n = Battle of Binh Gia = \n The Battle of Binh Gia ( Vietnamese : Tr\u1eadn B\u00ecnh"
+    },
+    {
+      "rank": 88,
+      "norm": 24.872976303100586,
+      "seq_idx": 3328,
+      "tok_idx": 445,
+      "token": "ve",
+      "context": "ed old tantrik who advises Raghuveer . He helps Raghuveer in remembering his past . His conversation with Raghuveer helps Har"
+    },
+    {
+      "rank": 89,
+      "norm": 24.805381774902344,
+      "seq_idx": 796,
+      "tok_idx": 82,
+      "token": "xd",
+      "context": "Be7 7 @.@ d4 cxd4 8 . Qxd4 d6 9 . Rd1 a6 10 @.@"
+    },
+    {
+      "rank": 90,
+      "norm": 24.760652542114258,
+      "seq_idx": 621,
+      "tok_idx": 109,
+      "token": "0",
+      "context": "Hitchens . Verso Press , 1988 ; ISBN 0 @-@ 86091 @-@ 88"
+    },
+    {
+      "rank": 91,
+      "norm": 24.740137100219727,
+      "seq_idx": 4520,
+      "tok_idx": 126,
+      "token": "-",
+      "context": "Last Years in Vietnam . New York : Harvest Books . ISBN 0 @-@ 15 @-@ <unk> @-@ 6"
+    },
+    {
+      "rank": 92,
+      "norm": 24.711421966552734,
+      "seq_idx": 4847,
+      "tok_idx": 138,
+      "token": "heid",
+      "context": "years , depending on the size of the star . This category includes Cepheid and Cepheid @-@ like stars , and long @-@"
+    },
+    {
+      "rank": 93,
+      "norm": 24.708892822265625,
+      "seq_idx": 2044,
+      "tok_idx": 201,
+      "token": "humorous",
+      "context": "of the wedding day wiped . \n The episode was designed to be the most humorous of Torchwood 's second series and incorporated elements of broad comedy "
+    },
+    {
+      "rank": 94,
+      "norm": 24.706268310546875,
+      "seq_idx": 3789,
+      "tok_idx": 15,
+      "token": "0",
+      "context": "1969 : Where the action is . Allen Lane . ISBN 0 @-@ <unk> @-@ 0079 @"
+    },
+    {
+      "rank": 95,
+      "norm": 24.67372703552246,
+      "seq_idx": 1584,
+      "tok_idx": 159,
+      "token": "ONE",
+      "context": "ops americanus , through the peer @-@ reviewed science journal PLOS ONE . They analysed their taxa as well as most other primitive ceratopsians"
+    },
+    {
+      "rank": 96,
+      "norm": 24.67078971862793,
+      "seq_idx": 1274,
+      "tok_idx": 181,
+      "token": "ores",
+      "context": ". The level of purification can be monitored using various types of gel electrophoresis if the desired protein 's molecular weight and isoelectric poi"
+    },
+    {
+      "rank": 97,
+      "norm": 24.650291442871094,
+      "seq_idx": 1657,
+      "tok_idx": 166,
+      "token": "to",
+      "context": "Thomas Lawton was born on 6 October 1919 to Elizabeth Riley and Thomas Lawton senior in Farnworth , Lancashire ."
+    },
+    {
+      "rank": 98,
+      "norm": 24.648029327392578,
+      "seq_idx": 2050,
+      "tok_idx": 236,
+      "token": "of",
+      "context": "Rawson @-@ Jones of Digital Spy gave the episode five stars out of five , summarising it as an \" energetic romp that oozed"
+    },
+    {
+      "rank": 99,
+      "norm": 24.628286361694336,
+      "seq_idx": 789,
+      "tok_idx": 386,
+      "token": "xb",
+      "context": "y , opening lines . The game usually continues 8.Qd2 Qxb2 <unk> Qa3 . Georgiev and Kolev stated"
+    },
+    {
+      "rank": 100,
+      "norm": 24.612836837768555,
+      "seq_idx": 414,
+      "tok_idx": 155,
+      "token": "to",
+      "context": "writing twenty @-@ four books on archaeological subjects . \n Born in Glasgow to a middle @-@ class family , Wheeler was raised largely in Yorkshire be"
+    }
+  ]
+}

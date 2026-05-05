@@ -1,0 +1,36 @@
+\section{Discussion and Limitations}
+\label{sec:discussion}
+
+\paragraph{The full picture.}
+% Autoregressive pretraining creates smooth, low-dimensional trajectories (Section 3).
+% This manifold contains directions naturally compatible with temporal data.
+% Finetuning identifies the useful directions and compresses to them (Section 4.2),
+% reusing pretrained structure rather than learning from scratch (Section 4.3).
+% The transferred features are structural primitives—repetition, slopes, periodicity (Section 4.4).
+
+\paragraph{Implications.}
+% - Transfer should work for any pretrained autoregressive model, not just LLMs
+% - The key property is smooth, low-dimensional sequential representations
+% - The scaling result (pretrained 0.6B ≈ random 4B) suggests transfer provides
+%   an ~8× effective parameter multiplier
+% - LoRA's success suggests principled ways to preserve more pretrained structure
+
+\paragraph{Limitations.}
+% - Single architecture family (Qwen3), though multiple scales
+% - GiftEval benchmark (diverse but finite)
+% - Crosscoder dead features (40-60% per layer), limiting feature-level conclusions
+% - The geometric analysis is descriptive—we characterize what changes but
+%   cannot fully explain why specific directions are useful
+% - Circuit analysis was inconclusive on the exact text computation being repurposed
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+% Language-to-TS transfer works because pretraining creates a geometric prior:
+% a low-dimensional, smooth, anisotropic representation space.
+% Finetuning projects this manifold onto time series by selecting the subset
+% of pretrained directions useful for temporal data.
+% The transferred features are structural primitives shared between language
+% and time series—repetition, slopes, periodicity.
+% The connection is geometric and structural, not semantic.

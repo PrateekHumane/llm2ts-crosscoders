@@ -1,0 +1,183 @@
+\documentclass{article}
+
+\usepackage{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{adjustbox}
+
+\usepackage{tikz}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\tzh}[1]{{\color{ForestGreen}{[Zhenghan: #1]}}}
+\DeclareMathOperator*{\argmin}{argmin}
+
+\title{Why Language Models Transfer to Time Series}
+
+\author{%
+  Anonymous Author(s)
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+% 0. Intro
+% 1. Related work
+%      0+1: 2p
+% 2. Training setup
+%      Experiments and main results
+%      Transfer works at scale - benchmark results + comparisons to SotA
+%      1.5p
+% 3. Pretrained models affinity to transfer (2p)
+%      LLM Vs LLM+TS (where is transfer helping)
+% 4. What changes during finetuning (2p)
+%      LLM+TS Vs TS (pretrain Vs random init)
+% 5. Final how transfer works? (1.5p)
+%      Conclusion \& Discussion \& Limitations
+
+i. intro \& RW
+ii. establish transfer actually happens
+iii. backbone exists in language (existing manifold)
+iv. finetuning projects existing manifold
+    1. lora vs io vs full: only a low rank of the weights need to change (adapting the existing manifold)
+    2. effective rank of each model shows FT collapses the PT manifold into the rich directions useful for TS
+    3. FT uses a lower dimensional manifold than RI which is more complicated (sine wave circles)
+    4. explaining what the manifold represents using the crosscoder
+v. Conclusion \& Discussion \& Limitations
+
+
+
+% ═══════════════════════════════════════════════════════════════
+\input{sections/0_introduction} 
+% ═══════════════════════════════════════════════════════════════
+
+% ═══════════════════════════════════════════════════════════════
+\input{sections/1_related_work}
+% ═══════════════════════════════════════════════════════════════
+
+% ═══════════════════════════════════════════════════════════════
+\input{sections/2_transfer_works_at_scale}
+% ═══════════════════════════════════════════════════════════════
+
+% ═══════════════════════════════════════════════════════════════
+\section{Pretrained models affinity to transfer}
+\label{sec:prior}
+% ═══════════════════════════════════════════════════════════════
+
+% Before any finetuning, does PT already have TS-compatible representations?
+%
+% 4.1 Linear decoding experiment
+%   - A single linear projection from WikiText hidden states → TS
+%   - No paired supervision, no model finetuning
+%   - Result: 686 unique matches out of 10,000 real TS, 14/20 clusters
+%   - This is only possible if the representation space already contains TS-like structure
+% 4.1.1 Data distribution alignment with TS 
+%   - Residual stream: h_{t+1} = h_t + f(h_t) → smooth trajectories
+%   - Pretraining compresses to low-rank subspace
+%   - Low-rank smooth trajectory projected to 1D = smooth 1D signal that resembles time series data distribution
+%   - The distribution of projected trajectories overlaps with real TS distributions
+%   - math to show that a model with representations which predict text sequences can easily finetune to predict time series data
+% 4.1.2 The 2×2 ablation (architecture × input)
+%   - text+PT: 686 unique — needs BOTH
+%   - rand+PT: 4 unique — manifold exists but not traversed
+%   - text+RandInit: 54 unique — variation but no manifold
+%   - rand+RandInit: 99 unique
+%   - Disentangles architecture from weights from input
+%
+% 4.2 Characterizing the prior: low dimensional geometry (transition to next section on geometry alignment)
+%   - PCA: text+PT has effective rank ~6 in 28,672 dimensions
+%   - RandInit: effective rank 431 (isotropic, no structure)
+
+% ═══════════════════════════════════════════════════════════════
+\section{What changes during finetuning}
+\label{sec:finetuning}
+% ═══════════════════════════════════════════════════════════════
+
+% What does finetuning actually change in the representation space?
+%
+% 5.1 Subspace alignment
+%   - can talk about LORA and linear finetuning results here
+%   - ts@PT vs ts@FT: 60.6° (random baseline 85.3°) — most aligned pair while ts@PT vs ts@RI: 73.7° — much less aligned
+%   - FT reuses PT's directions. RI finds different ones.
+%
+% 5.2 Weight changes (alexis will add)
+%
+% 5.3 Dimensional compression
+%   - PT processes TS with eff rank 44
+%   - FT compresses to eff rank 12 (found the useful directions)
+%   - RI finds a different solution. eff rank 35 (higher dimensional, different subspace)
+%   - FT achieves better compression BECAUSE it had the prior to select from
+%   - Catestrophic forgetting: Text→FT collapses to rank 2.5 (from 150) 
+%
+% 5.4 Clean geometry vs complex reuse
+%   - On periodic inputs (sine waves):
+%     - RI: clean circular trajectories — the minimal representation, learned from scratch
+%     - FT: topologically equivalent loops but geometrically more complex
+%     - FT uses FEWER PCA dimensions because periodicity is projected onto
+%       directions that were already high-variance from pretraining
+%     - FT's loops carry the complexity of their linguistic origin
+%   - This is direct evidence of reuse: FT repurposes, RI invents
+%   - Ideally we show a convergence proof to the circle under random init which would help prove that transfer is really happening
+%
+% 5.5 Convergent features (FT_RI)
+%   - Despite different geometry, FT and RI discover some of the same features
+%   - Spike detectors, trough detectors, oscillation detectors appear in both
+%   - These are the features that temporal data REQUIRES regardless of initialization
+%   - But FT activates them at higher magnitude (the prior amplifies)
+%   - Importantly how such features are implemented is different in FT and RI
+
+% ═══════════════════════════════════════════════════════════════
+\section{What Transfers?}
+\label{sec:features}
+% ═══════════════════════════════════════════════════════════════
+
+% Zoom in: which specific neural features carry the transfer?
+%
+% 7.1 Crosscoder method
+%   - Shared encoder applied independently per domain, per-domain decoders
+%   - TopK=64 sparsity, 4096 latent dimensions
+%   - Trained on 130k windows per layer, 27 layers
+%   - WikiText probing with wiki-specific normalization
+%
+% 7.2 Feature categorization across layers
+%   - PT_FT features (language transfer) concentrated in early-to-mid layers
+%   - FT_RI features (convergent) dominant everywhere
+%   - Category distribution changes with depth
+%
+% 7.3 Cross-domain features (PT_FT)
+%   - Repetition detector (L8): "3·3·3·3" in math ↔ square waves in TS
+%   - Slope detector (L26): "derivative", "tangent" ↔ rising/falling slopes
+%   - Metronome detector (L4): "tempo", "beats" ↔ periodic spikes
+%   - Chord progression detector (L5): harmonic sequences ↔ periodic peaks
+%
+% 7.4 The transfer is structural, not semantic
+%   - Features detect computational patterns: repetition, gradients, periodicity
+%   - These are primitives useful for ANY sequential prediction task
+%   - Language pretraining happens to learn them because text also requires
+%     tracking repetition, change, and rhythm
+
+% ═══════════════════════════════════════════════════════════════
+\input{sections/5_discussion_conclusion}
+% ═══════════════════════════════════════════════════════════════
+
+\end{document}

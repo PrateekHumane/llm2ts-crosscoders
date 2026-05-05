@@ -1,0 +1,111 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{}
+\citation{}
+\citation{}
+\citation{}
+\citation{tan2024languagemodelsactuallyuseful}
+\citation{jin2024timellmtimeseriesforecasting}
+\citation{wolff2025usingpretrainedllmsmultivariate}
+\citation{chen2024visionts}
+\citation{nie2023timeseriesworth64}
+\citation{roger2025smallvocabulariesbiggains}
+\citation{huh2024platonicrepresentationhypothesis}
+\citation{jha2025harnessinguniversalgeometryembeddings}
+\citation{hao2024traininglargelanguagemodels}
+\citation{hernandez2021scalinglawstransfer}
+\citation{}
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related work}{1}{section.2}\protected@file@percent }
+\newlabel{sec:related_work}{{2}{1}{Related work}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Time-series foundation models (TSFMs).}{1}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{LLM-to-time-series transfer.}{1}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Time Series Tokenization and Representation; LLM2TS continued}{1}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{The Platonic Representation Hypothesis? Cross-Modal Geometry?}{1}{section*.5}\protected@file@percent }
+\citation{}
+\@writefile{toc}{\contentsline {paragraph}{Scaling Laws and Efficient Adaptation}{2}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Establishing Transfer Learning is Real}{2}{section.3}\protected@file@percent }
+\newlabel{sec:transfer}{{3}{2}{Establishing Transfer Learning is Real}{section.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Setup.}{2}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Main result.}{2}{section*.8}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces ND[0.5] on GiftEval (lower is better). FT outperforms RI at all scales.}}{2}{table.caption.9}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:benchmark}{{1}{2}{ND[0.5] on GiftEval (lower is better). FT outperforms RI at all scales}{table.caption.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Scaling interaction.}{2}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Finetuning regime comparison.}{2}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}The Pretrained Manifold: An Affinity for Transfer}{2}{section.4}\protected@file@percent }
+\newlabel{sec:prior}{{4}{2}{The Pretrained Manifold: An Affinity for Transfer}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}A Linear Probe Reveals Latent Temporal Structure}{2}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:linear_decoding}{{4.1}{2}{A Linear Probe Reveals Latent Temporal Structure}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Method.}{2}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Result.}{2}{section*.14}\protected@file@percent }
+\newlabel{fig:examples}{{1a}{3}{Decoded time series from text}{figure.caption.13}{}}
+\newlabel{sub@fig:examples}{{a}{3}{Decoded time series from text}{figure.caption.13}{}}
+\newlabel{fig:ablation}{{1b}{3}{Ablation: what creates the structure?}{figure.caption.13}{}}
+\newlabel{sub@fig:ablation}{{b}{3}{Ablation: what creates the structure?}{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Pretrained hidden states contain time-series-compatible structure.} A single linear map $\hat  {y}_t = \mathbf  {w}^\top \mathbf  {h}_t + b$ is trained on frozen LLM hidden states via EM-style nearest-neighbor matching to a bank of 10{,}000 real time series (no paired data). \textbf  {(a)} Three decoded outputs (blue) overlaid with their nearest real time series (green). Input text shown above each plot. MSE $= 0.23$--$0.38$; full distribution in Appendix. \textbf  {(b)} Ablation crossing learned weights vs.\ random init with text vs.\ random input. \emph  {Top-left}: pretrained + text---diverse, structured outputs (301 unique matches). \emph  {Top-right}: pretrained + random tokens---mode collapse to one shape (manifold exists but is not traversed). \emph  {Bottom-left}: random weights + text---noisy variation without structure. \emph  {Bottom-right}: random weights + random tokens---unstructured. Only pretrained weights \emph  {and} meaningful text together produce diverse temporal signals.}}{3}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:hero}{{1}{3}{\textbf {Pretrained hidden states contain time-series-compatible structure.} A single linear map $\hat {y}_t = \mathbf {w}^\top \mathbf {h}_t + b$ is trained on frozen LLM hidden states via EM-style nearest-neighbor matching to a bank of 10{,}000 real time series (no paired data). \textbf {(a)} Three decoded outputs (blue) overlaid with their nearest real time series (green). Input text shown above each plot. MSE $= 0.23$--$0.38$; full distribution in Appendix. \textbf {(b)} Ablation crossing learned weights vs.\ random init with text vs.\ random input. \emph {Top-left}: pretrained + text---diverse, structured outputs (301 unique matches). \emph {Top-right}: pretrained + random tokens---mode collapse to one shape (manifold exists but is not traversed). \emph {Bottom-left}: random weights + text---noisy variation without structure. \emph {Bottom-right}: random weights + random tokens---unstructured. Only pretrained weights \emph {and} meaningful text together produce diverse temporal signals}{figure.caption.13}{}}
+\@writefile{toc}{\contentsline {paragraph}{What creates this structure?}{3}{section*.15}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces $2\times 2$ ablation. \emph  {Unique}: distinct real TS matched. \emph  {NN}: mean nearest-neighbor MSE. Low NN with low Unique indicates mode collapse, not quality.}}{3}{table.caption.16}\protected@file@percent }
+\newlabel{tab:ablation}{{2}{3}{$2\times 2$ ablation. \emph {Unique}: distinct real TS matched. \emph {NN}: mean nearest-neighbor MSE. Low NN with low Unique indicates mode collapse, not quality}{table.caption.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}The Projected Dynamics Forecast Beyond the Context}{3}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:forecasting}{{4.2}{3}{The Projected Dynamics Forecast Beyond the Context}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Method.}{3}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Result.}{4}{section*.18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Best-case forecasting example from 500 evaluation queries. The first 256 timesteps are used to retrieve the closest WikiText projection; the projection's second half (purple) forecasts the continuation. The retrieved projection captures the level shift and subsequent trend (MSE $= 0.42$), while last-value carry-forward (gray dashed) is stranded at the final context value (MSE $= 11.7$).}}{4}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:forecasting}{{2}{4}{Best-case forecasting example from 500 evaluation queries. The first 256 timesteps are used to retrieve the closest WikiText projection; the projection's second half (purple) forecasts the continuation. The retrieved projection captures the level shift and subsequent trend (MSE $= 0.42$), while last-value carry-forward (gray dashed) is stranded at the final context value (MSE $= 11.7$)}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Why the Manifold Enables Efficient Transfer}{4}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:math}{{4.3}{4}{Why the Manifold Enables Efficient Transfer}{subsection.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Pretraining Creates Coherent Gradient Signal for the TS Objective}{4}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:curvature}{{4.4}{4}{Pretraining Creates Coherent Gradient Signal for the TS Objective}{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Method.}{4}{section*.20}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Per-example gradient structure at the TS loss surface. At PT initialization, different TS examples produce gradients that reinforce each other. At random initialization, gradients are nearly orthogonal and cancel upon averaging.}}{4}{table.caption.21}\protected@file@percent }
+\newlabel{tab:gradient_alignment}{{3}{4}{Per-example gradient structure at the TS loss surface. At PT initialization, different TS examples produce gradients that reinforce each other. At random initialization, gradients are nearly orthogonal and cancel upon averaging}{table.caption.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{Interpretation.}{4}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Curvature anisotropy.}{5}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Finetuning Projects the Pretrained Manifold onto Time Series}{5}{section.5}\protected@file@percent }
+\newlabel{sec:finetuning}{{5}{5}{Finetuning Projects the Pretrained Manifold onto Time Series}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}The Weight Changes are Low-Rank}{5}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:lora}{{5.1}{5}{The Weight Changes are Low-Rank}{subsection.5.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Finetuning regime comparison on GiftEval ND[0.5]. TODO: fill from Alexis's experiments.}}{5}{table.caption.24}\protected@file@percent }
+\newlabel{tab:lora}{{4}{5}{Finetuning regime comparison on GiftEval ND[0.5]. TODO: fill from Alexis's experiments}{table.caption.24}{}}
+\@writefile{toc}{\contentsline {paragraph}{Interpretation.}{5}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Finetuning Selects Useful Directions}{5}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:dimensionality}{{5.2}{5}{Finetuning Selects Useful Directions}{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Catastrophic forgetting as geometric compression.}{5}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Reuse vs.\ Reinvention: FT and RI Find Different Solutions}{5}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:reuse_vs_reinvent}{{5.3}{5}{Reuse vs.\ Reinvention: FT and RI Find Different Solutions}{subsection.5.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Geometric evidence for direction reuse.} \textbf  {(Left)} Effective rank across layers. FT compresses TS representations to $\sim $12 dimensions (green solid), far below PT's $\sim $44 (blue solid) and RI's $\sim $35 (purple solid). Text$\to $FT collapses to $\sim $2.5 (catastrophic forgetting). \textbf  {(Right)} Subspace alignment: mean principal angle between top-10 PCs. ts@PT$\leftrightarrow $ts@FT (purple) stays well below the random baseline (85.3$^\circ $), confirming FT reuses PT's directions. Tables~\ref {tab:effrank} and~\ref {tab:alignment} in Appendix.}}{6}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:geometry}{{3}{6}{\textbf {Geometric evidence for direction reuse.} \textbf {(Left)} Effective rank across layers. FT compresses TS representations to $\sim $12 dimensions (green solid), far below PT's $\sim $44 (blue solid) and RI's $\sim $35 (purple solid). Text$\to $FT collapses to $\sim $2.5 (catastrophic forgetting). \textbf {(Right)} Subspace alignment: mean principal angle between top-10 PCs. ts@PT$\leftrightarrow $ts@FT (purple) stays well below the random baseline (85.3$^\circ $), confirming FT reuses PT's directions. Tables~\ref {tab:effrank} and~\ref {tab:alignment} in Appendix}{figure.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Reuse vs.\ reinvention.} \textbf  {(Left)} A sine wave (period 64) through FT (top) and RI (bottom) across layers, shown as 2D PCA of hidden-state trajectories colored by input phase. Percentages show variance explained by 2 PCs. FT's loops are geometrically complex (inherited from pretraining) while RI discovers clean, symmetric circles from scratch. At Layer~8, FT captures 51\% of variance in 2D vs.\ RI's 29\%---FT concentrates periodic structure into fewer dimensions. \textbf  {(Right)} Phase coherence (ratio of same-phase to all-pairs distance, computed in the full 1024-dim hidden space; lower = more periodic). FT represents periodicity most explicitly at all tested inputs.}}{6}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:reuse}{{4}{6}{\textbf {Reuse vs.\ reinvention.} \textbf {(Left)} A sine wave (period 64) through FT (top) and RI (bottom) across layers, shown as 2D PCA of hidden-state trajectories colored by input phase. Percentages show variance explained by 2 PCs. FT's loops are geometrically complex (inherited from pretraining) while RI discovers clean, symmetric circles from scratch. At Layer~8, FT captures 51\% of variance in 2D vs.\ RI's 29\%---FT concentrates periodic structure into fewer dimensions. \textbf {(Right)} Phase coherence (ratio of same-phase to all-pairs distance, computed in the full 1024-dim hidden space; lower = more periodic). FT represents periodicity most explicitly at all tested inputs}{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Interpreting the Transferred Features}{6}{subsection.5.4}\protected@file@percent }
+\newlabel{sec:crosscoder_features}{{5.4}{6}{Interpreting the Transferred Features}{subsection.5.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Method.}{6}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cross-domain features.}{6}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Interpretation.}{6}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion and Limitations}{6}{section.6}\protected@file@percent }
+\newlabel{sec:discussion}{{6}{6}{Discussion and Limitations}{section.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{The full picture.}{6}{section*.34}\protected@file@percent }
+\bibstyle{plainnat}
+\bibdata{references}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Hidden-state trajectories for synthetic inputs at Layer~8.} Each row shows a different input waveform (left) and its 2D PCA trajectory through PT, FT, and RI (colored by phase). Percentages show variance captured by 2 PCs. PT produces thin, low-variance trajectories (it was not trained on these tokens). FT creates structured, high-variance loops---especially for periodic inputs (sine: 51\%, square: 95\%). RI produces geometrically distinct solutions: clean circles for periodic inputs but using more total dimensions. The two-frequency input reveals the starkest contrast: FT produces a compact trajectory while RI forms a complex multi-loop orbit.}}{7}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:synthetic}{{5}{7}{\textbf {Hidden-state trajectories for synthetic inputs at Layer~8.} Each row shows a different input waveform (left) and its 2D PCA trajectory through PT, FT, and RI (colored by phase). Percentages show variance captured by 2 PCs. PT produces thin, low-variance trajectories (it was not trained on these tokens). FT creates structured, high-variance loops---especially for periodic inputs (sine: 51\%, square: 95\%). RI produces geometrically distinct solutions: clean circles for periodic inputs but using more total dimensions. The two-frequency input reveals the starkest contrast: FT produces a compact trajectory while RI forms a complex multi-loop orbit}{figure.caption.29}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Top cross-domain features (PT\_FT). Each fires on specific text patterns \emph  {and} time series patterns.}}{7}{table.caption.32}\protected@file@percent }
+\newlabel{tab:features}{{5}{7}{Top cross-domain features (PT\_FT). Each fires on specific text patterns \emph {and} time series patterns}{table.caption.32}{}}
+\@writefile{toc}{\contentsline {paragraph}{Implications.}{7}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Limitations.}{7}{section*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{7}{section.7}\protected@file@percent }
+\newlabel{sec:conclusion}{{7}{7}{Conclusion}{section.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Additional Tables}{8}{appendix.A}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Representational geometry at Layer 8 for three models processing the same TS input.}}{8}{table.caption.37}\protected@file@percent }
+\newlabel{tab:effrank}{{6}{8}{Representational geometry at Layer 8 for three models processing the same TS input}{table.caption.37}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Mean principal angle between top-10 PCs of each condition pair at Layer 8. Random baseline: 85.3$^\circ $ $\pm $ 0.4$^\circ $.}}{8}{table.caption.38}\protected@file@percent }
+\newlabel{tab:alignment}{{7}{8}{Mean principal angle between top-10 PCs of each condition pair at Layer 8. Random baseline: 85.3$^\circ $ $\pm $ 0.4$^\circ $}{table.caption.38}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Top cross-domain features (PT\_FT). Each fires on specific text patterns \emph  {and} time series patterns.}}{8}{table.caption.39}\protected@file@percent }
+\newlabel{tab:features}{{8}{8}{Top cross-domain features (PT\_FT). Each fires on specific text patterns \emph {and} time series patterns}{table.caption.39}{}}
+\gdef \@abspage@last{9}

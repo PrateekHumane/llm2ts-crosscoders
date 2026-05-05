@@ -1,0 +1,21 @@
+% The phenomenon: LLMs finetuned on time series match or beat domain-specific models.
+% The question: Why should representations learned from text help with temporal data?
+% We provide a concrete, mechanistic account.
+%
+% Our approach: investigate from first principles.
+%   1. Establish that transfer actually happens and quantify it. -> raw benchmark perf of pretrain Vs random
+%   2. Characterize what the pretrained model already has (what does it contain that is useful for time series?) Analysis on QWEN BASE as it pertains to transfer 
+%   3. Characterize what changes during finetuning (what changes in the representation space?) Analsysi on QWEN finetuned Compare with the control (learning from scratch) comparison of QWEN finetuend w random
+%   4. Conclusion on how transfer works 
+%
+% Preview the main finding: pretraining creates a geometric prior —
+% a low-dimensional, smooth representation space with directions
+% that naturally encode temporal dynamics. Transfer = selecting those directions.
+
+\section{Introduction}
+\label{sec:intro}
+
+% The key contributions we make in this paper are as follows:
+% \begin{itemize}[leftmargin=*]
+%   \item TODO
+% \end{itemize}

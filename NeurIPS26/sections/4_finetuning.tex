@@ -1,0 +1,120 @@
+\section{Finetuning Projects the Pretrained Manifold onto Time Series}
+\label{sec:finetuning}
+
+
+\subsection{The Weight Changes are Low-Rank}
+\label{sec:lora}
+
+% LoRA vs IO-only vs full finetuning comparison
+% Key point: LoRA with small rank captures most of the transfer benefit,
+% proving only a low-rank perturbation of the weights is needed.
+
+% ── TABLE: Finetuning regime comparison ──
+\begin{table}[h]
+\centering
+\caption{Finetuning regime comparison on GiftEval ND[0.5]. TODO: fill from Alexis's experiments.}
+\label{tab:lora}
+\begin{tabular}{lccc}
+\toprule
+Method & Params changed & ND[0.5] & \% of full FT \\
+\midrule
+Full finetuning     & 100\%  & TODO & 100\%  \\
+LoRA ($r=16$)       & TODO\% & TODO & TODO\% \\
+LoRA ($r=4$)        & TODO\% & TODO & TODO\% \\
+IO-only (emb + head)& TODO\% & TODO & TODO\% \\
+Random init (full)  & 100\%  & TODO & ---    \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Interpretation.} Only a low-rank perturbation of the pretrained weights is needed to adapt the model from language to time series. This means the bulk of the pretrained computation is preserved---finetuning adjusts a small subspace of directions.
+
+
+\subsection{Finetuning Selects Useful Directions}
+\label{sec:dimensionality}
+
+% Table moved to appendix (Table~\ref{tab:effrank} and Table~\ref{tab:alignment})
+
+% ── FIGURE: Effective rank + Subspace alignment across layers ──
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/sec5/fig_geometry.png}
+\caption{\textbf{Geometric evidence for direction reuse.} \textbf{(Left)} Effective rank across layers. FT compresses TS representations to $\sim$12 dimensions (green solid), far below PT's $\sim$44 (blue solid) and RI's $\sim$35 (purple solid). Text$\to$FT collapses to $\sim$2.5 (catastrophic forgetting). \textbf{(Right)} Subspace alignment: mean principal angle between top-10 PCs. ts@PT$\leftrightarrow$ts@FT (purple) stays well below the random baseline (85.3$^\circ$), confirming FT reuses PT's directions. Tables~\ref{tab:effrank} and~\ref{tab:alignment} in Appendix.}
+\label{fig:geometry}
+\end{figure}
+
+\paragraph{Catastrophic forgetting as geometric compression.}
+Text$\to$FT collapses to effective rank 2.5 (from 150 in PT). Finetuning traded $\sim$140 text-useful dimensions for $\sim$12 TS-useful dimensions.
+
+
+\subsection{Reuse vs.\ Reinvention: FT and RI Find Different Solutions}
+\label{sec:reuse_vs_reinvent}
+
+% Manifold structure on periodic inputs
+% FT: complex loops (reused from language), fewer PCA dims
+% RI: clean circles (learned from scratch), more PCA dims
+
+% ── FIGURE: Sine layer evolution + Phase coherence table, side by side ──
+\begin{figure}[!ht]
+\centering
+\begin{minipage}[c]{0.60\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/sec5/fig_sine_evolution.png}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.36\textwidth}
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Input & PT & FT & RI \\
+\midrule
+Sine $p\!=\!64$   & 0.20 & \textbf{0.08} & 0.13 \\
+Sine $p\!=\!128$  & 0.30 & \textbf{0.12} & 0.20 \\
+Two freq & 0.34 & \textbf{0.12} & 0.21 \\
+\bottomrule
+\end{tabular}
+\vspace{0.3cm}
+
+{\footnotesize Phase coherence\\(lower = more periodic)}
+\end{minipage}
+\caption{\textbf{Reuse vs.\ reinvention.} \textbf{(Left)} A sine wave (period 64) through FT (top) and RI (bottom) across layers, shown as 2D PCA of hidden-state trajectories colored by input phase. Percentages show variance explained by 2 PCs. FT's loops are geometrically complex (inherited from pretraining) while RI discovers clean, symmetric circles from scratch. At Layer~8, FT captures 51\% of variance in 2D vs.\ RI's 29\%---FT concentrates periodic structure into fewer dimensions. \textbf{(Right)} Phase coherence (ratio of same-phase to all-pairs distance, computed in the full 1024-dim hidden space; lower = more periodic). FT represents periodicity most explicitly at all tested inputs.}
+\label{fig:reuse}
+\end{figure}
+
+To examine how each model handles different temporal structures, we pass five synthetic inputs through all three models and visualize the hidden-state trajectories at Layer~8 via 2D PCA (Figure~\ref{fig:synthetic}). Each input is normalized and tokenized identically using uniform binning. We fit PCA independently per model--input pair, as the models occupy different regions of representation space. The first 5 positions are excluded to avoid the attention-sink artifact common in transformer first-position hidden states. Trajectories are colored by input phase (period 64) to reveal periodic structure.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/sec5/fig_manifold_synthetic.png}
+\caption{\textbf{Hidden-state trajectories for synthetic inputs at Layer~8.} Each row shows a different input waveform (left) and its 2D PCA trajectory through PT, FT, and RI (colored by phase). Percentages show variance captured by 2 PCs. PT produces thin, low-variance trajectories (it was not trained on these tokens). FT creates structured, high-variance loops---especially for periodic inputs (sine: 51\%, square: 95\%). RI produces geometrically distinct solutions: clean circles for periodic inputs but using more total dimensions. The two-frequency input reveals the starkest contrast: FT produces a compact trajectory while RI forms a complex multi-loop orbit.}
+\label{fig:synthetic}
+\end{figure}
+
+\subsection{Interpreting the Transferred Features}
+\label{sec:crosscoder_features}
+
+% Crosscoder analysis: what do the shared features compute?
+
+\paragraph{Method.} A crosscoder (shared encoder, per-domain decoders, TopK=64, 4096 latent dims) is trained on PT/FT/RI activations at each layer. Features are categorized by which domains activate them. PT-involving features are probed on WikiText-103.
+
+\paragraph{Cross-domain features.} The top PT\_FT features encode \emph{structural temporal primitives} shared between text and time series:
+
+
+\begin{table}[h]
+\centering
+\caption{Top cross-domain features (PT\_FT). Each fires on specific text patterns \emph{and} time series patterns.}
+\label{tab:features}
+\begin{tabular}{clp{4.5cm}p{4.5cm}}
+\toprule
+Layer & Name & Text activation & TS activation \\
+\midrule
+8  & Repetition detector  & ``$3 \cdot 3 \cdot 3 \cdot 3$'', ``2--3--2 config'' & Square waves, periodic oscillations \\
+26 & Slope detector       & ``derivative'', ``tangent line'' & Rising/falling slopes \\
+4  & Metronome detector   & ``tempo'', ``beats'' & Sharp periodic spikes \\
+5  & Chord detector       & ``F--E$\flat$--G'' progressions & Periodic peaks \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Interpretation.} The transferred features detect \emph{computational patterns}---repetition, gradients, periodicity---not semantic content. These are primitives useful for any sequential prediction task. Language pretraining learns them because text also requires tracking repetition, change, and rhythm.

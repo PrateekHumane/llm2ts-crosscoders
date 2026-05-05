@@ -1,0 +1,37 @@
+\section{Establishing Transfer Learning is Real}
+\label{sec:transfer}
+
+% Setup paragraph: models + data + tokenization
+% TODO: Prateek/Alexis to add benchmark details
+
+\paragraph{Setup.} All models share the Qwen3 architecture. We train pairs of \textbf{FT} (pretrained $\to$ finetuned on TS) and \textbf{RI} (random init $\to$ trained on TS) across multiple scales (0.6B, 1.7B, 4B) using the same TS training procedure (uniform binning, 512 bins, context length 512). All models are evaluated on GiftEval (46 datasets).
+
+\paragraph{Main result.} FT consistently outperforms RI across scales and datasets.
+
+% ── TABLE: Benchmark results across scales ──
+% TODO: Fill with actual ND[0.5] numbers from Alexis's sweeps
+\begin{table}[h]
+\centering
+\caption{ND[0.5] on GiftEval (lower is better). FT outperforms RI at all scales.}
+\label{tab:benchmark}
+\begin{tabular}{lcccc}
+\toprule
+Model & 0.6B & 1.7B & 4B \\
+\midrule
+FT (pretrained + TS)  & TODO & TODO & TODO \\
+RI (random + TS)      & TODO & TODO & TODO \\
+\midrule
+$\Delta$ (FT $-$ RI)  & TODO & TODO & TODO \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Scaling interaction.} Pretrained 0.6B matches or exceeds random-init 4B, implying a transfer multiplier of $\sim$8$\times$ in effective parameters.
+
+% ── FIGURE: Performance across scales ──
+% TODO: Bar chart or line plot showing FT vs RI at each scale
+% Source: Alexis's training runs
+
+\paragraph{Finetuning regime comparison.} We compare full finetuning, LoRA, and IO-only (embedding + LM head only).
+% TODO: Table showing that even IO-only captures substantial transfer
+% This previews the low-rank story in Section~\ref{sec:finetuning}
