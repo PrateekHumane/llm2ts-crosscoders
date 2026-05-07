@@ -17,11 +17,14 @@ from src.config import Config
 class Encoder(nn.Module):
     def __init__(self, cfg: Config):
         super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(cfg.hidden_size, cfg.mlp_hidden),
-            nn.ReLU(),
-            nn.Linear(cfg.mlp_hidden, cfg.latent_dim),
-        )
+        if cfg.linear_crosscoder:
+            self.net = nn.Linear(cfg.hidden_size, cfg.latent_dim)
+        else:
+            self.net = nn.Sequential(
+                nn.Linear(cfg.hidden_size, cfg.mlp_hidden),
+                nn.ReLU(),
+                nn.Linear(cfg.mlp_hidden, cfg.latent_dim),
+            )
         self.k = cfg.top_k
 
     def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
@@ -34,7 +37,6 @@ class Encoder(nn.Module):
         """Zero out all but top-k activations per sample."""
         vals, idx = torch.topk(x, self.k, dim=-1)
         z = torch.zeros_like(x)
-        # out-of-place scatter to guarantee gradient flow through vals
         z = z.scatter(-1, idx, F.relu(vals))
         return z
 
@@ -42,11 +44,15 @@ class Encoder(nn.Module):
 class Decoder(nn.Module):
     def __init__(self, cfg: Config):
         super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(cfg.latent_dim, cfg.mlp_hidden),
-            nn.ReLU(),
-            nn.Linear(cfg.mlp_hidden, cfg.hidden_size),
-        )
+        if cfg.linear_crosscoder:
+            self.net = nn.Linear(cfg.latent_dim, cfg.hidden_size)
+        else:
+            self.net = nn.Sequential(
+                nn.Linear(cfg.latent_dim, cfg.mlp_hidden),
+                nn.ReLU(),
+                nn.Linear(cfg.mlp_hidden, cfg.hidden_size),
+            )
+        self._linear = cfg.linear_crosscoder
 
     def forward(self, z: torch.Tensor) -> torch.Tensor:
         return self.net(z)
@@ -54,7 +60,7 @@ class Decoder(nn.Module):
     @torch.no_grad()
     def normalize_columns(self):
         """Unit-normalize each column of the final linear layer's weight matrix."""
-        w = self.net[-1].weight  # (hidden_size, mlp_hidden)
+        w = self.net.weight if self._linear else self.net[-1].weight
         norms = w.norm(dim=0, keepdim=True).clamp(min=1e-8)
         w.div_(norms)
 

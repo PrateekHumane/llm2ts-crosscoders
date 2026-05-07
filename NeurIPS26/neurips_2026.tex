@@ -53,6 +53,7 @@
 \usepackage{url}            % simple URL typesetting
 \usepackage{booktabs}       % professional-quality tables
 \usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsmath}        % align environment, etc.
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{xcolor}         % colors
@@ -66,6 +67,7 @@
 \usepackage{adjustbox}
 % Plots
 \usepackage{tikz}
+\usepackage{enumitem}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\tzh}[1]{{\color{ForestGreen}{[Zhenghan: #1]}}}
@@ -204,7 +206,7 @@ text@PT vs text@RI       & 85.4$^\circ$ & $\approx$ random \\
 \begin{table}[h]
 \centering
 \caption{Top cross-domain features (PT\_FT). Each fires on specific text patterns \emph{and} time series patterns.}
-\label{tab:features}
+\label{tab:features_appendix}
 \begin{tabular}{clp{4.5cm}p{4.5cm}}
 \toprule
 Layer & Name & Text activation & TS activation \\
@@ -216,6 +218,311 @@ Layer & Name & Text activation & TS activation \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Reuse vs.\ Reinvention: Additional Figures}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/sec5/fig_synthetic_L13_tsne.png}
+\caption{\textbf{Hidden-state trajectories for synthetic inputs at Layer~13 (t-SNE).} Same setup as Figure~\ref{fig:synthetic_pca} but using t-SNE (perplexity~30) instead of PCA. Despite the different global geometries revealed by PCA, t-SNE shows that LangInit and RandInit develop similar local neighborhood structure: periodic inputs form smooth, phase-ordered curves in both models, confirming that both arrive at functionally equivalent representations through different geometric paths.}
+\label{fig:synthetic_tsne}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/sec5/fig_FT_pca_grid.png}
+\caption{\textbf{LangInit: sine wave PCA trajectories across all 28 layers.} Each subplot shows the 2D PCA projection of hidden states from a sine wave (period~64) at one transformer layer, colored by input phase. Percentages show variance explained by 2 PCs. LangInit exhibits layer-specific geometry with varying complexity and moderate PCA variance (17--49\%), reflecting the rich, heterogeneous representations inherited from language pretraining.}
+\label{fig:pca_grid_ft}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/sec5/fig_RI_pca_grid.png}
+\caption{\textbf{RandInit: sine wave PCA trajectories across all 28 layers.} Same setup as Figure~\ref{fig:pca_grid_ft}. RandInit produces nearly identical clean arcs at every layer with uniformly high PCA variance (67--79\%), confirming that its learned representation is geometrically homogeneous across the network.}
+\label{fig:pca_grid_ri}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/sec5/fig_FT_evolution_grid.png}
+\caption{\textbf{LangInit: sine wave representations across training checkpoints.} Rows are training steps (top: PT baseline; bottom: final checkpoint at step~10{,}000), columns are selected layers. LangInit begins from the pretrained model's complex trajectories and gradually reshapes them into structured loops, with the transition occurring around steps 256--1024.}
+\label{fig:evolution_grid_ft}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/sec5/fig_RI_evolution_grid.png}
+\caption{\textbf{RandInit: sine wave representations across training checkpoints.} Same setup as Figure~\ref{fig:evolution_grid_ft}. RandInit starts from near-empty representations (random weights) and converges to uniform clean arcs by step~2048, with all layers collapsing to the same geometry simultaneously.}
+\label{fig:evolution_grid_ri}
+\end{figure}
+
+\section{Causal Circuit Identification}
+\label{app:circuit}
+
+The correlational analyses in Section~\ref{sec:finetuning} show that finetuning reuses pretrained directions and that cross-domain features exist. Here we present a preliminary causal analysis: we identify specific model components responsible for periodic time-series prediction and test what role those components play in language modeling.
+
+\subsection{Method}
+\label{app:circuit_method}
+
+Since FT\textsubscript{IO} only trains embedding and LM-head layers, its 28 transformer layers are identical to PT. We zero-ablate~\citep{wang2023interpretability} each of the 476 components (448 attention heads + 28 MLPs) on FT\textsubscript{IO} and measure the loss increase ($\Delta\mathcal{L}$) on periodic time series versus non-periodic controls.
+
+\paragraph{Zero-ablation implementation.}
+For each attention head, we register a \texttt{forward\_pre\_hook} on the output projection (\texttt{o\_proj}) that zeros the head's 128-dimensional slice of the concatenated 2048-dimensional head output before projection. For each MLP layer, we register a \texttt{forward\_hook} that replaces the MLP output with zeros, so the residual stream passes through unchanged. All ablations are performed under \texttt{torch.no\_grad()}.
+
+\paragraph{Synthetic time series.}
+We generate 20 windows (length 512) for each of nine synthetic types. \emph{Periodic}: sine, square wave, sawtooth, seasonal (trend + oscillation), damped sine. \emph{Control}: white noise, constant, linear trend, random walk. Each window is independently $z$-score normalized, clipped to $[-5, 5]$, and uniformly binned into 1024 tokens (matching the FT\textsubscript{IO} tokenizer). This yields 180 evaluation windows total (100 periodic, 80 control).
+
+\paragraph{Selectivity metric.}
+For each ablated component we compute:
+\begin{align}
+\Delta\mathcal{L}_\text{periodic} &= \bar{\mathcal{L}}_\text{ablated}^\text{periodic} - \bar{\mathcal{L}}_\text{baseline}^\text{periodic}, \\
+\Delta\mathcal{L}_\text{control} &= \bar{\mathcal{L}}_\text{ablated}^\text{control} - \bar{\mathcal{L}}_\text{baseline}^\text{control}, \\
+\text{selectivity} &= \Delta\mathcal{L}_\text{periodic} - \Delta\mathcal{L}_\text{control}.
+\end{align}
+Components with high $\Delta\mathcal{L}_\text{periodic}$ and high selectivity are specifically critical for periodic prediction rather than general-purpose.
+
+\paragraph{Cumulative ablation.}
+We compose multiple ablation hooks simultaneously using nested context managers. For the pairwise sweep, we test all $\binom{8}{2} = 28$ pairs of the top-8 selective components. For the growing cumulative, we add components one at a time in order of individual $\Delta\mathcal{L}_\text{periodic}$. The superadditivity ratio is $\rho = \Delta\mathcal{L}_\text{combined} / \sum_i \Delta\mathcal{L}_i^\text{individual}$~\citep{conmy2023automated, elhage2021mathematical}; we use a threshold of $\rho > 1.2$ to account for noise.
+
+\paragraph{WikiText transfer.}
+We ablate the top-5 circuit components simultaneously on 2{,}000 WikiText-103 passages (length 512) through the pretrained model (which shares identical transformer layers with FT\textsubscript{IO}). For each passage we record the per-sequence cross-entropy loss before and after ablation. The 50 most-degraded and 50 least-degraded passages are extracted for qualitative analysis.
+
+\subsection{Results}
+
+\paragraph{Individual component sweep.}
+Table~\ref{tab:ablation_top} shows the top-8 components ranked by $\Delta\mathcal{L}_\text{periodic}$. The two most impactful are both in Layer~1: MLP\textsubscript{L1} ($\Delta\mathcal{L}_p = 5.75$, selectivity $= 3.44$) and head~L1H4 ($\Delta\mathcal{L}_p = 4.50$, selectivity $= 3.81$). Head~L20H0 is the third most impactful with the highest selectivity ($3.28$).
+
+\begin{table}[h]
+\centering
+\caption{Top-8 components by $\Delta\mathcal{L}$ on periodic TS under zero-ablation. Selectivity $= \Delta\mathcal{L}_\text{periodic} - \Delta\mathcal{L}_\text{control}$ isolates periodicity-specific impact. Full sweep: 476 components.}
+\label{tab:ablation_top}
+\begin{tabular}{lrrr}
+\toprule
+Component & $\Delta\mathcal{L}_\text{periodic}$ & $\Delta\mathcal{L}_\text{control}$ & Selectivity \\
+\midrule
+MLP\textsubscript{L1}   & 5.75 & 2.31 & 3.44 \\
+Head L1H4               & 4.50 & 0.69 & 3.81 \\
+Head L20H0              & 3.40 & 0.13 & 3.28 \\
+Head L13H6              & 3.35 & 2.56 & 0.79 \\
+Head L23H6              & 2.00 & 0.06 & 1.94 \\
+Head L21H8              & 1.85 & $-0.25$ & 2.10 \\
+Head L15H3              & 1.55 & 0.38 & 1.18 \\
+Head L11H8              & 1.25 & 0.56 & 0.69 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Cumulative ablation reveals a composed circuit.}
+The Layer~1 pair (head~L1H4 + MLP\textsubscript{L1}) is strongly superadditive: ablating them together produces $\Delta\mathcal{L}_p = 15.50$, which is 51\% larger than the sum of their individual effects ($\rho = 1.51$; Table~\ref{tab:cumulative}). No other pair among the 28 tested exceeds the $\rho > 1.2$ threshold. Adding head~L20H0 maintains superadditivity ($\rho = 1.36$); beyond three components, returns become subadditive ($\rho < 1$), indicating compensation rather than composition.
+
+\begin{table}[h]
+\centering
+\caption{Cumulative ablation. The Layer~1 pair is strongly superadditive ($\rho = 1.51$); the core circuit saturates at 3 components.}
+\label{tab:cumulative}
+\begin{tabular}{lrrrr}
+\toprule
+Components & $\Delta\mathcal{L}_\text{periodic}$ & $\sum \Delta\mathcal{L}_\text{indiv.}$ & $\rho$ & $\Delta\mathcal{L}_\text{control}$ \\
+\midrule
+Head L1H4 + MLP\textsubscript{L1} & 15.50 & 10.25 & \textbf{1.51} & 2.38 \\
++ Head L20H0 (top-3)              & 18.55 & 13.65 & \textbf{1.36} & 3.69 \\
++ Head L21H8 (top-4)              & 18.40 & 15.50 & 1.19 & 3.06 \\
++ Head L23H6 (top-5)              & 18.55 & 17.50 & 1.06 & 3.00 \\
+All top-8                          & 18.30 & 23.65 & 0.77 & 3.13 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The periodicity circuit in language.}
+We ablate the top-5 circuit components simultaneously on 2{,}000 WikiText-103 passages through the pretrained model. The circuit ablation causes a mean loss increase of $\Delta\mathcal{L} = 4.53$ nats---two orders of magnitude larger than any individual head's WikiText effect ($\leq 0.04$), confirming circuit-level interaction.
+
+The most-degraded passages ($\Delta\mathcal{L} = 8$--$9$; Table~\ref{tab:wiki_full}) are dominated by sequential enumerations and repeating grammatical templates: biographical sequences (``married to\ldots she gave birth to\ldots''), game mechanics with parallel clause structure (``sets a task for each stage\ldots this task must be completed\ldots the player with the most''), Billboard chart progressions, award category listings, and structured Wikipedia sections with repeating headers. In contrast, the least-degraded passages ($\Delta\mathcal{L} < 2$) are dense, non-repetitive prose: ecclesiastical titles, academic citations, canonical law, and literary criticism---text where predicting the next token depends on semantic content rather than structural repetition.
+
+This suggests the circuit tracks \emph{sequential repetitive structure}---the same abstract property shared by periodic time series and repetitive text. However, the evidence is preliminary: the WikiText passages most degraded by the circuit do not all show an obvious repetitive pattern, and disentangling the circuit's role in general sequence modeling from periodicity-specific computation requires further investigation.
+
+\begin{table}[h]
+\centering
+\caption{WikiText-103 passages most and least degraded by ablation of the periodicity circuit (top-5 components). Mean $\Delta\mathcal{L} = 4.53$ across 2{,}000 passages.}
+\label{tab:wiki_full}
+\small
+\begin{tabularx}{\textwidth}{r >{\raggedright\arraybackslash}X}
+\toprule
+$\Delta\mathcal{L}$ & Passage excerpt \\
+\midrule
+\multicolumn{2}{l}{\emph{Top 20 most degraded}} \\
+9.19 & ``\ldots Townsend has been married to Tracy Turner, his girlfriend since he was 19. She gave birth to thei[r]\ldots'' \\
+8.88 & ``\ldots Preston winger Will Hayhurst, a Republic of Ireland under-21 international, was signed on a one-month loan\ldots'' \\
+8.88 & ``\ldots with the NHK Symphony Orchestra, but cancelled both deals upon Mwanga's return from Japan. Mwanga immediately quit\ldots'' \\
+8.88 & ``\ldots his/her final score on the song, with money being awarded in Guitar Hero World Tour. The games have also added\ldots'' \\
+8.75 & ``\ldots Viscount, sets a task for each stage. This task must be completed before the player can continue to another map\ldots'' \\
+8.50 & ``\ldots The player character is Michel Ardan, an eccentric and intrepid French scientist who is enthusiastic, daring\ldots'' \\
+8.38 & ``\ldots Best Music Video, Long Form. In 1998, the categories were retitled Best Short Form Music Video, and Best Long\ldots'' \\
+8.31 & ``\ldots on the Billboard Hot 100 twenty-nine, the highest U.S. entry among all singles released from the album\ldots'' \\
+8.31 & ``\ldots long run, with The A.V. Club attributing much of the show's early success to the character\ldots'' \\
+8.25 & ``\ldots Yankovic recorded `Here's Johnny', a parody of `Who's Johnny' by El DeBarge. The song, a loving ode to\ldots'' \\
+8.19 & ``\ldots The music video of `Crazy in Love', released in May 2003, was directed by Jake Nava and filmed\ldots'' \\
+8.19 & ``\ldots Finishing with the worst record in the NHL, Columbus had the best chance of receiving the first overall pick\ldots'' \\
+8.13 & ``\ldots while one in the Pyramid Texts says the name is based on words shouted by Osiris\ldots'' \\
+8.06 & ``\ldots the album Daydream most resembles in its emphasis on R\&B grooves. Tucker specifically complimented `One Sweet Day'\ldots'' \\
+8.00 & ``\ldots similar to Konami's Guitar Freaks and to a lesser extent Harmonix's previous music games such as Frequency\ldots'' \\
+8.00 & ``\ldots he `hit the wall with play-along music games', and challenged the game makers to explore other ways\ldots'' \\
+7.94 & ``\ldots saying that he `was upset. But when you see the talent that was there, it was an honour just to be in the final'\ldots'' \\
+7.94 & ``\ldots Flags indicate national team as defined under FIFA eligibility rules. Players may hold more than one non-FIFA\ldots'' \\
+7.94 & ``\ldots at the Television Critics Association summer media tour in Beverly Hills, California\ldots'' \\
+7.94 & ``\ldots co-wrote and produced a song with Kenneth `Babyface' Edmonds, with whom she had collaborated on Music Box\ldots'' \\
+\midrule
+\multicolumn{2}{l}{\emph{Top 10 least degraded}} \\
+0.83 & ``\ldots Porto e Santa Rufina; Sub-dean of the Sacred College of Cardinals; prefect of the S.C.\ of the Good Government\ldots'' \\
+1.48 & ``\ldots Cardinal-Priest of SS.\ Giovanni e Paolo; Grand penitentiary; prefect of the Congregation for the correction\ldots'' \\
+1.59 & ``\ldots From the Jewish Question to the Jewish State: An Essay on the Theory of Zionism (thesis), Princeton Univ.\ldots'' \\
+1.77 & ``\ldots called Saprang's transfer a `demotion' and a `punishment.' However, Saprang himself claimed that he did not\ldots'' \\
+1.82 & ``\ldots the Society of Jesus, provided he observed the canon law; and that it was desirable that the pope should\ldots'' \\
+1.89 & ``\ldots the abnormal excess of white blood cells in people with the clinical syndrome described by Velpeau and Bennett\ldots'' \\
+1.89 & ``\ldots The protagonist sounds like a `colonial administrator', and his reference to seeking a newer world echoes\ldots'' \\
+1.94 & ``\ldots Mbaruk's nephew, Mbaruk bin Rashid, refused to acknowledge the appointment of a new leader\ldots'' \\
+1.98 & ``\ldots 00 works were published underground over the course of the war. Literary discussions were held\ldots'' \\
+2.02 & ``\ldots Although the poem was defended by a few critics, E.C. Pettet returned to the argument that the poem lacked\ldots'' \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Cross-Domain Feature Analysis via Crosscoders}
+\label{app:crosscoder}
+
+The circuit-level analysis in Appendix~\ref{app:circuit} shows that specific components are shared between time-series periodicity prediction and repetitive language modeling. Here we complement that \emph{component-level} analysis with a \emph{feature-level} analysis using crosscoders---sparse autoencoders with a shared encoder applied across domains---to discover individual latent features that fire on both time-series inputs and semantically coherent natural-language passages.
+
+\subsection{Method}
+\label{app:crosscoder_method}
+
+\paragraph{Setup.}
+We train one \emph{linear crosscoder} per transformer layer of Qwen3-0.6B.  Each crosscoder has a shared encoder $\mathbf{W}_{\mathrm{enc}} \in \mathbb{R}^{1024 \times 4096}$ followed by Top-$K$ sparsity ($K{=}64$), and two per-domain decoders $\mathbf{W}_{\mathrm{dec}}^{(\mathrm{PT})}, \mathbf{W}_{\mathrm{dec}}^{(\mathrm{FT})} \in \mathbb{R}^{4096 \times 1024}$ (12.6\,M parameters total, float32).  The encoder is applied independently to each domain's hidden states; because the weights are shared, the same latent feature can fire on both pretrained (PT) and fine-tuned (FT) inputs.
+
+\paragraph{Domains.}
+\emph{PT}: Time series formatted as space-separated decimal strings (e.g., \texttt{0.123 -0.456 1.789\,\ldots}), tokenized by the Qwen3-0.6B tokenizer.  Sub-tokens corresponding to each timestep value are mean-pooled to produce one $1024$-dim vector per timestep.
+\emph{FT}: The same time series normalized per-window ($z$-score), clipped to $[-5,5]$, and uniformly binned into 1024 tokens for the fine-tuned model.
+
+\paragraph{Training.}
+Input: 3{,}000 windows ($T{=}512$) from GiftEval~\citep{aksu2024giftevalgeneralizedinstructionfollowing}, precomputed as memory-mapped hidden-state arrays.  Loss: per-domain MSE between normalized inputs and decoder reconstructions, summed over PT and FT.  Dead-feature recovery (AuxK; top-64 among features firing ${<}1$\% over the last 1{,}000 steps, weight $\frac{1}{32}$, active after step 1{,}000).  AdamW, $\mathrm{lr}{=}3{\times}10^{-4}$, 500 warmup steps, cosine decay over 10{,}000 steps.  Early stopping after 1{,}500 steps without validation improvement (minimum step 2{,}000).
+
+\paragraph{Feature analysis pipeline.}
+After training, 50{,}000 time-series windows are encoded; for each of the 4{,}096 features we record the PT and FT firing rates (fraction of windows with non-zero activation).  Features firing ${\geq}1$\% in both domains are labeled \textsc{PT\_FT} and ranked by $\text{balance} = \min(\text{rate}_{\mathrm{PT}}, \text{rate}_{\mathrm{FT}})$.  For the top-30 balanced features, we extract the 10 highest-activating time-series windows and 10 highest-activating WikiText-103 passages (30{,}000 sequences, 512 tokens each, encoded through the PT model and the shared crosscoder encoder with separate normalization statistics).
+
+\subsection{Results}
+\label{app:crosscoder_results}
+
+Layers 7--10 are the sweet spot for shared cross-domain features (Table~\ref{tab:crosscoder_balance}).  Early layers (0, 6) and late layers (13, 20) show almost no balanced features.  Below we present four features with the clearest cross-domain links: each fires on a specific time-series pattern \emph{and} on thematically coherent WikiText passages.
+
+\begin{table}[h]
+\centering
+\caption{Cross-layer feature balance.  ``Best balance'' is the highest $\min(\text{rate}_\text{PT}, \text{rate}_\text{FT})$ among all 4{,}096 features.  Layers~7--10 concentrate almost all balanced features.}
+\label{tab:crosscoder_balance}
+\small
+\begin{tabular}{rrrr}
+\toprule
+Layer & Best balance & \# Features ${>}30$\% bal.\ & Train loss \\
+\midrule
+0  & 2.1\%  & 0  & 0.016 \\
+6  & 29.4\% & 0  & 0.050 \\
+\textbf{7}  & \textbf{57.0\%} & \textbf{10} & 0.052 \\
+\textbf{8}  & \textbf{52.1\%} & \textbf{6}  & 0.062 \\
+\textbf{9}  & \textbf{51.2\%} & \textbf{7}  & 0.067 \\
+\textbf{10} & \textbf{55.7\%} & \textbf{5}  & 0.057 \\
+11 & 47.1\% & 4  & 0.062 \\
+12 & 47.9\% & 3  & 0.062 \\
+13 & 50.0\% & 1  & 0.059 \\
+20 & 2.0\%  & 0  & 0.120 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%% --- Feature A: Quantitative magnitude transitions ---
+
+\paragraph{Feature 1712 (Layer~10) --- Quantitative magnitude transitions.}
+PT firing rate: 50.4\%, FT: 41.8\%, WikiText: 14.1\%.  This feature detects step changes and regime shifts in time series---values that jump from a near-zero baseline to a sustained high plateau---and fires on text passages dense with numerical measurements and unit conversions (Figure~\ref{fig:crosscoder_magnitude}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/appendix/fig_crosscoder_magnitude.png}
+\caption{\textbf{Feature~1712 (Layer~10): Quantitative magnitude transitions.}  Top-3 activating time-series windows.  Blue: raw signal; red dashed: peak-activation timestep; orange shading: activation intensity.  All three windows share a sudden jump from a low baseline to a high-magnitude plateau.}
+\label{fig:crosscoder_magnitude}
+\end{figure}
+
+Top-5 WikiText passages at the peak-activation token:
+\begin{enumerate}[nosep, leftmargin=1.5em]
+\item \emph{(act=14.1)} ``\ldots becoming later in the year by about two days every 243-year cycle.  Transits usually occur in pairs, on nearly the same date eight years apart.''
+\item \emph{(act=13.8)} ``In practice, forward premiums and discounts are quoted as annualized percentage deviations from the spot exchange rate\ldots''
+\item \emph{(act=13.7)} ``Wages are reflective of the type of jobs available locally, including higher than average employment in manufacturing and the public sector.  The working age population of the town in 2011\ldots''
+\item \emph{(act=13.7)} ``So for americium-241, the resistivity at 4.2\,K increases with time from about 2\,\textmu Ohm$\cdot$cm to 10\,\textmu Ohm$\cdot$cm after 40 hours, and saturates at about 16\,\textmu Ohm$\cdot$cm\ldots''
+\item \emph{(act=13.7)} ``Falcon's Fury can theoretically accommodate 800 riders per hour.  Carbon-fiber wings buttress each end of a group of seats\ldots''
+\end{enumerate}
+The shared representation encodes \emph{quantitative magnitude and transition}: literal level shifts in time series, and passages dense with measurements, unit conversions, and numerical comparisons in text.
+
+%% --- Feature B: Tropical weather systems ---
+
+\paragraph{Feature 2469 (Layer~9) --- Tropical weather systems.}
+PT: 29.9\%, FT: 20.7\%, WikiText: 12.6\%.  Fires on volatile, regime-switching time series and exclusively on tropical cyclone and hurricane narratives in text (Figure~\ref{fig:crosscoder_weather}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/appendix/fig_crosscoder_weather.png}
+\caption{\textbf{Feature~2469 (Layer~9): Tropical weather systems.}  Top-3 activating windows.  The left window shows high-variance oscillations with abrupt drops; the middle and right show diverse volatile patterns with regime switching.}
+\label{fig:crosscoder_weather}
+\end{figure}
+
+Top-5 WikiText passages:
+\begin{enumerate}[nosep, leftmargin=1.5em]
+\item \emph{(act=8.7)} ``\ldots the mean locus of formation shifts westward to the Caribbean and Gulf of Mexico, reversing the eastward progression of June through August.  Wind shear from westerlies increases substantially through November\ldots''
+\item \emph{(act=8.3)} ``\ldots due to a combination of very high wind shear and dry air.  By October~17, most of the deep convection associated with the system dissipated; however, a brief decrease in wind shear allowed Omar to re-strengthen\ldots''
+\item \emph{(act=8.1)} ``The wave continued westward and related thunderstorm activity increased during the following week.  The convective system organized into Tropical Depression Twenty-E on September~28\ldots''
+\item \emph{(act=8.1)} ``A tropical wave moved across the northeast Pacific Ocean and formed a tropical depression south of Mexico on October~16.  It strengthened at a moderate pace and reached hurricane intensity on October~18.''
+\item \emph{(act=7.9)} ``\ldots formation of Typhoon Chanchu in the western Pacific enhanced convective activity over the Bay of Bengal.  By April~22, a trough developed along an axis from the southern Bay of Bengal eastward to the Andaman Sea.''
+\end{enumerate}
+The time-series patterns---volatile signals with sudden regime changes---mirror the physical phenomena described in the text: tropical storms that intensify, weaken under wind shear, and shift track.
+
+%% --- Feature C: Naval battle events ---
+
+\paragraph{Feature 3888 (Layer~7) --- Naval battle events.}
+PT: 18.5\%, FT: 26.3\%, WikiText: 10.5\%.  Fires on sharp isolated spikes in otherwise stable time series and on naval/military battle narratives with precise timestamps (Figure~\ref{fig:crosscoder_naval}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/appendix/fig_crosscoder_naval.png}
+\caption{\textbf{Feature~3888 (Layer~7): Naval battle events.}  Top-3 activating windows.  Each shows a low-variance baseline punctuated by sharp spikes at the peak-activation timestep (red dashed line).}
+\label{fig:crosscoder_naval}
+\end{figure}
+
+Top-5 WikiText passages:
+\begin{enumerate}[nosep, leftmargin=1.5em]
+\item \emph{(act=10.1)} ``King George V had only 32 percent of her fuel left while Rodney had only enough fuel to continue the chase at high speed until 8:00 the following day.  Admiral Tovey signalled his battlegroup\ldots''
+\item \emph{(act=9.3)} ``At 7:20 on 19~July, the destroyer force spotted and was spotted by a pair of Italian light cruisers; Giovanni dalle Bande Nere and Bartolomeo Colleoni, which opened fire seven minutes later.''
+\item \emph{(act=9.2)} ``Shortly before 16:00 the battlecruisers of I~Scouting Group encountered the British 1st Battlecruiser Squadron under the command of Vice Admiral David Beatty.  The opposing ships began an artillery\ldots''
+\item \emph{(act=9.2)} ``The eastern wind was not communicated to the aircraft, but was 270\textdegree, varying from 20 to 40~knots (37 to 74~km/h).  The take-off started at 14:42:43\ldots''
+\item \emph{(act=9.1)} ``\ldots torpedo boat attacks and at 07:30, Burrough sent Eskimo and Somali back to help Manchester but they arrived too late, took on survivors\ldots''
+\end{enumerate}
+Both modalities encode \emph{sudden, precisely-located events}: an anomalous spike at a single timestep in time series, and a precisely-timestamped combat event in text.
+
+%% --- Feature D: Missing / null data ---
+
+\paragraph{Feature 2567 (Layer~8) --- Missing / null data.}
+PT: 35.9\%, FT: 36.8\%, WikiText: 9.4\%.  This feature fires exclusively on NaN/missing time-series data (all 10 top-activating windows are entirely NaN, with peak activation 40.3) and on \texttt{<unk>} tokens and incomplete references in text.
+
+Top-5 WikiText passages:
+\begin{enumerate}[nosep, leftmargin=1.5em]
+\item \emph{(act=19.8)} ``\ldots at the Royal Navy School of Flight Deck Operations at RNAS Culdrose.  The following is an incomplete list of some of the surviving aircraft.''
+\item \emph{(act=18.5)} ``\texttt{<unk>}, \texttt{<unk>}, \texttt{<unk>}, \texttt{<unk>}, \texttt{<unk>}, Ulaid.  Slightly later major groups included the Connachta, \texttt{<unk>}, \texttt{<unk>}.  Smaller groups included the \texttt{<unk>}\ldots''
+\item \emph{(act=18.0)} ``\ldots he encountered bad weather, forcing him to return to Japan with heavy damage.  Without waiting for Vizcaino, another ship---built in Izu by the Tokugawa shogunate\ldots''
+\item \emph{(act=17.8)} ``Luke 9: \texttt{<unk>}-\texttt{<unk>} --- $\kappa\alpha\grave{\iota}$ \texttt{<unk>}, \texttt{<unk>} \texttt{<unk>} \texttt{<unk>} $\pi\nu\varepsilon\acute{\upsilon}\mu\alpha\tau o\varsigma$ \texttt{<unk>} \texttt{<unk>}\ldots''
+\item \emph{(act=17.7)} ``\ldots whom he married in the late 250s when she was 17 or 18 years old.  The number of children Odaenathus had with his first wife is unknown and only one is attested.''
+\end{enumerate}
+The model represents \emph{absent information} identically across modalities: NaN values in time series and \texttt{<unk>} tokens in text both occupy the same region of representation space.
+
+\subsection{Discussion}
+
+The crosscoder analysis reveals that layers~7--10 contain specific, thematically coherent features shared between time-series and language representations.  The most interpretable features tend to have moderate balance (15--45\%) rather than the highest balance ($>$50\%), which corresponds to generic backbone features.  The four features documented above encode distinct representational primitives---\emph{quantitative magnitude transitions}, \emph{volatile regime switching}, \emph{punctual disruption}, and \emph{absent information}---that manifest as both time-series patterns and specific text genres.
+
+This complements the circuit-level finding from Appendix~\ref{app:circuit}: the periodicity circuit's components operate at specific layers (L1, L20), while the crosscoder features are concentrated in the intermediate layers (7--10) where the PT and FT representations are most aligned.  Together, these analyses suggest that LangInit exploits both circuit-level and feature-level structure from language pretraining when processing time series.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

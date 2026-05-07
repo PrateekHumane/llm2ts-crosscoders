@@ -4,15 +4,15 @@ from dataclasses import dataclass, field
 @dataclass
 class Config:
     # --- Models ---
-    model_ft: str = "models/ft"   # local path (downloaded from S3)
-    model_ri: str = "models/ri"   # local path (downloaded from S3)
-    model_pt: str = "Qwen/Qwen3-0.6B"
+    model_ft: str = "/workspace/NanoTS_v2/checkpoints/0.6B_pretrained_seed420/checkpoint-8192"
+    model_ri: str = "/workspace/NanoTS_v2/checkpoints/random_quantile_loss/checkpoint-8192"
+    model_pt: str = "/workspace/.hf_home/hub/models--Qwen--Qwen3-0.6B/snapshots/c1899de289a04d12100db370d81485cdf75e47ca"
 
     # --- Tokenizer (FT/RI uniform binning) ---
-    n_bins: int = 512
+    n_bins: int = 1024
     bin_low: float = -5.0
     bin_high: float = 5.0
-    n_special_tokens: int = 2  # from training_config.json
+    n_special_tokens: int = 2
 
     # --- Data ---
     dataset_name: str = "Salesforce/GiftEval"
@@ -29,6 +29,7 @@ class Config:
     latent_dim: int = 4096
     top_k: int = 64
     mlp_hidden: int = 2048
+    linear_crosscoder: bool = True
 
     # --- Training ---
     batch_size: int = 64       # windows per batch

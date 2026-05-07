@@ -1,0 +1,112 @@
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Chen et~al.(2024)Chen, Shen, Li, Wang, Sun, and Liu]{chen2024visionts}
+Mouxiang Chen, Lefei Shen, Zhuo Li, Xiaoyun~Joy Wang, Jianling Sun, and
+  Chenghao Liu.
+\newblock Visionts: Visual masked autoencoders are free-lunch zero-shot time
+  series forecasters, 2024.
+\newblock URL \url{https://arxiv.org/abs/2408.17253}.
+
+\bibitem[Conmy et~al.(2023)Conmy, Mavor-Parker, Lynch, Heimersheim, and
+  Garriga-Alonso]{conmy2023automated}
+Arthur Conmy, Augustine~N. Mavor-Parker, Aengus Lynch, Stefan Heimersheim, and
+  Adrià Garriga-Alonso.
+\newblock Towards automated circuit discovery for mechanistic interpretability,
+  2023.
+\newblock URL \url{https://arxiv.org/abs/2304.14997}.
+
+\bibitem[Elhage et~al.(2021)Elhage, Nanda, Olsson, Henighan, Joseph, Mann,
+  Askell, Bai, Chen, Conerly, DasSarma, Drain, Ganguli, Hatfield-Dodds,
+  Hernandez, Jones, Kernion, Lovitt, Ndousse, Amodei, Brown, Clark, Kaplan,
+  McCandlish, and Olah]{elhage2021mathematical}
+Nelson Elhage, Neel Nanda, Catherine Olsson, Tom Henighan, Nicholas Joseph, Ben
+  Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, Nova DasSarma, Dawn
+  Drain, Deep Ganguli, Zac Hatfield-Dodds, Danny Hernandez, Andy Jones, Jackson
+  Kernion, Liane Lovitt, Kamal Ndousse, Dario Amodei, Tom Brown, Jack Clark,
+  Jared Kaplan, Sam McCandlish, and Chris Olah.
+\newblock A mathematical framework for transformer circuits, 2021.
+\newblock URL \url{https://transformer-circuits.pub/2021/framework/index.html}.
+
+\bibitem[Hao et~al.(2024)Hao, Sukhbaatar, Su, Li, Hu, Weston, and
+  Tian]{hao2024traininglargelanguagemodels}
+Shibo Hao, Sainbayar Sukhbaatar, DiJia Su, Xian Li, Zhiting Hu, Jason Weston,
+  and Yuandong Tian.
+\newblock Training large language models to reason in a continuous latent
+  space, 2024.
+\newblock URL \url{https://arxiv.org/abs/2412.06769}.
+
+\bibitem[Hernandez et~al.(2021)Hernandez, Kaplan, Henighan, and
+  McCandlish]{hernandez2021scalinglawstransfer}
+Danny Hernandez, Jared Kaplan, Tom Henighan, and Sam McCandlish.
+\newblock Scaling laws for transfer, 2021.
+\newblock URL \url{https://arxiv.org/abs/2102.01293}.
+
+\bibitem[Huh et~al.(2024)Huh, Cheung, Wang, and
+  Isola]{huh2024platonicrepresentationhypothesis}
+Minyoung Huh, Brian Cheung, Tongzhou Wang, and Phillip Isola.
+\newblock The platonic representation hypothesis, 2024.
+\newblock URL \url{https://arxiv.org/abs/2405.07987}.
+
+\bibitem[Jha et~al.(2025)Jha, Zhang, Shmatikov, and
+  Morris]{jha2025harnessinguniversalgeometryembeddings}
+Rishi Jha, Collin Zhang, Vitaly Shmatikov, and John~X. Morris.
+\newblock Harnessing the universal geometry of embeddings, 2025.
+\newblock URL \url{https://arxiv.org/abs/2505.12540}.
+
+\bibitem[Jin et~al.(2023)Jin, Wang, Ma, Chu, Zhang, Shi, Chen, Liang, Li, Pan,
+  and Wen]{jin2024timellmtimeseriesforecasting}
+Ming Jin, Shiyu Wang, Lintao Ma, Zhixuan Chu, James~Y. Zhang, Xiaoming Shi,
+  Pin-Yu Chen, Yuxuan Liang, Yuan-Fang Li, Shirui Pan, and Qingsong Wen.
+\newblock Time-llm: Time series forecasting by reprogramming large language
+  models, 2023.
+\newblock URL \url{https://arxiv.org/abs/2310.01728}.
+
+\bibitem[Nie et~al.(2022)Nie, Nguyen, Sinthong, and
+  Kalagnanam]{nie2023timeseriesworth64}
+Yuqi Nie, Nam~H. Nguyen, Phanwadee Sinthong, and Jayant Kalagnanam.
+\newblock A time series is worth 64 words: Long-term forecasting with
+  transformers, 2022.
+\newblock URL \url{https://arxiv.org/abs/2211.14730}.
+
+\bibitem[Roger et~al.(2025)Roger, Legate, Rasul, Nevmyvaka, and
+  Rish]{roger2025smallvocabulariesbiggains}
+Alexis Roger, Gwen Legate, Kashif Rasul, Yuriy Nevmyvaka, and Irina Rish.
+\newblock Small vocabularies, big gains: Pretraining and tokenization in time
+  series models, 2025.
+\newblock URL \url{https://arxiv.org/abs/2511.11622}.
+
+\bibitem[Roy and Vetterli(2007)]{roy2007effective}
+Olivier Roy and Martin Vetterli.
+\newblock The effective rank: A measure of effective dimensionality.
+\newblock \emph{15th European Signal Processing Conference (EUSIPCO)}, pages
+  606--610, 2007.
+
+\bibitem[Tan et~al.(2024)Tan, Merrill, Gupta, Althoff, and
+  Hartvigsen]{tan2024languagemodelsactuallyuseful}
+Mingtian Tan, Mike~A. Merrill, Vinayak Gupta, Tim Althoff, and Thomas
+  Hartvigsen.
+\newblock Are language models actually useful for time series forecasting?,
+  2024.
+\newblock URL \url{https://arxiv.org/abs/2406.16964}.
+
+\bibitem[Wang et~al.(2023)Wang, Variengien, Conmy, Shlegeris, and
+  Steinhardt]{wang2023interpretability}
+Kevin Wang, Alexandre Variengien, Arthur Conmy, Buck Shlegeris, and Jacob
+  Steinhardt.
+\newblock Interpretability in the wild: a circuit for indirect object
+  identification in {GPT}-2 small, 2023.
+\newblock URL \url{https://arxiv.org/abs/2211.00593}.
+
+\bibitem[Wolff et~al.(2025)Wolff, Yang, Torkkola, and
+  Mahoney]{wolff2025usingpretrainedllmsmultivariate}
+Malcolm~L. Wolff, Shenghao Yang, Kari Torkkola, and Michael~W. Mahoney.
+\newblock Using pre-trained llms for multivariate time series forecasting,
+  2025.
+\newblock URL \url{https://arxiv.org/abs/2501.06386}.
+
+\end{thebibliography}
