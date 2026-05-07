@@ -1,15 +1,14 @@
-\section{The Pretrained Manifold: An Affinity for Transfer}
+
+\section{The Shared Manifold Hypothesis}
 \label{sec:prior}
+
+Having established the existence of transfer learning from LLMs to time series in Sec.~\ref{sec:transfer}, we now present a geometric explanation for why LLMs are such adept time series forecasters. Due to the recursive structure and statistical patterns exhibited by language \citep{ou2025identifying}, we theorize that pretrained language model representations already contain native temporal structures well suited for adaptation to time series data. In this section, we present several experiments demonstrating that LLMs do possess a manifold that is already compatible with time series forecasting, and that fine-tuning does not need to create new directions, it simply identifies and collapses time series representations onto the best pre-existing directions.
 
 \subsection{A Linear Probe Reveals Latent Temporal Structure}
 \label{sec:linear_decoding}
 
-We ask: before any finetuning on time series, do pretrained language model representations already contain temporal structure? To test this directly, we train a single linear projection from a frozen pretrained model's hidden states to produce time series---with no paired text--time-series supervision and no modification to the model weights.
-
-\paragraph{Method.} For each WikiText sequence, we extract hidden states from all 28 layers and concatenate them per timestep: $\mathbf{h}_{i,t} = [\mathbf{h}_{i,t}^{(0)}; \ldots; \mathbf{h}_{i,t}^{(27)}] \in \R^{D}$, $D = 28{,}672$. A per-timestep linear map $\hat{y}_{i,t} = \mathbf{w}^\top \mathbf{h}_{i,t} + b$ produces a predicted sequence $\hat{\mathbf{y}}_i \in \R^T$, z-normalized to zero mean and unit variance. Training uses EM-style nearest-neighbor matching: each prediction is matched to its closest real time series from GiftEval, and the map is optimized to minimize MSE to these assignments, with a spectral diversity penalty to prevent collapse.
-
 % ── FIGURE: Examples + Ablation side by side ──
-\begin{figure}[!ht]
+\begin{figure}[!t]
 \centering
 \begin{subfigure}[t]{0.48\textwidth}
 \centering
@@ -24,93 +23,80 @@ We ask: before any finetuning on time series, do pretrained language model repre
 \caption{Ablation: what creates the structure?}
 \label{fig:ablation}
 \end{subfigure}
-\caption{\textbf{Pretrained hidden states contain time-series-compatible structure.} A single linear map $\hat{y}_t = \mathbf{w}^\top \mathbf{h}_t + b$ is trained on frozen LLM hidden states via EM-style nearest-neighbor matching to a bank of 10{,}000 real time series (no paired data). \textbf{(a)} Three decoded outputs (blue) overlaid with their nearest real time series (green). Input text shown above each plot. MSE $= 0.23$--$0.38$; full distribution in Appendix. \textbf{(b)} Ablation crossing learned weights vs.\ random init with text vs.\ random input. \emph{Top-left}: pretrained + text---diverse, structured outputs (301 unique matches). \emph{Top-right}: pretrained + random tokens---mode collapse to one shape (manifold exists but is not traversed). \emph{Bottom-left}: random weights + text---noisy variation without structure. \emph{Bottom-right}: random weights + random tokens---unstructured. Only pretrained weights \emph{and} meaningful text together produce diverse temporal signals.}
+\caption{\textbf{Pretrained hidden states contain time-series-compatible structure.} \textbf{(a)} Three decoded outputs (blue) from unseen WikiText, overlaid with their nearest real time series (green). \textbf{(b)} Ablation: only pretrained weights \emph{and} meaningful text together produce diverse temporal signals.}
 \label{fig:hero}
 \end{figure}
 
-\paragraph{Result.} The linear map produces 686 unique matches out of 10{,}000 real time series, spanning 14 of 20 temporal clusters. The map generalizes to held-out text (439 unique on unseen WikiText sequences). This is only possible if the pretrained representation space already contains directions whose projections resemble real temporal signals.
+We test whether pretrained language model representations already contain temporal structure by asking: can a simple linear map, trained without any paired text--time-series supervision, project frozen LLM hidden states into realistic time series?
 
-\paragraph{What creates this structure?} The result above could arise from multiple sources: the transformer architecture itself (residual connections produce smooth trajectories), the learned weights (pretraining compresses representations), or the input (natural text has sequential structure). We disentangle these by crossing model weights (pretrained vs.\ randomly initialized, same architecture) with input (WikiText vs.\ random tokens):
+\paragraph{Hidden state extraction.} We tokenize WikiText-103 into $N = 1{,}920$ sequences of $T = 512$ tokens using the Qwen3-0.6B tokenizer. Each sequence is passed through the frozen pretrained model, and we extract the hidden state output at every transformer layer using forward hooks. For sequence $i$ at timestep $t$, we concatenate all 28 layer outputs into a single vector:
+\begin{equation}
+    \mathbf{h}_{i,t} = \bigl[\mathbf{h}_{i,t}^{(0)};\; \mathbf{h}_{i,t}^{(1)};\; \ldots\;;\; \mathbf{h}_{i,t}^{(27)}\bigr] \in \R^{D}, \quad D = 28 \times 1024 = 28{,}672.
+\end{equation}
 
-\begin{table}[h]
-\centering
-\caption{$2\times 2$ ablation. \emph{Unique}: distinct real TS matched. \emph{NN}: mean nearest-neighbor MSE. Low NN with low Unique indicates mode collapse, not quality.}
-\label{tab:ablation}
-\begin{tabular}{lrrrr}
-\toprule
-Condition & Train Unique & Held-Out Unique & Held-Out NN & Clusters \\
-\midrule
-\textbf{text + PT}   & \textbf{686}/1920 & \textbf{439}/1000 & 0.717 & 14/20 \\
-text + RandInit       & 54/1920           & 73/1000            & 0.541 & 13/20 \\
-rand + PT             & 4/1920            & 1/1000             & 0.293 & 4/20  \\
-rand + RandInit       & 99/1920           & 138/1000           & 0.741 & 14/20 \\
-\bottomrule
-\end{tabular}
-\end{table}
+\paragraph{Linear map.} A single linear layer is applied independently at each timestep to produce a scalar prediction:
+\begin{equation}
+\label{eq:linear_map}
+    \hat{y}_{i,t} = \mathbf{w}^\top \mathbf{h}_{i,t} + b, \quad \mathbf{w} \in \R^D,\; b \in \R.
+\end{equation}
+This produces a predicted sequence $\hat{\mathbf{y}}_i \in \R^T$ for each input text. The output is z-score normalized to zero mean and unit variance, matching the normalization of the target time series.
 
-The ablation reveals a clear interaction. \textbf{Pretrained weights} create a structured, low-dimensional manifold---but random tokens fail to traverse it (rand+PT collapses to 4 unique outputs). \textbf{Meaningful text} provides variation---but without pretrained weights, this variation is unstructured noise (text+RandInit). Only the combination produces diverse, high-quality temporal signals: the pretrained manifold provides the geometry, and text input drives diverse traversal of it.
+\paragraph{Training objective.} There is no paired text--time-series data. Instead, we use an EM-style nearest-neighbor matching procedure against a bank of $M = 10{,}000$ real time series windows from GiftEval \citep{aksu2024giftevalbenchmarkgeneraltime}, each z-score normalized to length $T = 512$:
+In the \textbf{E-step}, for each predicted sequence $\hat{\mathbf{y}}_i$ in the mini-batch, we sample $K = 128$ real time series from the bank and assign the nearest neighbor: $j_i^* = \arg\min_{j} \frac{1}{T}\|\hat{\mathbf{y}}_i - \mathbf{Y}_j\|^2$. The E-step targets are computed with stop-gradient. In the \textbf{M-step}, we minimize MSE between predictions and their assigned targets, plus a diversity penalty:
+\begin{equation}
+\label{eq:loss}
+    \mathcal{L} = \underbrace{\frac{1}{B}\sum_{i=1}^{B} \frac{1}{T}\|\hat{\mathbf{y}}_i - \mathbf{Y}_{j_i^*}\|^2}_{\text{MSE to nearest real TS}} + \;\lambda \underbrace{\frac{1}{|\mathcal{P}|}\sum_{(i,j)\in\mathcal{P}} \cos\!\bigl(|\text{FFT}(\hat{\mathbf{y}}_i)|^2,\, |\text{FFT}(\hat{\mathbf{y}}_j)|^2\bigr)}_{\text{PSD diversity penalty}}.
+\end{equation}
+The E-step targets are computed with stop-gradient, so gradients flow only through the M-step. At each iteration, a fresh random sample of $K = 128$ time series is drawn from the full bank, providing stochastic coverage. The diversity penalty ($\lambda = 0.5$) discourages mode collapse by penalizing pairwise similarity in the power spectral density across the batch---this is shift-invariant, so two temporal translations of the same signal are maximally penalized. Training uses Adam ($\eta = 10^{-3}$) for 100 epochs with batch size $B = 32$.
 
+\paragraph{Results.} The trained linear map produces 686 distinct matches out of the 10{,}000-window bank, spanning 14 of 20 temporal clusters (defined by $K$-means on autocorrelation profiles). Fig.~\ref{fig:examples} shows three decoded outputs overlaid with their nearest real time series. To test generalization, we evaluate on 1{,}000 held-out WikiText sequences never seen during training: the map produces 439 unique matches, confirming that the linear projection captures a general property of the pretrained representation space rather than overfitting to specific training texts.
+
+\paragraph{What creates this structure?} The result above could arise from the transformer architecture (residual connections produce smooth trajectories), the learned weights, or the input text. We disentangle these with a $2 \times 2$ ablation crossing model weights (pretrained vs.\ randomly initialized, same architecture) with input (WikiText vs.\ random tokens from the full vocabulary). The ablation is decisive: replacing the pretrained weights with random initialization while keeping WikiText input yields only 54 unique matches (vs.\ 686), and replacing text with random tokens while keeping pretrained weights causes near-total collapse to 4 unique matches. Neither the architecture alone nor the input alone is sufficient---only the combination of pretrained weights and meaningful text produces diverse, realistic temporal signals (Fig.~\ref{fig:ablation}).
 
 \subsection{The Projected Dynamics Forecast Beyond the Context}
 \label{sec:forecasting}
 
 The linear decoding result shows shape-level similarity between projected hidden states and real time series. We test whether this extends to \emph{predictive} structure: given the first half of a time series, can a retrieved text projection forecast the second half?
 
-\paragraph{Method.} We take 500 real time series from GiftEval and observe only the first 256 of 512 timesteps. Among 10{,}000 WikiText projections, we retrieve the one with lowest MSE on the observed first half. We then use that projection's second half as the forecast. The baseline is last-value carry-forward (repeating the final observed value).
+\paragraph{Method.} We take 500 real time series from GiftEval and observe only the first 256 of 512 timesteps. Among 10{,}000 WikiText projections, we retrieve the one with lowest MSE on the observed first half and use that projection's second half as the forecast. The baseline is last-value carry-forward, \textit{i.e.}\ repeating the final observed value.
 
 \paragraph{Result.} Across all 500 queries, the retrieval-based forecast achieves MSE $= 1.91$ versus last-value's $2.27$ ($16\%$ lower). The retrieval wins in $37\%$ of cases; when it wins, the advantage is large (median $4\times$ lower MSE), because the retrieved projection captures trends and level shifts that last-value misses entirely. Figure~\ref{fig:forecasting} shows the best-case example from our evaluation set.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{figures/sec4/panel_forecasting.png}
-\caption{Best-case forecasting example from 500 evaluation queries. The first 256 timesteps are used to retrieve the closest WikiText projection; the projection's second half (purple) forecasts the continuation. The retrieved projection captures the level shift and subsequent trend (MSE $= 0.42$), while last-value carry-forward (gray dashed) is stranded at the final context value (MSE $= 11.7$).}
+\caption{Forecasting example with largest gap compared to baseline from 500 evaluation queries. The first 256 timesteps are used to retrieve the closest WikiText projection; the projection's second half (purple) forecasts the continuation. The retrieved projection captures the level shift and subsequent trend (MSE $= 0.42$), while last-value carry-forward (gray dashed) is stranded at the final context value (MSE $= 11.7$).}
 \label{fig:forecasting}
 \end{figure}
 
+\subsection{Implications for Transfer}
+\label{sec:implications}
 
-\subsection{Why the Manifold Enables Efficient Transfer}
-\label{sec:math}
+The linear probing and forecasting results have a direct implication for why finetuning succeeds. A pretrained autoregressive language model implements a deterministic state update:
+\begin{equation}
+\label{eq:deterministic_update}
+    \mathbf{h}_{t+1} = F(\mathbf{h}_t, x_{t+1}),
+\end{equation}
+where $F$ is the transformer's forward pass and $x_{t+1}$ is the next input token. The model is trained to predict $x_{t+1}$ from $\mathbf{h}_t$, so $F$ must implicitly propagate information about the sequence's temporal structure through the hidden state.
 
-The linear decoding result has a direct implication for finetuning. Let $\mathcal{M} \subset \R^D$ denote the manifold of hidden-state trajectories produced by the pretrained model processing text. The linear decoding experiment shows that there exists a direction $\mathbf{w} \in \R^D$ such that the distribution of projected trajectories $\{\mathbf{w}^\top \mathbf{h}_t\}_{t=1}^T$ has significant overlap with the distribution of real time series $P_{\mathrm{TS}}$.
+Our experiments show that there exists a direction $\mathbf{w}$ such that the projected trajectory $\{y_t = \mathbf{w}^\top \mathbf{h}_t\}_{t=1}^T$ resembles real time series (Sec.~\ref{sec:linear_decoding}), and that these projections carry predictive information about future timesteps (Sec.~\ref{sec:forecasting}). Combining these observations: given a hidden state $\mathbf{h}_t$, the model can produce $\mathbf{h}_{t+1}$ via Eq.~\ref{eq:deterministic_update}, and the linear map can then extract the next value $y_{t+1} = \mathbf{w}^\top \mathbf{h}_{t+1}$. The pretrained model already possesses both the temporal dynamics ($F$) and a representation space containing time-series-compatible directions ($\mathbf{w}$).
 
-% TODO: Formalize the following argument
-%
-% Key idea: if projections of M already approximate P_TS, then adapting
-% the model to predict TS tokens autoregressively is easier.
-%
-% The autoregressive objective requires the model to produce hidden states
-% h_t such that a linear readout (the LM head) maps h_t to the correct
-% next-token distribution. For time series tokens, "correct" means the
-% readout should produce a signal that follows the temporal pattern.
-%
-% If M already contains directions whose projections look like TS,
-% then the finetuning objective doesn't need to reshape the entire
-% representation space. It only needs to:
-%   1. Identify which directions in M are TS-useful (low-rank selection)
-%   2. Amplify those directions (adjust the readout)
-%
-% This is a low-rank transformation of the existing representation,
-% rather than learning temporal dynamics from scratch.
-%
-% This explains why:
-%   - LoRA with small rank captures most of the transfer (Section 4.1)
-%   - FT compresses to lower effective rank than RI (Section 4.2)
-%   - FT reuses PT's directions rather than finding new ones (Section 4.2)
-%
-% In contrast, a randomly initialized model has no such manifold.
-% Its representations are near-isotropic (effective rank ~431).
-% There are no privileged directions to select from, so finetuning
-% must learn temporal structure from scratch across the full
-% dimensionality of the representation space --- a harder optimization
-% problem that converges to a less efficient solution.
-
-If projections of $\mathcal{M}$ already approximate $P_{\mathrm{TS}}$, then adapting the model to predict time-series tokens autoregressively requires only identifying which directions in $\mathcal{M}$ are useful for temporal prediction and amplifying them. This is a low-rank transformation of the existing representation, rather than learning temporal dynamics from scratch across the full dimensionality of the space.
+Finetuning for time series therefore does not require learning temporal dynamics from scratch. It is a low-dimensional alignment problem: identify which directions in the existing representation space are useful for temporal prediction, and adjust the readout to amplify them.
 
 
 \subsection{Pretraining Creates Coherent Gradient Signal for the TS Objective}
 \label{sec:curvature}
 
-The manifold structure has a direct consequence for optimization. We compute per-example gradients of the TS loss at the pretrained versus random initialization, measuring whether individual training examples provide coherent or contradictory optimization signal.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/sec4/fig_headline_7.png}
+\caption{.}
+\label{fig:grad_alignment}
+\end{figure}
+
+\textbf{details in the md file https://hackmd.io/VIS4nmT6Q2ms66mMUXTgWQ}
+
+The manifold structure has direct consequences for optimization. We compute per-example gradients of the TS loss at the pretrained versus random initialization, measuring whether individual training examples provide coherent or contradictory optimization signals.
 
 \paragraph{Method.} For 30 individual TS sequences, we compute the gradient $\mathbf{g}_i = \nabla_\theta L_i$ restricted to layers 6--10 (78.7M parameters) at both initializations. We measure pairwise cosine similarity $\cos(\mathbf{g}_i, \mathbf{g}_j)$ across all example pairs, and the signal-to-noise ratio $\mathrm{SNR} = \|\bar{\mathbf{g}}\| / \mathrm{mean}(\|\mathbf{g}_i - \bar{\mathbf{g}}\|)$.
 
@@ -136,4 +122,5 @@ This coherence arises because the pretrained representations create consistent f
 
 The effect is layer-dependent: gradient norms at PT initialization are 3--19$\times$ larger than at random initialization, with the ratio increasing for deeper layers (where random weights scramble the signal most). This layer-wise gradient structure explains why mid-to-deep layers benefit most from pretrained initialization (Section~\ref{sec:dimensionality}).
 
+% Rerun this and the above across multiple checkpoints
 \paragraph{Curvature anisotropy.} To characterize the \emph{shape} of the loss landscape, we compute the curvature $\mathbf{v}^\top H \mathbf{v}$ along 200 random unit vectors $\mathbf{v}$ in layers 6--10 parameter space using exact Hessian-vector products (Pearlmutter trick), and compare this to the curvature along the gradient direction $\hat{\mathbf{g}}$. At PT initialization, the gradient direction has curvature $232$, while the mean curvature across random directions is $9.6 \times 10^{-5}$---a ratio of $2.4 \times 10^6$. At random initialization, the gradient direction has curvature $-0.08$ (near-zero, slightly negative), barely distinguishable from random directions (mean $8.4 \times 10^{-7}$, ratio $\sim$80$\times$). The PT landscape is thus \emph{massively anisotropic}: SGD's natural descent direction is aligned with one of the very few high-curvature directions in a $\sim$78M-dimensional space, while the vast majority of directions are flat. At random initialization, the landscape is nearly isotropic---all directions, including the gradient, have negligible curvature.
